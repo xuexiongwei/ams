@@ -131,3 +131,55 @@ CREATE TABLE `ams_sys_user_role` (
   `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 COMMENT='用户与角色对应关系';
+
+DROP TABLE IF EXISTS `ams_bus_file`;
+CREATE TABLE
+    ams_bus_file
+    (
+        id bigint NOT NULL AUTO_INCREMENT,
+        superId bigint COMMENT '子表ID',
+        updateTime DATETIME,
+        fileName VARCHAR(200),
+        delFlag VARCHAR(4),
+        fileType VARCHAR(4),--dxf、doc....
+        user_create VARCHAR(20),
+        user_modified VARCHAR(20),
+        gmt_create DATETIME,
+        gmt_modified DATETIME,
+        PRIMARY KEY (id)
+    )
+    ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目文档表';
+    
+DROP TABLE IF EXISTS `ams_bus_dxf_position`;
+CREATE TABLE
+    ams_bus_dxf_position
+    (
+        id bigint NOT NULL AUTO_INCREMENT,
+        constrID bigint COMMENT '图元ID',
+        fileID bigint COMMENT '文件ID',
+        longitude VARCHAR(50) COMMENT '经度',
+        latitude VARCHAR(50) COMMENT '纬度',
+        user_create VARCHAR(20),
+        user_modified VARCHAR(20),
+        gmt_create DATETIME,
+        gmt_modified DATETIME,
+        PRIMARY KEY (id)
+    )
+    ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图元表';
+
+DROP TABLE IF EXISTS `ams_bus_dxf_tips`;
+CREATE TABLE
+    ams_bus_dxf_tips
+    (
+        id bigint NOT NULL AUTO_INCREMENT,
+        dxfID bigint COMMENT '图像文件 dxf 的ID',
+        longitude VARCHAR(50) COMMENT '经度',
+        latitude VARCHAR(50) COMMENT '纬度',
+        remark VARCHAR(500) COMMENT '标点描述',
+        user_create VARCHAR(20),
+        user_modified VARCHAR(20),
+        gmt_create DATETIME,
+        gmt_modified DATETIME,
+        PRIMARY KEY (id)
+    )
+    ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图像标点';

@@ -18,7 +18,7 @@ import javax.sql.DataSource;
  * DataSourceConfig
  */
 @Configuration
-@MapperScan(basePackages = "com.xxw.springcloud.ams.mapper.common", sqlSessionTemplateRef  = "commonSqlSessionTemplate")
+@MapperScan(basePackages = "com.xxw.springcloud.ams.mapper.*", sqlSessionTemplateRef  = "commonSqlSessionTemplate")
 public class DataSourceConfig {
 
     @Bean(name = "commonDataSource")
