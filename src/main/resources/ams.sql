@@ -56,8 +56,8 @@ CREATE TABLE `ams_sys_user` (
   `birth` datetime DEFAULT NULL COMMENT '出身日期',
   `user_create` varchar(20),
   `user_modified` varchar(20),
-  `gmt_create` datetime,
-  `gmt_modified` datetime,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8;
 
@@ -73,8 +73,8 @@ CREATE TABLE `ams_sys_log` (
   `ip` varchar(64) DEFAULT NULL COMMENT 'IP地址',
   `user_create` varchar(20),
   `user_modified` varchar(20),
-  `gmt_create` datetime,
-  `gmt_modified` datetime,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1032165522528243715 DEFAULT CHARSET=utf8 COMMENT='系统日志';
 
@@ -90,8 +90,8 @@ CREATE TABLE `ams_sys_menu` (
   `order_num` int(11) DEFAULT NULL COMMENT '排序',
   `user_create` varchar(20),
   `user_modified` varchar(20),
-  `gmt_create` datetime,
-  `gmt_modified` datetime,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=utf8 COMMENT='菜单管理';
 
@@ -103,8 +103,8 @@ CREATE TABLE `ams_sys_role` (
   `remark` varchar(100) DEFAULT NULL COMMENT '备注',
   `user_create` varchar(20),
   `user_modified` varchar(20),
-  `gmt_create` datetime,
-  `gmt_modified` datetime,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='角色';
 
@@ -115,8 +115,8 @@ CREATE TABLE `ams_sys_role_menu` (
   `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
   `user_create` varchar(20),
   `user_modified` varchar(20),
-  `gmt_create` datetime,
-  `gmt_modified` datetime,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4544 DEFAULT CHARSET=utf8 COMMENT='角色与菜单对应关系';
 
@@ -127,7 +127,7 @@ CREATE TABLE `ams_sys_user_role` (
   `roleId` bigint(20) DEFAULT NULL COMMENT '角色ID',
   `user_create` varchar(20),
   `user_modified` varchar(20),
-  `gmt_create` datetime,
-  `gmt_modified` datetime,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 COMMENT='用户与角色对应关系';
