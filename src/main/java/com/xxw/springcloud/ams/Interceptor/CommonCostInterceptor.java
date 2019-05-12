@@ -24,7 +24,7 @@ public class CommonCostInterceptor implements HandlerInterceptor {
         if(!SessionContext.isInit()){
         	SessionContext.init();
         }
-        SessionContext.set(SessionContext.FieldId.serialNumber.toString(), SerialNumberUtil.GetSeqNum());
+        SessionContext.set(SessionContext.FieldId.serialNumber.toString(), SerialNumberUtil.GetSeqID());
         return true;
     }
 	
