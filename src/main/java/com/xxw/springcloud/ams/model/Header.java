@@ -9,6 +9,12 @@ public class Header {
 	public String rspReturnCode;
 	
 	public String rspReturnMsg;
+	
+	public int pageSize;
+	
+	public int pageIndex;
+	
+	public int rspPageCount;
 
 	public String getReqSerialNumber() {
 		return reqSerialNumber;
@@ -40,5 +46,29 @@ public class Header {
 
 	public void setReqUserId(String reqUserId) {
 		this.reqUserId = reqUserId;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public int getPageIndex() {
+		return pageIndex;
+	}
+
+	public void setPageIndex(int pageIndex) {
+		this.pageIndex = pageIndex;
+	}
+
+	public int getRspPageCount() {
+		return rspPageCount;
+	}
+
+	public void setRspPageCount(int rspPageCount) {
+		this.rspPageCount = rspPageCount;
 	}
 }

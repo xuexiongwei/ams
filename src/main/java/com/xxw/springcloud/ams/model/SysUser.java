@@ -2,7 +2,7 @@ package com.xxw.springcloud.ams.model;
 
 import java.io.Serializable;
 
-public class SysUser implements Serializable {
+public class SysUser extends BaseBean implements Serializable {
 
 	private static final long serialVersionUID = -3638380273919111505L;
 	

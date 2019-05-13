@@ -1,5 +1,7 @@
 package com.xxw.springcloud.ams.mapper.common;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
@@ -35,6 +37,13 @@ public interface UserManagerMapper {
 	void delete(Long id);
 	
 	/**
+	 * 删除用户信息
+	 * @param id
+	 */
+	@Delete("SELECT COUNT(*) FROM ams_sys_user")
+	int selectCount();
+	
+	/**
 	 * 根据姓名模糊匹配用户名查询用户信息，
 	 * @param pageSize
 	 * @param pageIndex
@@ -48,7 +57,7 @@ public interface UserManagerMapper {
 			@Result(property = "gmtCreate", column = "gmt_create"),
 			@Result(property = "gmtModified", column = "gmt_modified")
 	})
-	SysUser selectUserByUsername(String name,int pageSize,int pageIndex);
+	List<SysUser> selectUserByUsername(String name,int pageSize,int pageIndex);
 	
 	/**
 	 * 根据用户名查询用户信息，
@@ -64,7 +73,7 @@ public interface UserManagerMapper {
 			@Result(property = "gmtCreate", column = "gmt_create"),
 			@Result(property = "gmtModified", column = "gmt_modified")
 	})
-	SysUser selectUserByUsernameAndPage(String username,int pageSize,int pageIndex);
+	List<SysUser> selectUserByUsernameAndPage(String username,int pageSize,int pageIndex);
 	
 	/**
 	 * 查询用户信息，
@@ -80,5 +89,5 @@ public interface UserManagerMapper {
 			@Result(property = "gmtCreate", column = "gmt_create"),
 			@Result(property = "gmtModified", column = "gmt_modified")
 	})
-	SysUser selectUserAndPage(int pageSize,int pageIndex);
+	List<SysUser> selectUserAndPage(int pageSize,int pageIndex);
 }
