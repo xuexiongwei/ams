@@ -3,24 +3,26 @@ package com.xxw.springcloud.ams.model;
 import java.io.Serializable;
 
 /**
- * 工程图像 标点信息
+ * 图元表
  * 此对象只针对DXF
  * @author uisftech
  *
  */
-public class BusDxfTips implements Serializable {
+public class DxfEntity implements Serializable {
 
 	private static final long serialVersionUID = -3638380273919111505L;
 	
 	private Long id;
-	//标点所属DXF ID
-	private Long dxfID;
+	//图元ID
+	private Long constrID;
+	//文档ID
+	private Long fileID;
 	//经度
 	private String longitude;
 	//纬度
 	private String latitude;
-	//标点描述
-	private String remark;
+	
+	
 	//用户创建
 	private String userCreate;
 	//用户修改
@@ -35,11 +37,17 @@ public class BusDxfTips implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getDxfID() {
-		return dxfID;
+	public Long getConstrID() {
+		return constrID;
 	}
-	public void setDxfID(Long dxfID) {
-		this.dxfID = dxfID;
+	public void setConstrID(Long constrID) {
+		this.constrID = constrID;
+	}
+	public Long getFileID() {
+		return fileID;
+	}
+	public void setFileID(Long fileID) {
+		this.fileID = fileID;
 	}
 	public String getLongitude() {
 		return longitude;
@@ -52,12 +60,6 @@ public class BusDxfTips implements Serializable {
 	}
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
-	}
-	public String getRemark() {
-		return remark;
-	}
-	public void setRemark(String remark) {
-		this.remark = remark;
 	}
 	public String getUserCreate() {
 		return userCreate;

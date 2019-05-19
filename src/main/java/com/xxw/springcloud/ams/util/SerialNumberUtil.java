@@ -2,6 +2,7 @@ package com.xxw.springcloud.ams.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
@@ -66,4 +67,14 @@ public class SerialNumberUtil {
 		
 		return returnNum;
 	}
+	
+    /**
+     * 获得一个UUID 
+     * @return String UUID 
+     */
+    public static String getUUID(){
+        String uuid = UUID.randomUUID().toString();
+        //去掉“-”符号 
+        return uuid.replaceAll("-", "");
+    }
 }

@@ -1,6 +1,7 @@
 package com.xxw.springcloud.ams.web;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xxw.springcloud.ams.enums.UpLoadType;
 import com.xxw.springcloud.ams.mapper.file.FileMapper;
-import com.xxw.springcloud.ams.model.BusDxfPosition;
-import com.xxw.springcloud.ams.model.BusDxfTips;
 import com.xxw.springcloud.ams.model.BusFile;
+import com.xxw.springcloud.ams.model.DxfEntity;
 import com.xxw.springcloud.ams.util.Excel2003;
+import com.xxw.springcloud.ams.util.FileUtils;
 
 @RestController
 public class FileController {
@@ -58,10 +60,10 @@ public class FileController {
 	public Map<String, List<String>> getDxfPositionsByProjectID(Long fileID) {
 
 		Map<String, List<String>> rem = new HashMap<String, List<String>>();
-		List<BusDxfPosition> pos = fileMapper.getDxfPositionsByProjectID(fileID);
+		List<DxfEntity> pos = fileMapper.getDxfEntityByProjectID(fileID);
 		if (null != pos && pos.size() > 0) {
 
-			for (BusDxfPosition p : pos) {
+			for (DxfEntity p : pos) {
 				String constrID = p.getConstrID() + "";
 				List<String> list = rem.get(constrID);
 				if (null == list) {
@@ -75,46 +77,6 @@ public class FileController {
 	}
 
 	/**
-	 * 获取对应项目的图像信息的标点信息
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/getBusDxfTipsByProjectID")
-	public List<BusDxfTips> getBusDxfTipsByProjectID(Long dxfID) {
-		return fileMapper.getBusDxfTipsByProjectID(dxfID);
-	}
-
-	/**
-	 * 修改对应项目的图像信息的标点信息
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/updataBusDxfTips")
-	public void updataBusDxfTips(BusDxfTips tips) {
-		fileMapper.updata(tips);
-	}
-
-	/**
-	 * 删除对应项目的图像信息的标点信息
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/delBusDxfTipsByID")
-	public void delBusDxfTipsByID(Long id) {
-		fileMapper.delBusDxfTipsByID(id);
-	}
-
-	/**
-	 * 新增对应项目的图像信息的标点信息
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/saveBusDxfTips")
-	public void saveBusDxfTips(BusDxfTips tips) {
-		fileMapper.insertBusDxfTips(tips);
-	}
-
-	/**
 	 * 上传文件接口
 	 * @param uploadfile
 	 * @param extraField
@@ -122,9 +84,9 @@ public class FileController {
 	 */
 	@RequestMapping("/api/upload")
 	public String uploadFile(@RequestParam("files") MultipartFile[] uploadfile,
-			@RequestParam("extraField") String extraField) {
+			@RequestParam("upLoadType") String upLoadType) {
 
-		logger.debug("Single file upload!");
+		logger.debug("exc:uploadFile params:upLoadType="+upLoadType);
 
 		if (null == uploadfile||uploadfile.length == 0) {
 			return "E";
@@ -132,19 +94,23 @@ public class FileController {
 
 		try {
 			
-			 for (MultipartFile file : uploadfile) {
-				 
-		            if (file.isEmpty()) {
-		                continue; //next pls
-		            }
-		            Excel2003 _2003 = new Excel2003();
-		            _2003.testExcel2003NoModel(file.getInputStream());
-		        }
-
-//			FileUtils.saveUploadedFiles(Arrays.asList(uploadfile));
+			if(UpLoadType.ANALYSIS.toString().equals(upLoadType)) {
+				for (MultipartFile file : uploadfile) {
+					
+					if (file.isEmpty()) {
+						continue; //next pls
+					}
+					Excel2003 _2003 = new Excel2003(fileMapper);
+					_2003.testExcel2003NoModel(file.getInputStream());
+				}
+			}else if(UpLoadType.SAVE.toString().equals(upLoadType)){
+				FileUtils.saveUploadedFiles(Arrays.asList(uploadfile));
+			}else {
+				return "未定义的上传类型[upLoadType]，请核实！";
+			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			return "E:"+e.getMessage();
 		}
 
