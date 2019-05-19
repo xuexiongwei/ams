@@ -133,53 +133,126 @@ CREATE TABLE `ams_sys_user_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 COMMENT='用户与角色对应关系';
 
 DROP TABLE IF EXISTS `ams_bus_file`;
-CREATE TABLE
-    ams_bus_file
-    (
-        id bigint NOT NULL AUTO_INCREMENT,
-        superId bigint COMMENT '子表ID',
-        updateTime DATETIME,
-        fileName VARCHAR(200),
-        delFlag VARCHAR(4),
-        fileType VARCHAR(4),--dxf、doc....
-        user_create VARCHAR(20),
-        user_modified VARCHAR(20),
-        gmt_create DATETIME,
-        gmt_modified DATETIME,
-        PRIMARY KEY (id)
-    )
-    ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目文档表';
+CREATE TABLE `ams_bus_file` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `prjSN` varchar(200) DEFAULT NULL COMMENT '许可证号',
+  `updateTime` datetime DEFAULT NULL,
+  `fileName` varchar(200) DEFAULT NULL,
+  `urlName` varchar(200) DEFAULT NULL,
+  `delFlag` varchar(20) DEFAULT NULL,
+  `fileType` varchar(20) DEFAULT NULL,
+  `user_create` varchar(20) DEFAULT NULL,
+  `user_modified` varchar(20) DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目文档表';
     
-DROP TABLE IF EXISTS `ams_bus_dxf_position`;
-CREATE TABLE
-    ams_bus_dxf_position
-    (
-        id bigint NOT NULL AUTO_INCREMENT,
-        constrID bigint COMMENT '图元ID',
-        fileID bigint COMMENT '文件ID',
-        longitude VARCHAR(50) COMMENT '经度',
-        latitude VARCHAR(50) COMMENT '纬度',
-        user_create VARCHAR(20),
-        user_modified VARCHAR(20),
-        gmt_create DATETIME,
-        gmt_modified DATETIME,
-        PRIMARY KEY (id)
-    )
-    ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图元表';
+DROP TABLE IF EXISTS `ams_bus_dxf_entity`;
+CREATE TABLE `ams_bus_dxf_entity` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `constrID` bigint(20) DEFAULT NULL COMMENT '图元ID',
+  `prjSN` varchar(255) DEFAULT NULL COMMENT '许可证号',
+  `fileName` varchar(255) DEFAULT NULL COMMENT '提取文件名',
+  `longlatV` text DEFAULT NULL COMMENT '经纬度',
+  `user_create` varchar(20) DEFAULT NULL,
+  `user_modified` varchar(20) DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图元表';
 
-DROP TABLE IF EXISTS `ams_bus_dxf_tips`;
-CREATE TABLE
-    ams_bus_dxf_tips
-    (
-        id bigint NOT NULL AUTO_INCREMENT,
-        dxfID bigint COMMENT '图像文件 dxf 的ID',
-        longitude VARCHAR(50) COMMENT '经度',
-        latitude VARCHAR(50) COMMENT '纬度',
-        remark VARCHAR(500) COMMENT '标点描述',
-        user_create VARCHAR(20),
-        user_modified VARCHAR(20),
-        gmt_create DATETIME,
-        gmt_modified DATETIME,
-        PRIMARY KEY (id)
-    )
-    ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图像标点';
+DROP TABLE IF EXISTS `ams_bus_classifi_dic`;
+CREATE TABLE `ams_bus_classifi_dic` (
+  `id` varchar(50) NOT NULL,
+  `parentID` varchar(50) DEFAULT NULL COMMENT '父级ID',
+  `type` varchar(255) DEFAULT NULL,
+  `code` varchar(200) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+   `sort` bigint(20) DEFAULT NULL ,
+  `other` varchar(255) DEFAULT NULL ,
+  
+  `user_create` varchar(20) DEFAULT NULL,
+  `user_modified` varchar(20) DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典表';
+
+DROP TABLE IF EXISTS `ams_bus_xmjbxx`;
+CREATE TABLE `ams_bus_xmjbxx` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `prjSN` varchar(200) DEFAULT NULL,
+  `prjUnit` varchar(1000) DEFAULT NULL,
+  `prjAdr` varchar(1000) DEFAULT NULL,
+  `prjName` varchar(1000) DEFAULT NULL,
+  `prjType` varchar(255) DEFAULT NULL,
+  `contacts` varchar(255) DEFAULT NULL,
+  `contactInf` varchar(255) DEFAULT NULL,
+  `prjTemSN` varchar(255) DEFAULT NULL,
+  `specialNotifi` varchar(2000) DEFAULT NULL,
+  `noticeTime` datetime DEFAULT NULL,
+  `effectiveTime` varchar(255) DEFAULT NULL,
+  `remark` varchar(1000) DEFAULT NULL,
+  
+  `user_create` varchar(20) DEFAULT NULL,
+  `user_modified` varchar(20) DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目基本信息';
+
+DROP TABLE IF EXISTS `ams_bus_xmsx`;
+CREATE TABLE `ams_bus_xmsx` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `prjSN` varchar(200) DEFAULT NULL,
+  `serialNumber` bigint(20) DEFAULT NULL,
+  `prjNature` varchar(255) DEFAULT NULL,
+  `prjAttr` varchar(255) DEFAULT NULL,
+  `strucType` varchar(255) DEFAULT NULL,
+  `peacetimeUses` varchar(2000) DEFAULT NULL,
+  `aboveGroundLev` bigint(20)  DEFAULT NULL,
+  `underGroundLev` bigint(20)  DEFAULT NULL,
+  `aboveGroundHet` DOUBLE DEFAULT NULL,
+  `underGroundHet` DOUBLE DEFAULT NULL,
+  `buildings` bigint(20)  DEFAULT NULL,
+  `housingStockNum` bigint(20)  DEFAULT NULL,
+  `checkDocSN` varchar(255) DEFAULT NULL,
+  `checkDocDate` datetime DEFAULT NULL,
+  `checkSN` varchar(255) DEFAULT NULL,
+  `checkDate` datetime DEFAULT NULL,
+  `delaySN` varchar(255) DEFAULT NULL,
+  `delayCountDay` varchar(50) DEFAULT NULL,
+  `cancelSN` varchar(255) DEFAULT NULL,
+  `cancelDate` datetime DEFAULT NULL,
+  `correctionSN` varchar(255) DEFAULT NULL,
+  `correctionDate` datetime DEFAULT NULL,
+  `imgJudgeRes` varchar(500) DEFAULT NULL,
+  `exproprInfo` varchar(2000) DEFAULT NULL,
+  `remark` varchar(2000) DEFAULT NULL,
+  
+  `user_create` varchar(20) DEFAULT NULL,
+  `user_modified` varchar(20) DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目属性';
+
+DROP TABLE IF EXISTS `ams_bus_xmmx`;
+CREATE TABLE `ams_bus_xmmx` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `prjSN` varchar(200) DEFAULT NULL,
+  `serialNumber` bigint(20) NOT NULL,
+  `serialFunct` varchar(255) DEFAULT NULL,
+  `aboveGroundArea` DOUBLE DEFAULT NULL,
+  `underGroundArea` DOUBLE DEFAULT NULL,
+  `blendArea` DOUBLE DEFAULT NULL,
+  `aboveGroundLen` DOUBLE DEFAULT NULL,
+  `prjClasfiCode` varchar(255) DEFAULT NULL,
+  
+  `user_create` varchar(20) DEFAULT NULL,
+  `user_modified` varchar(20) DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目明细信息';
