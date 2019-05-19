@@ -2,6 +2,8 @@ package com.xxw.springcloud.ams.model;
 
 import java.io.Serializable;
 
+import com.xxw.springcloud.ams.enums.FileEnum;
+
 /**
  * 项目文档表
  * @author uisftech
@@ -18,8 +20,10 @@ public class BusFile implements Serializable {
 	private String updateTime;
 	//文件名称
 	private String fileName;
+	//服务器名称
+	private String urlName;
 	//删除标志
-	private String delFlag;
+	private FileEnum delFlag;
 	//文档类型
 	private String fileType;
 	
@@ -57,12 +61,14 @@ public class BusFile implements Serializable {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	public String getDelFlag() {
+
+	public FileEnum getDelFlag() {
 		return delFlag;
 	}
-	public void setDelFlag(String delFlag) {
+	public void setDelFlag(FileEnum delFlag) {
 		this.delFlag = delFlag;
 	}
+
 	public String getFileType() {
 		return fileType;
 	}
@@ -92,6 +98,12 @@ public class BusFile implements Serializable {
 	}
 	public void setGmtModified(String gmtModified) {
 		this.gmtModified = gmtModified;
+	}
+	public String getUrlName() {
+		return urlName;
+	}
+	public void setUrlName(String urlName) {
+		this.urlName = urlName;
 	}
 
 }
