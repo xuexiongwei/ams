@@ -138,6 +138,7 @@ CREATE TABLE `ams_bus_file` (
   `prjSN` varchar(200) DEFAULT NULL COMMENT '许可证号',
   `updateTime` datetime DEFAULT NULL,
   `fileName` varchar(200) DEFAULT NULL,
+  `urlName` varchar(200) DEFAULT NULL,
   `delFlag` varchar(4) DEFAULT NULL,
   `fileType` varchar(4) DEFAULT NULL,
   `user_create` varchar(20) DEFAULT NULL,
