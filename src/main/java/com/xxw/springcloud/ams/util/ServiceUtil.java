@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -27,7 +29,7 @@ public class ServiceUtil {
 	public static Header getContextHeader(String inputjson) {
 		Map<String, Object> inputMap = jsonStringToMap(inputjson);
 		Map<String, Object> headerMap = null;
-		if(inputMap.remove("header") != null) {
+		if(inputMap.get("header") != null) {
 			headerMap = (Map<String, Object>) inputMap.remove("header");
 		}
 		String header = mapToJsonString(headerMap);
@@ -56,6 +58,7 @@ public class ServiceUtil {
 	 * @return
 	 */
 	public static String returnSuccess(String... msg) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
 		Header headerObj = new Header();
 		headerObj.setRspReturnCode(successCode);
 		String msg0 = "【"+SessionContext.get(SessionContext.FieldId.serialNumber.toString())+"】";
@@ -65,7 +68,8 @@ public class ServiceUtil {
 			msg0 += successMsg;
 		}
 		headerObj.setRspReturnMsg(msg0);
-		return JSON.toJSONString(headerObj);
+		returnMap.put("header", headerObj);
+		return JSON.toJSONString(returnMap);
 	}
 	
 	/**
@@ -75,10 +79,12 @@ public class ServiceUtil {
 	 * @return
 	 */
 	public static String returnError(String code,String msg) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
 		Header headerObj = new Header();
 		headerObj.setRspReturnCode(code);
 		headerObj.setRspReturnMsg(msg);
-		return JSON.toJSONString(headerObj);
+		returnMap.put("header", headerObj);
+		return JSON.toJSONString(returnMap);
 	}
 	
 	/**
@@ -131,6 +137,7 @@ public class ServiceUtil {
 		if (StringUtils.isEmpty(jsonString)) {
 			return null;
 		}
+		jsonString = replace(jsonString);
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		JSONObject jsonObject = JSONObject.parseObject(jsonString);
 		inputMap = JSONObject.parseObject(jsonObject.toJSONString(), new TypeReference<Map<String, Object>>() {
@@ -144,5 +151,15 @@ public class ServiceUtil {
 		}
 		String jsonString = JSON.toJSONString(inputMap,SerializerFeature.WriteBigDecimalAsPlain);
 		return jsonString;
+	}
+	
+	public static String replace(String str) {
+	    String destination = "";
+	    if (str!=null) {
+	        Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+	        Matcher m = p.matcher(str);
+	        destination = m.replaceAll("");
+	    }
+	    return destination;
 	}
 }

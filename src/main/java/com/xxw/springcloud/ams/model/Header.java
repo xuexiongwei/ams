@@ -10,9 +10,9 @@ public class Header {
 	
 	public String rspReturnMsg;
 	
-	public int pageSize;
+	public int reqpageSize;
 	
-	public int pageIndex;
+	public int reqpageIndex;
 	
 	public int rspPageCount;
 
@@ -48,20 +48,20 @@ public class Header {
 		this.reqUserId = reqUserId;
 	}
 
-	public int getPageSize() {
-		return pageSize;
+	public int getReqpageSize() {
+		return reqpageSize;
 	}
 
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+	public void setReqpageSize(int reqpageSize) {
+		this.reqpageSize = reqpageSize;
 	}
 
-	public int getPageIndex() {
-		return pageIndex;
+	public int getReqpageIndex() {
+		return reqpageIndex;
 	}
 
-	public void setPageIndex(int pageIndex) {
-		this.pageIndex = pageIndex;
+	public void setReqpageIndex(int reqpageIndex) {
+		this.reqpageIndex = reqpageIndex;
 	}
 
 	public int getRspPageCount() {
