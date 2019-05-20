@@ -22,4 +22,8 @@ public interface FileMapper {
 	@Select("select * from ams_bus_file where id=#{id}")
 	BusFile queryBusFileByID(Object params);
 
+	// 刪除文档
+	@Select("update ams_bus_file set delFlag='D' where id=#{id}")
+	void delFile(Object params);
+
 }

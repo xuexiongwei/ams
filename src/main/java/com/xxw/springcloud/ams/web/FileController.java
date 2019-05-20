@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,15 +16,19 @@ import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xxw.springcloud.ams.enums.UpLoadType;
 import com.xxw.springcloud.ams.mapper.file.SuperMapper;
 import com.xxw.springcloud.ams.model.BusFile;
 import com.xxw.springcloud.ams.model.DxfEntity;
+import com.xxw.springcloud.ams.model.Header;
+import com.xxw.springcloud.ams.util.FastList;
 import com.xxw.springcloud.ams.util.FileUtils;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.UtilMisc;
@@ -163,4 +168,62 @@ public class FileController {
 		return reM;
 	}
 
+	/**
+	 * 查询指定项目许可证的所有文档信息
+	 */
+	@RequestMapping("/api/file/query")
+	public String query(@RequestBody String inputjson) {
+
+		logger.debug("exc:query params:inputjson=" + inputjson);
+
+		String reM = ServiceUtil.returnError("E", "请求异常！");
+		Header header = ServiceUtil.getContextHeader(inputjson);
+		String bodyStr = ServiceUtil.getContextBody(inputjson);
+		Map<String, Object> params = JSONObject.parseObject(bodyStr);
+
+		Object prjSN = params.get("prjSN");
+		Object delFlag = params.get("delFlag");
+		if (UtilValidate.isNotEmpty(prjSN)) {
+			if (UtilValidate.isNotEmpty(delFlag)) {
+				List<BusFile> items = superMapper.queryBusFiles(params);
+				if (UtilValidate.isEmpty(items)) {
+					items = FastList.newInstance();
+				}
+				reM = ServiceUtil.returnSuccess(items, "busFileList", header);
+			} else {
+				reM = ServiceUtil.returnError("E", "删除标志 必输！");
+			}
+		} else {
+			reM = ServiceUtil.returnError("E", "项目许可证号 必输！");
+		}
+
+		logger.debug("exc:query return:" + reM);
+
+		return reM;
+	}
+
+	/**
+	 * 删除文档信息
+	 */
+	@RequestMapping("/api/file/del")
+	public String del(@RequestBody String inputjson) {
+
+		logger.debug("exc:query params:inputjson=" + inputjson);
+
+		String reM = ServiceUtil.returnError("E", "请求异常！");
+		String bodyStr = ServiceUtil.getContextBody(inputjson);
+		Map<String, Object> params = JSONObject.parseObject(bodyStr);
+
+		Object id = params.get("id");
+		if (UtilValidate.isNotEmpty(id)) {
+			superMapper.delFile(params);
+			reM = ServiceUtil.returnSuccess("删除成功 ！");
+		} else {
+			reM = ServiceUtil.returnError("E", "文档ID 必输！");
+		}
+
+		logger.debug("exc:query return:" + reM);
+
+		return reM;
+	}
 }

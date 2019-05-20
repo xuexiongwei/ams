@@ -1,5 +1,6 @@
 package com.xxw.springcloud.ams.mapper.file;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
@@ -13,6 +14,11 @@ public interface DicMapper {
 	@Insert("insert into ams_bus_classifi_dic (id,parentID, type, code, name, sort, other, user_create) values "
 			+ "(#{id},#{parentID}, #{type}, #{code}, #{name}, #{sort}, #{other}, #{userCreate})")
 	void saveDic(ClassifiDic dic);
+
+	// 保存字典信息
+	@Insert("insert into ams_bus_classifi_dic (id,parentID, type, code, name, sort, other, user_create) values "
+			+ "(#{id},#{parentID}, #{type}, #{code}, #{name}, #{sort}, #{other}, #{userCreate})")
+	void saveDic2(Map<String, Object> params);
 
 	// 更新字典信息
 	@Select("update ams_bus_classifi_dic set code=#{code},name=#{name} where id=#{id}")
@@ -29,5 +35,9 @@ public interface DicMapper {
 	// 根据字典码值，类型查询字典
 	@Select("select * from ams_bus_classifi_dic where type=#{type} and code=#{code}")
 	ClassifiDic queryDicByCode2(Map<String, Object> params);
+
+	// 根据字典类型查询所有字典
+	@Select("select * from ams_bus_classifi_dic where type=#{type}")
+	List<ClassifiDic> queryDicByCode3(Map<String, Object> params);
 
 }

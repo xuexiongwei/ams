@@ -23,7 +23,10 @@ public class DxfUtils {
 
 	private static Logger logger = LoggerFactory.getLogger(DxfUtils.class);
 
-	private static Double[] getAinCoordinate(String coordx, String coordy) {
+	public final static double jc = 0.0064;
+	public final static double wc = 0.0070;
+
+	public static Double[] getAinCoordinate(String coordx, String coordy) {
 		Double[] returnCoordinate = new Double[2];
 		if (coordx == null || coordy == null) {
 			return null;
@@ -76,7 +79,7 @@ public class DxfUtils {
 				StringBuffer v = new StringBuffer();// 经纬度
 				for (Point p : ps) {
 					Double[] dd = DxfUtils.getAinCoordinate(p.getX() + "", p.getY() + "");
-					v.append((dd[1] + 0.0064) + "," + (dd[0] + 0.0070) + "|");
+					v.append((dd[1] + jc) + "," + (dd[0] + wc) + "|");
 				}
 				entity.setLonglatV(v.toString());// 经纬度
 				entity.setPrjSN(prjSN);
