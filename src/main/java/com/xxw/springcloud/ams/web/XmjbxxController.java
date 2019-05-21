@@ -102,4 +102,32 @@ public class XmjbxxController {
 
 		return reM;
 	}
+
+	/**
+	 * 删除项目属性
+	 */
+	@RequestMapping("/api/xmjbxx/del")
+	public String del(@RequestBody String inputjson) {
+
+		logger.debug("exc:del params:inputjson=" + inputjson);
+
+		String reM = ServiceUtil.returnError("E", "删除异常！");
+		try {
+			String bodyStr = ServiceUtil.getContextBody(inputjson);
+			Map<String, Object> params = JSONObject.parseObject(bodyStr);
+
+			Object id = params.get("id");
+			if (UtilValidate.isNotEmpty(id)) {
+				superMapper.delXmjbxx(params);
+			}
+			reM = ServiceUtil.returnSuccess("删除成功 ！");
+		} catch (Exception e) {
+			logger.error("查询异常！", e);
+			reM = ServiceUtil.returnError("E", "删除异常！" + e.getMessage());
+		}
+
+		logger.debug("exc:del return:" + reM);
+
+		return reM;
+	}
 }

@@ -67,21 +67,27 @@ public class XmsxController {
 	}
 
 	/**
-	 * 新增项目属性信息
+	 * 新增/修改项目属性信息
 	 */
-	@RequestMapping("/api/xmsx/create")
-	public String create(@RequestBody String inputjson) {
+	@RequestMapping("/api/xmsx/createOrUpdate")
+	public String createOrUpdate(@RequestBody String inputjson) {
 
-		logger.debug("exc:query params:inputjson=" + inputjson);
+		logger.debug("exc:createOrUpdate params:inputjson=" + inputjson);
 
-		String reM = ServiceUtil.returnError("E", "新增异常！");
+		String reM = ServiceUtil.returnError("E", "保存异常！");
 		try {
 			String bodyStr = ServiceUtil.getContextBody(inputjson);
 			Map<String, Object> params = JSONObject.parseObject(bodyStr);
 
 			Object prjSN = params.get("prjSN");
 			if (UtilValidate.isNotEmpty(prjSN)) {
-				superMapper.saveXmsx2(params);
+
+				Object id = params.get("id");
+				if (UtilValidate.isNotEmpty(id)) {
+					superMapper.updateXmsx(params);
+				} else {
+					superMapper.saveXmsx2(params);
+				}
 				reM = ServiceUtil.returnSuccess("保存成功 ！");
 			} else {
 				reM = ServiceUtil.returnError("E", "项目许可证不可为空！");
@@ -89,10 +95,38 @@ public class XmsxController {
 
 		} catch (Exception e) {
 			logger.error("查询异常！", e);
-			reM = ServiceUtil.returnError("E", "新增异常！" + e.getMessage());
+			reM = ServiceUtil.returnError("E", "保存异常！" + e.getMessage());
 		}
 
-		logger.debug("exc:query return:" + reM);
+		logger.debug("exc:createOrUpdate return:" + reM);
+
+		return reM;
+	}
+
+	/**
+	 * 删除项目属性
+	 */
+	@RequestMapping("/api/xmsx/del")
+	public String del(@RequestBody String inputjson) {
+
+		logger.debug("exc:del params:inputjson=" + inputjson);
+
+		String reM = ServiceUtil.returnError("E", "删除异常！");
+		try {
+			String bodyStr = ServiceUtil.getContextBody(inputjson);
+			Map<String, Object> params = JSONObject.parseObject(bodyStr);
+
+			Object id = params.get("id");
+			if (UtilValidate.isNotEmpty(id)) {
+				superMapper.delXmsx(params);
+			}
+			reM = ServiceUtil.returnSuccess("删除成功 ！");
+		} catch (Exception e) {
+			logger.error("查询异常！", e);
+			reM = ServiceUtil.returnError("E", "删除异常！" + e.getMessage());
+		}
+
+		logger.debug("exc:del return:" + reM);
 
 		return reM;
 	}

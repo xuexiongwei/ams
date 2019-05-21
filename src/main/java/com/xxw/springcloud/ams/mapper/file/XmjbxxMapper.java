@@ -3,6 +3,7 @@ package com.xxw.springcloud.ams.mapper.file;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -29,6 +30,10 @@ public interface XmjbxxMapper {
 	// 查询项目基本信息
 	@Select("select * from ams_bus_xmjbxx where prjSN=#{prjSN}")
 	Xmjbxx queryXmjbxx(String prjSN);
+
+	// 删除项目基本信息
+	@Delete("delete from ams_bus_xmjbxx where id=#{id}")
+	Xmjbxx delXmjbxx(Map<String, Object> params);
 
 	@Select("update ams_bus_xmjbxx set prjUnit=#{prjUnit},prjAdr=#{prjAdr}, prjName=#{prjName}, prjType=#{prjType}, contacts=#{contacts},"
 			+ "contactInf=#{contactInf}, prjTemSN=#{prjTemSN}, specialNotifi=#{specialNotifi},noticeTime=#{noticeTime},"

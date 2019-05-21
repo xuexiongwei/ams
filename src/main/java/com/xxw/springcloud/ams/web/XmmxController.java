@@ -69,21 +69,27 @@ public class XmmxController {
 	}
 
 	/**
-	 * 新增项目明细信息
+	 * 新增/更新项目明细信息
 	 */
-	@RequestMapping("/api/xmmx/create")
-	public String create(@RequestBody String inputjson) {
+	@RequestMapping("/api/xmmx/createOrUpdate")
+	public String createOrUpdate(@RequestBody String inputjson) {
 
 		logger.debug("exc:query params:inputjson=" + inputjson);
 
-		String reM = ServiceUtil.returnError("E", "新增异常！");
+		String reM = ServiceUtil.returnError("E", "保存异常！");
 		try {
 			String bodyStr = ServiceUtil.getContextBody(inputjson);
 			Map<String, Object> params = JSONObject.parseObject(bodyStr);
 
 			Object prjSN = params.get("prjSN");
 			if (UtilValidate.isNotEmpty(prjSN)) {
-				superMapper.saveXmmx2(params);
+
+				Object id = params.get("id");
+				if (UtilValidate.isNotEmpty(id)) {
+					superMapper.updateXmsx(params);
+				} else {
+					superMapper.saveXmmx2(params);
+				}
 				reM = ServiceUtil.returnSuccess("保存成功 ！");
 			} else {
 				reM = ServiceUtil.returnError("E", "项目许可证不可为空！");
@@ -91,7 +97,37 @@ public class XmmxController {
 
 		} catch (Exception e) {
 			logger.error("查询异常！", e);
-			reM = ServiceUtil.returnError("E", "新增异常！" + e.getMessage());
+			reM = ServiceUtil.returnError("E", "保存异常！" + e.getMessage());
+		}
+
+		logger.debug("exc:query return:" + reM);
+
+		return reM;
+	}
+
+	/**
+	 * 删除项目明细信息
+	 */
+	@RequestMapping("/api/xmmx/del")
+	public String del(@RequestBody String inputjson) {
+
+		logger.debug("exc:query params:inputjson=" + inputjson);
+
+		String reM = ServiceUtil.returnError("E", "删除异常！");
+		try {
+			String bodyStr = ServiceUtil.getContextBody(inputjson);
+			Map<String, Object> params = JSONObject.parseObject(bodyStr);
+
+			Object id = params.get("id");
+			if (UtilValidate.isNotEmpty(id)) {
+				superMapper.delXmmx(params);
+			} else {
+				reM = ServiceUtil.returnError("E", "删除时，ID 必传！");
+			}
+
+		} catch (Exception e) {
+			logger.error("查询异常！", e);
+			reM = ServiceUtil.returnError("E", "删除异常！" + e.getMessage());
 		}
 
 		logger.debug("exc:query return:" + reM);

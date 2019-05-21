@@ -3,8 +3,10 @@ package com.xxw.springcloud.ams.mapper.file;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
 
 import com.xxw.springcloud.ams.model.Xmmx;
 import com.xxw.springcloud.ams.util.UtilValidate;
@@ -20,6 +22,15 @@ public interface XmmxMapper {
 	@Insert("insert into ams_bus_xmmx (prjSN, serialNumber, serialFunct, aboveGroundArea, underGroundArea, blendArea, aboveGroundLen, prjClasfiCode) "
 			+ "values (#{prjSN}, #{serialNumber}, #{serialFunct}, #{aboveGroundArea}, #{underGroundArea}, #{blendArea}, #{aboveGroundLen}, #{prjClasfiCode})")
 	void saveXmmx2(Map<String, Object> params);
+
+	// 更新项目明细
+	@Update("update ams_bus_xmmx set serialFunct=#{serialFunct}, aboveGroundArea=#{aboveGroundArea}, underGroundArea=#{underGroundArea}, blendArea=#{blendArea}, "
+			+ "aboveGroundLen=#{aboveGroundLen}, prjClasfiCode=#{prjClasfiCode} where id=#{id}")
+	void updateXmmx(Map<String, Object> params);
+
+	// 删除项目明细
+	@Delete("delete from ams_bus_xmmx where id=#{id}")
+	void delXmmx(Map<String, Object> params);
 
 	// 查询属性信息
 	@SelectProvider(type = XmmxProvider.class, method = "findXmmxByAttr")
