@@ -44,7 +44,10 @@ public class FileController {
 	private SuperMapper superMapper;
 
 	/**
-	 * 上传文件接口
+	 * 上传文件接口 <br>
+	 * 1.dxf 上传名必须为项目许可证号 <br>
+	 * 2.解析类excel 内容必须为文本格式，否则日期字段会出问题 <br>
+	 * 3.保存类文档，必须上传项目许可证号<br>
 	 * 
 	 * @param uploadfile
 	 * @param extraField
@@ -52,7 +55,7 @@ public class FileController {
 	 */
 	@RequestMapping("/api/upload")
 	public String uploadFile(@RequestParam("files") MultipartFile[] uploadfile,
-			@RequestParam("upLoadType") String upLoadType, @RequestParam("prjSN") String prjSN) {
+			@RequestParam("upLoadType") String upLoadType, String prjSN) {
 
 		logger.debug("exc:uploadFile params:upLoadType=" + upLoadType);
 
@@ -62,8 +65,6 @@ public class FileController {
 			reM = ServiceUtil.returnError(null, "上传文件为 空！");
 		} else if (UtilValidate.isEmpty(upLoadType)) {
 			reM = ServiceUtil.returnError(null, "上传类型[upLoadType]必输！");
-		} else if (UtilValidate.isEmpty(prjSN)) {
-			reM = ServiceUtil.returnError(null, "许可证号[prjSN]必输！");
 		} else {
 			try {
 
@@ -79,6 +80,9 @@ public class FileController {
 							Excel2003 _2003 = new Excel2003(superMapper);
 							_2003.testExcel2003NoModel(file.getInputStream());
 						} else if (fname.endsWith(".dxf")) {
+							// dxf 文件名命名规范为 项目许可证号
+							prjSN = fname.replace(".dxf", "");
+							prjSN = fname.replace(".DXF", "");
 							List<DxfEntity> items = DxfUtils.analysis(file, prjSN);
 							if (UtilValidate.isNotEmpty(items)) {
 
@@ -101,10 +105,14 @@ public class FileController {
 						}
 					}
 				} else if (UpLoadType.SAVE.toString().equals(upLoadType)) {
-					List<BusFile> list = FileUtils.saveUploadedFiles(Arrays.asList(uploadfile), prjSN);
-					if (UtilValidate.isNotEmpty(list)) {
-						for (BusFile busFile : list) {
-							superMapper.saveFile(busFile);
+					if (UtilValidate.isEmpty(prjSN)) {
+						reM = ServiceUtil.returnError(null, "许可证号[prjSN]必输！");
+					} else {
+						List<BusFile> list = FileUtils.saveUploadedFiles(Arrays.asList(uploadfile), prjSN);
+						if (UtilValidate.isNotEmpty(list)) {
+							for (BusFile busFile : list) {
+								superMapper.saveFile(busFile);
+							}
 						}
 					}
 				} else {
