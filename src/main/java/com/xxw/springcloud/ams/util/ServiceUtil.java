@@ -121,6 +121,9 @@ public class ServiceUtil {
 		}
 		header.setRspReturnCode(successCode);
 		String msg0 = "【"+SessionContext.get(SessionContext.FieldId.serialNumber.toString())+"】"+successMsg;
+		if(!StringUtils.isEmpty(header.getRspReturnMsg())) {
+			msg0 = "【"+SessionContext.get(SessionContext.FieldId.serialNumber.toString())+"】"+header.getRspReturnMsg();
+		}
 		header.setRspReturnMsg(msg0);
 		String headerStr = JSON.toJSONString(header);
 		Map<String, Object> headerMap = jsonStringToMap(headerStr);

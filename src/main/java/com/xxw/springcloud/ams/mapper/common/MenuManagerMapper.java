@@ -79,4 +79,14 @@ public interface MenuManagerMapper {
 			@Result(property = "gmtCreate", column = "gmt_create"),
 			@Result(property = "gmtModified", column = "gmt_modified") })
 	List<SysRoleMenu> selectMenuIdsByRoleId(@Param("roleId") Long roleId,@Param("pageSize") int pageSize, @Param("pageIndex") int pageIndex);
+
+	@Select({"<script>",
+		"SELECT menu.id,menu.parent_id,menu.name,menu.url,menu.order_num,menu.user_create,menu.user_modified,menu.gmt_create,menu.gmt_modified from ams_sys_menu menu left ",
+		"join ams_sys_role_menu rolemenu on(menu.id=rolemenu.menu_id) where rolemenu.role_id in",
+		"<foreach collection='roleIdList' item='item' open='(' separator=',' close=')'>",
+			"#{item}",
+		"</foreach>",
+		" limit #{pageSize} offset #{pageIndex}",
+		"</script>"})
+	List<SysMenu> selectMenuIdsByRoleIds(@Param("roleIdList") List<Long> roleIdList,@Param("pageSize") int pageSize, @Param("pageIndex") int pageIndex);
 }

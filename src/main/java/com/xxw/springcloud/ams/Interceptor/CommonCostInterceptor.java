@@ -53,6 +53,7 @@ public class CommonCostInterceptor implements HandlerInterceptor {
 				if(reqSessionId.equals(session.getId())) {
 					return true;
 				}
+				sendJsonData(httpServletResponse,ServiceUtil.returnError("90001", "用户未登录或登录已超时"));
 				return false;
 			}
 		} catch (Exception e) {

@@ -372,3 +372,745 @@
 2019/05/22-13:40:54.929 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=5233 
 2019/05/22-13:42:06.436 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times =32386 
 2019/05/22-13:42:06.437 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=32387 
+2019/05/23-20:31:07.466 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 14584 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-20:31:07.479 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-20:31:08.692 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-20:31:08.935 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 179ms. Found 0 repository interfaces. 
+2019/05/23-20:31:09.562 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$27938c81] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-20:31:10.896 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-20:31:10.947 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-20:31:10.948 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-20:31:11.273 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-20:31:11.273 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3744 ms 
+2019/05/23-20:31:12.122 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-20:31:12.453 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-20:31:12.543 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-20:31:12.652 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-20:31:12.654 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-20:31:12.884 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-20:31:13.227 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-20:31:13.550 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-20:31:14.636 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-20:31:14.711 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-20:31:15.182 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-20:31:15.186 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 8.043 seconds (JVM running for 9.031) 
+2019/05/23-20:31:15.189 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-20:32:55.192 [http-nio-8899-exec-2] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-20:32:55.193 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-20:32:55.203 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 10 ms 
+2019/05/23-20:33:07.611 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times =12387 
+2019/05/23-20:33:07.619 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=12395 
+2019/05/23-20:34:49.638 [http-nio-8899-exec-8] INFO  c.x.s.a.I.CommonCostInterceptor - request times =5780 
+2019/05/23-20:34:49.640 [http-nio-8899-exec-8] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=5782 
+2019/05/23-21:25:44.833 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 11972 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-21:25:44.838 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-21:25:45.880 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-21:25:45.930 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 40ms. Found 0 repository interfaces. 
+2019/05/23-21:25:46.386 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$31068ade] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-21:25:47.613 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-21:25:47.648 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-21:25:47.649 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-21:25:47.816 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-21:25:47.816 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2925 ms 
+2019/05/23-21:25:48.076 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-21:25:48.404 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-21:25:48.504 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-21:25:48.597 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-21:25:48.598 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-21:25:48.785 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-21:25:49.034 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-21:25:49.390 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-21:25:50.030 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-21:25:50.099 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-21:25:50.797 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-21:25:50.804 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 6.364 seconds (JVM running for 7.095) 
+2019/05/23-21:25:50.808 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-21:27:28.083 [http-nio-8899-exec-3] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-21:27:28.083 [http-nio-8899-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-21:27:28.104 [http-nio-8899-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 21 ms 
+2019/05/23-21:28:39.064 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 5260 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-21:28:39.068 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-21:28:40.071 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-21:28:40.120 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 36ms. Found 0 repository interfaces. 
+2019/05/23-21:28:40.586 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c279dabc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-21:28:41.641 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-21:28:41.667 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-21:28:41.667 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-21:28:41.831 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-21:28:41.831 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2719 ms 
+2019/05/23-21:28:42.082 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-21:28:42.233 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-21:28:42.316 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-21:28:42.413 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-21:28:42.415 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-21:28:42.650 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-21:28:42.848 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-21:28:43.138 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-21:28:43.905 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-21:28:43.974 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-21:28:44.289 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-21:28:44.293 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 5.555 seconds (JVM running for 6.255) 
+2019/05/23-21:28:44.296 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-21:29:00.058 [http-nio-8899-exec-2] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-21:29:00.058 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-21:29:00.071 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 13 ms 
+2019/05/23-21:29:44.115 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 6416 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-21:29:44.120 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-21:29:45.124 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-21:29:45.180 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 46ms. Found 0 repository interfaces. 
+2019/05/23-21:29:45.719 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$f463ff] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-21:29:46.794 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-21:29:46.829 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-21:29:46.829 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-21:29:47.011 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-21:29:47.011 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2845 ms 
+2019/05/23-21:29:47.274 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-21:29:47.420 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-21:29:47.543 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-21:29:47.620 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-21:29:47.623 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-21:29:47.800 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-21:29:48.019 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-21:29:48.337 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-21:29:49.271 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-21:29:49.366 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-21:29:49.788 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-21:29:49.792 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 6.005 seconds (JVM running for 6.716) 
+2019/05/23-21:29:49.794 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-21:29:56.055 [http-nio-8899-exec-1] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-21:29:56.056 [http-nio-8899-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-21:29:56.063 [http-nio-8899-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms 
+2019/05/23-21:30:26.206 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times =11602 
+2019/05/23-21:30:26.210 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=11606 
+2019/05/23-21:30:35.366 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times =131 
+2019/05/23-21:30:35.367 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=132 
+2019/05/23-21:32:29.644 [http-nio-8899-exec-7] INFO  c.x.s.a.I.CommonCostInterceptor - request times =23157 
+2019/05/23-21:32:29.645 [http-nio-8899-exec-7] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=23158 
+2019/05/23-21:55:07.287 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 22012 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-21:55:07.291 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-21:55:08.139 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-21:55:08.208 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55ms. Found 0 repository interfaces. 
+2019/05/23-21:55:08.722 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$95771bd4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-21:55:09.912 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-21:55:09.951 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-21:55:09.951 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-21:55:10.150 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-21:55:10.150 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2803 ms 
+2019/05/23-21:55:10.627 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-21:55:10.806 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-21:55:10.970 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-21:55:11.054 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-21:55:11.056 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-21:55:11.254 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-21:55:11.461 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-21:55:11.719 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-21:55:12.376 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-21:55:12.450 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-21:55:12.863 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-21:55:12.867 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 5.911 seconds (JVM running for 6.912) 
+2019/05/23-21:55:12.870 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-21:55:18.415 [http-nio-8899-exec-1] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-21:55:18.416 [http-nio-8899-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-21:55:18.424 [http-nio-8899-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 8 ms 
+2019/05/23-21:55:18.933 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times =491 
+2019/05/23-21:55:18.936 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=494 
+2019/05/23-21:56:35.399 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times =70577 
+2019/05/23-21:56:35.400 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=70578 
+2019/05/23-21:59:31.743 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times =43568 
+2019/05/23-21:59:31.744 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=43569 
+2019/05/23-22:03:57.364 [http-nio-8899-exec-9] INFO  c.x.s.a.I.CommonCostInterceptor - request times =3857 
+2019/05/23-22:03:57.364 [http-nio-8899-exec-9] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=3857 
+2019/05/23-22:06:32.404 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 22572 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-22:06:32.408 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-22:06:33.293 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-22:06:33.340 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38ms. Found 0 repository interfaces. 
+2019/05/23-22:06:33.916 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c21db9fe] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-22:06:34.966 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-22:06:35.012 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-22:06:35.012 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-22:06:35.165 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-22:06:35.166 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2700 ms 
+2019/05/23-22:06:35.470 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-22:06:35.635 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-22:06:35.710 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-22:06:35.818 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-22:06:35.822 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-22:06:36.009 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-22:06:36.223 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-22:06:36.483 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-22:06:37.461 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-22:06:37.536 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-22:06:37.941 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-22:06:37.946 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 5.85 seconds (JVM running for 6.657) 
+2019/05/23-22:06:37.950 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-22:06:39.436 [http-nio-8899-exec-3] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-22:06:39.437 [http-nio-8899-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-22:06:39.446 [http-nio-8899-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 9 ms 
+2019/05/23-22:06:39.964 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times =498 
+2019/05/23-22:06:39.967 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=501 
+2019/05/23-22:06:51.039 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times =3991 
+2019/05/23-22:06:51.039 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=3991 
+2019/05/23-22:07:51.636 [http-nio-8899-exec-8] INFO  c.x.s.a.I.CommonCostInterceptor - request times =2179 
+2019/05/23-22:07:51.637 [http-nio-8899-exec-8] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=2180 
+2019/05/23-22:08:04.151 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times =1843 
+2019/05/23-22:08:04.152 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=1844 
+2019/05/23-22:10:13.998 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=46 
+2019/05/23-22:10:14.004 [http-nio-8899-exec-5] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [/ams] threw exception [Handler dispatch failed; nested exception is java.lang.Error: Unresolved compilation problem: 
+	The method selectMenuIdsByRoleIds(int, int) in the type MenuManagerMapper is not applicable for the arguments (List<Long>, int, int)
+] with root cause 
+java.lang.Error: Unresolved compilation problem: 
+	The method selectMenuIdsByRoleIds(int, int) in the type MenuManagerMapper is not applicable for the arguments (List<Long>, int, int)
+
+	at com.xxw.springcloud.ams.web.MenuManagerController.selectMenusByUserId(MenuManagerController.java:183)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2019/05/23-22:10:14.114 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times =94 
+2019/05/23-22:10:14.114 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=94 
+2019/05/23-22:11:12.790 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 17880 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-22:11:12.794 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-22:11:13.711 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-22:11:13.763 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 41ms. Found 0 repository interfaces. 
+2019/05/23-22:11:14.230 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1b4c083] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-22:11:15.262 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-22:11:15.291 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-22:11:15.291 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-22:11:15.463 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-22:11:15.463 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2616 ms 
+2019/05/23-22:11:15.702 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-22:11:15.843 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-22:11:16.061 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-22:11:16.148 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-22:11:16.149 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-22:11:16.312 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-22:11:16.597 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-22:11:16.856 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-22:11:17.639 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-22:11:17.729 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-22:11:18.179 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-22:11:18.182 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 5.734 seconds (JVM running for 6.408) 
+2019/05/23-22:11:18.185 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-22:11:31.328 [http-nio-8899-exec-1] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-22:11:31.328 [http-nio-8899-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-22:11:31.341 [http-nio-8899-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 13 ms 
+2019/05/23-22:11:38.562 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times =438 
+2019/05/23-22:11:38.566 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=442 
+2019/05/23-22:11:46.304 [http-nio-8899-exec-8] INFO  c.x.s.a.I.CommonCostInterceptor - request times =4416 
+2019/05/23-22:11:46.304 [http-nio-8899-exec-8] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=4416 
+2019/05/23-22:17:33.792 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 4948 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-22:17:33.798 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-22:17:34.757 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-22:17:34.802 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37ms. Found 0 repository interfaces. 
+2019/05/23-22:17:35.280 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$8c6e0ecd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-22:17:36.324 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-22:17:36.368 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-22:17:36.369 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-22:17:36.513 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-22:17:36.514 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2655 ms 
+2019/05/23-22:17:36.748 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-22:17:36.920 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-22:17:37.009 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-22:17:37.172 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-22:17:37.174 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-22:17:37.426 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-22:17:37.709 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-22:17:37.995 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-22:17:38.729 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-22:17:38.798 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-22:17:39.180 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-22:17:39.184 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 5.82 seconds (JVM running for 6.602) 
+2019/05/23-22:17:39.188 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-22:17:53.445 [http-nio-8899-exec-1] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-22:17:53.445 [http-nio-8899-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-22:17:53.458 [http-nio-8899-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 13 ms 
+2019/05/23-22:17:54.036 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times =551 
+2019/05/23-22:17:54.041 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=556 
+2019/05/23-22:18:01.687 [http-nio-8899-exec-6] INFO  c.x.s.a.I.CommonCostInterceptor - request times =4102 
+2019/05/23-22:18:01.688 [http-nio-8899-exec-6] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=4103 
+2019/05/23-22:24:46.152 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 29064 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-22:24:46.157 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-22:24:46.811 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-22:24:46.900 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 73ms. Found 0 repository interfaces. 
+2019/05/23-22:24:47.382 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$60a4066a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-22:24:56.339 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 14980 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-22:24:56.344 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-22:24:57.601 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-22:24:57.670 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54ms. Found 0 repository interfaces. 
+2019/05/23-22:24:58.260 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$96578b9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-22:24:59.523 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-22:24:59.555 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-22:24:59.556 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-22:24:59.730 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-22:24:59.730 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3331 ms 
+2019/05/23-22:25:00.055 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-22:25:00.208 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-22:25:00.328 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-22:25:00.454 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-22:25:00.456 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-22:25:00.657 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-22:25:00.895 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-22:25:01.187 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-22:25:02.065 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-22:25:02.139 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-22:25:02.535 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-22:25:02.541 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 6.59 seconds (JVM running for 7.75) 
+2019/05/23-22:25:02.545 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-22:25:08.210 [http-nio-8899-exec-3] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-22:25:08.211 [http-nio-8899-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-22:25:08.224 [http-nio-8899-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 13 ms 
+2019/05/23-22:25:08.704 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times =454 
+2019/05/23-22:25:08.708 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=458 
+2019/05/23-22:25:15.192 [http-nio-8899-exec-7] INFO  c.x.s.ams.web.MenuManagerController - 用户菜单查询成功 
+2019/05/23-22:25:15.196 [http-nio-8899-exec-7] INFO  c.x.s.a.I.CommonCostInterceptor - request times =3465 
+2019/05/23-22:25:15.197 [http-nio-8899-exec-7] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=3466 
+2019/05/23-23:11:51.591 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 26544 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:11:51.594 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:11:52.614 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:11:52.689 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 63ms. Found 0 repository interfaces. 
+2019/05/23-23:11:53.193 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$4c8cea98] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:11:54.109 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:11:54.141 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:11:54.141 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:11:54.317 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:11:54.317 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2661 ms 
+2019/05/23-23:11:54.563 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:11:54.713 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:11:54.785 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:11:54.868 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:11:54.869 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:11:55.108 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:11:55.380 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:11:55.636 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:11:56.325 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:11:56.385 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:11:56.707 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:11:56.710 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 5.454 seconds (JVM running for 6.109) 
+2019/05/23-23:11:56.716 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:12:00.791 [http-nio-8899-exec-2] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:12:00.791 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:12:00.799 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 8 ms 
+2019/05/23-23:12:01.237 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times =404 
+2019/05/23-23:12:01.240 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=407 
+2019/05/23-23:12:05.781 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times =69 
+2019/05/23-23:12:05.781 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=69 
+2019/05/23-23:12:10.856 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times =17 
+2019/05/23-23:12:10.856 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=17 
+2019/05/23-23:13:03.464 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 26532 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:13:03.468 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:13:04.628 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:13:04.713 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 67ms. Found 0 repository interfaces. 
+2019/05/23-23:13:05.133 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$45d23961] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:13:06.260 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:13:06.290 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:13:06.291 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:13:06.446 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:13:06.447 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2918 ms 
+2019/05/23-23:13:06.759 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:13:06.917 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:13:06.992 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:13:07.065 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:13:07.066 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:13:07.254 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:13:07.454 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:13:07.674 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:13:08.283 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:13:08.391 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:13:08.826 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:13:08.829 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 5.715 seconds (JVM running for 6.362) 
+2019/05/23-23:13:08.832 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:13:19.175 [http-nio-8899-exec-2] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:13:19.175 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:13:19.189 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 13 ms 
+2019/05/23-23:13:19.617 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times =398 
+2019/05/23-23:13:19.619 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=401 
+2019/05/23-23:13:22.854 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times =84 
+2019/05/23-23:13:22.855 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=85 
+2019/05/23-23:13:28.635 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times =14 
+2019/05/23-23:13:28.635 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=14 
+2019/05/23-23:14:20.764 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 14864 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:14:20.768 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:14:21.795 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:14:21.842 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 40ms. Found 0 repository interfaces. 
+2019/05/23-23:14:22.342 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$4f8e1a08] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:14:23.512 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:14:23.543 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:14:23.543 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:14:23.722 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:14:23.723 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2903 ms 
+2019/05/23-23:14:23.979 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:14:24.136 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:14:24.221 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:14:24.352 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:14:24.355 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:14:24.589 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:14:24.776 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:14:25.023 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:14:25.789 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:14:25.860 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:14:26.150 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:14:26.153 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 5.723 seconds (JVM running for 6.446) 
+2019/05/23-23:14:26.156 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:14:28.014 [http-nio-8899-exec-2] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:14:28.015 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:14:28.026 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 11 ms 
+2019/05/23-23:14:28.346 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times =296 
+2019/05/23-23:14:28.348 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=298 
+2019/05/23-23:14:32.121 [http-nio-8899-exec-3] INFO  c.x.s.ams.web.MenuManagerController - 用户菜单查询成功 
+2019/05/23-23:14:32.125 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times =70 
+2019/05/23-23:14:32.125 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=70 
+2019/05/23-23:16:16.136 [http-nio-8899-exec-5] INFO  c.x.s.ams.web.MenuManagerController - 用户菜单查询成功 
+2019/05/23-23:16:16.137 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times =9 
+2019/05/23-23:16:16.137 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=9 
+2019/05/23-23:18:19.362 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 25040 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:18:19.367 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:18:20.573 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:18:20.634 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 46ms. Found 0 repository interfaces. 
+2019/05/23-23:18:21.216 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$3795d1bb] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:18:22.272 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:18:22.330 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:18:22.330 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:18:22.538 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:18:22.538 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3115 ms 
+2019/05/23-23:18:22.802 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:18:22.999 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:18:23.077 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:18:23.170 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:18:23.172 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:18:23.337 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:18:23.617 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:18:23.941 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:18:24.803 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:18:24.934 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:18:25.511 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:18:25.516 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 6.544 seconds (JVM running for 7.345) 
+2019/05/23-23:18:25.520 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:18:30.036 [http-nio-8899-exec-2] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:18:30.036 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:18:30.047 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 11 ms 
+2019/05/23-23:18:30.440 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times =359 
+2019/05/23-23:18:30.447 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=366 
+2019/05/23-23:18:40.911 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times =3378 
+2019/05/23-23:18:40.912 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=3379 
+2019/05/23-23:19:55.285 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 28676 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:19:55.291 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:19:56.413 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:19:56.463 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39ms. Found 0 repository interfaces. 
+2019/05/23-23:19:57.009 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c423f665] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:19:58.105 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:19:58.144 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:19:58.144 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:19:58.391 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:19:58.392 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3029 ms 
+2019/05/23-23:19:58.686 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:19:58.853 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:19:58.954 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:19:59.062 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:19:59.063 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:19:59.278 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:19:59.588 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:19:59.879 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:20:00.908 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:20:00.984 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:20:01.358 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:20:01.364 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 6.466 seconds (JVM running for 7.526) 
+2019/05/23-23:20:01.368 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:20:02.225 [http-nio-8899-exec-2] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:20:02.226 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:20:02.246 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 20 ms 
+2019/05/23-23:20:02.591 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times =309 
+2019/05/23-23:20:02.594 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=312 
+2019/05/23-23:20:08.511 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times =3157 
+2019/05/23-23:20:08.511 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=3157 
+2019/05/23-23:21:33.164 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 4892 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:21:33.169 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:21:34.219 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:21:34.272 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 41ms. Found 0 repository interfaces. 
+2019/05/23-23:21:34.906 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$cc52268c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:21:36.109 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:21:36.152 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:21:36.152 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:21:36.328 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:21:36.328 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3104 ms 
+2019/05/23-23:21:36.622 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:21:36.774 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:21:36.867 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:21:36.996 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:21:36.999 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:21:37.238 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:21:37.491 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:21:37.822 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:21:38.877 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:21:38.975 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:21:39.439 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:21:39.444 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 6.763 seconds (JVM running for 7.749) 
+2019/05/23-23:21:39.447 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:21:44.804 [http-nio-8899-exec-3] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:21:44.804 [http-nio-8899-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:21:44.812 [http-nio-8899-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 8 ms 
+2019/05/23-23:21:45.389 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times =553 
+2019/05/23-23:21:45.391 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=555 
+2019/05/23-23:21:57.228 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times =6382 
+2019/05/23-23:21:57.228 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=6382 
+2019/05/23-23:22:55.765 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 20116 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:22:55.770 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:22:56.893 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:22:56.952 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45ms. Found 0 repository interfaces. 
+2019/05/23-23:22:57.573 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$8258eb25] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:22:58.713 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:22:58.746 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:22:58.747 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:22:58.968 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:22:58.969 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3127 ms 
+2019/05/23-23:22:59.254 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:22:59.591 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:22:59.680 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:22:59.792 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:22:59.795 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:23:00.049 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:23:00.393 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:23:00.780 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:23:01.711 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:23:01.795 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:23:02.302 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:23:02.314 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 6.941 seconds (JVM running for 7.911) 
+2019/05/23-23:23:02.319 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:23:02.772 [http-nio-8899-exec-1] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:23:02.772 [http-nio-8899-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:23:02.783 [http-nio-8899-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 11 ms 
+2019/05/23-23:23:03.281 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times =478 
+2019/05/23-23:23:03.284 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=481 
+2019/05/23-23:23:11.895 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times =4025 
+2019/05/23-23:23:11.896 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=4026 
+2019/05/23-23:23:43.706 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 22372 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:23:43.711 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:23:44.905 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:23:44.961 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45ms. Found 0 repository interfaces. 
+2019/05/23-23:23:45.559 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$885995c7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:23:46.804 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:23:46.844 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:23:46.845 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:23:47.075 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:23:47.075 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3304 ms 
+2019/05/23-23:23:47.531 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:23:47.732 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:23:47.846 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:23:47.937 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:23:47.938 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:23:48.118 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:23:48.458 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:23:48.750 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:23:49.730 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:23:49.815 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:23:50.174 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:23:50.179 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 6.976 seconds (JVM running for 8.058) 
+2019/05/23-23:23:50.182 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:23:53.120 [http-nio-8899-exec-2] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:23:53.120 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:23:53.134 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 13 ms 
+2019/05/23-23:23:59.631 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times =320 
+2019/05/23-23:23:59.636 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=325 
+2019/05/23-23:24:06.222 [http-nio-8899-exec-5] INFO  c.x.s.ams.web.MenuManagerController - 用户菜单查询成功 
+2019/05/23-23:24:06.226 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times =3885 
+2019/05/23-23:24:06.227 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=3886 
+2019/05/23-23:28:20.833 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 28068 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:28:20.840 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:28:22.011 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:28:22.067 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44ms. Found 0 repository interfaces. 
+2019/05/23-23:28:22.922 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$a6d4bd75] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:28:24.114 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:28:24.147 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:28:24.147 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:28:24.390 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:28:24.390 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3479 ms 
+2019/05/23-23:28:24.715 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:28:24.890 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:28:25.053 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:28:25.182 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:28:25.186 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:28:25.440 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:28:25.674 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:28:26.037 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:28:26.999 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:28:27.165 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:28:27.562 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:28:27.568 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 7.124 seconds (JVM running for 7.968) 
+2019/05/23-23:28:27.572 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:28:28.101 [http-nio-8899-exec-2] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:28:28.101 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:28:28.108 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms 
+2019/05/23-23:28:28.593 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times =464 
+2019/05/23-23:28:28.596 [http-nio-8899-exec-2] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=467 
+2019/05/23-23:28:36.551 [http-nio-8899-exec-6] INFO  c.x.s.a.I.CommonCostInterceptor - request times =4003 
+2019/05/23-23:28:36.551 [http-nio-8899-exec-6] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=4003 
+2019/05/23-23:33:32.232 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 15132 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:33:32.237 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:33:33.369 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:33:33.423 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 43ms. Found 0 repository interfaces. 
+2019/05/23-23:33:34.115 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$41af2712] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:33:35.175 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:33:35.210 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:33:35.211 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:33:35.426 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:33:35.427 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3128 ms 
+2019/05/23-23:33:35.709 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:33:36.003 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:33:36.093 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:33:36.189 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:33:36.191 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:33:36.396 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:33:36.608 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:33:36.968 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:33:37.709 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:33:37.776 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:33:38.257 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:33:38.261 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 6.419 seconds (JVM running for 7.326) 
+2019/05/23-23:33:38.265 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:33:47.634 [http-nio-8899-exec-2] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:33:47.634 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:33:47.642 [http-nio-8899-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 8 ms 
+2019/05/23-23:33:52.764 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times =333 
+2019/05/23-23:33:52.767 [http-nio-8899-exec-4] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=336 
+2019/05/23-23:33:58.698 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times =2768 
+2019/05/23-23:33:58.698 [http-nio-8899-exec-3] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=2768 
+2019/05/23-23:35:26.284 [main] INFO  c.x.springcloud.ams.AmsApplication - Starting AmsApplication on xxw with PID 10584 (C:\work\project\xxwgit\ams\target\classes started by 86177 in C:\work\project\xxwgit\ams) 
+2019/05/23-23:35:26.288 [main] INFO  c.x.springcloud.ams.AmsApplication - No active profile set, falling back to default profiles: default 
+2019/05/23-23:35:27.458 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode. 
+2019/05/23-23:35:27.512 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 43ms. Found 0 repository interfaces. 
+2019/05/23-23:35:28.098 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$cb5cb846] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) 
+2019/05/23-23:35:29.144 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8899 (http) 
+2019/05/23-23:35:29.180 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2019/05/23-23:35:29.180 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.17] 
+2019/05/23-23:35:29.363 [main] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring embedded WebApplicationContext 
+2019/05/23-23:35:29.363 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3012 ms 
+2019/05/23-23:35:29.667 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2019/05/23-23:35:29.885 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2019/05/23-23:35:29.960 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] 
+2019/05/23-23:35:30.047 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.9.Final} 
+2019/05/23-23:35:30.049 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+2019/05/23-23:35:30.236 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final} 
+2019/05/23-23:35:30.499 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+2019/05/23-23:35:30.854 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2019/05/23-23:35:31.609 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+2019/05/23-23:35:31.688 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2019/05/23-23:35:32.385 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8899 (http) with context path '/ams' 
+2019/05/23-23:35:32.392 [main] INFO  c.x.springcloud.ams.AmsApplication - Started AmsApplication in 6.495 seconds (JVM running for 7.271) 
+2019/05/23-23:35:32.398 [main] INFO  c.x.springcloud.ams.AmsApplication - 	
+ 系统启动成功 
+2019/05/23-23:35:40.470 [http-nio-8899-exec-5] INFO  o.a.c.c.C.[.[localhost].[/ams] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2019/05/23-23:35:40.471 [http-nio-8899-exec-5] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2019/05/23-23:35:40.479 [http-nio-8899-exec-5] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 8 ms 
+2019/05/23-23:35:40.801 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times =302 
+2019/05/23-23:35:40.804 [http-nio-8899-exec-5] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=305 
+2019/05/23-23:35:54.259 [http-nio-8899-exec-1] INFO  c.x.s.ams.web.MenuManagerController - 用户菜单查询成功 
+2019/05/23-23:35:56.886 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times =13804 
+2019/05/23-23:35:56.888 [http-nio-8899-exec-1] INFO  c.x.s.a.I.CommonCostInterceptor - request times 1=13806 

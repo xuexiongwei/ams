@@ -279,6 +279,7 @@ public class UserManagerController {
 		SysUser user = null;
 		List<SysUser> users = null;
 		try {
+			Header header = ServiceUtil.getContextHeader(inputjson);
 			String bodyStr = ServiceUtil.getContextBody(inputjson);
 			SysUser sysUser = JSONObject.parseObject(bodyStr, new TypeReference<SysUser>() {
 			});
@@ -295,7 +296,8 @@ public class UserManagerController {
 				session.setAttribute("password", user.getPassword());
 				Cookie cookie = new Cookie("sessionId",session.getId());
 				response.addCookie(cookie);
-				return ServiceUtil.returnSuccess("登录成功");
+				header.setRspReturnMsg("登录成功");
+				return ServiceUtil.returnSuccess(user,header);
 			}
 			return ServiceUtil.returnError("00015", "用户名/密码错误，请重新输入");
 		} catch (Exception e) {

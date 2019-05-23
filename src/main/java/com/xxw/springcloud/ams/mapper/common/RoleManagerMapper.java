@@ -97,5 +97,4 @@ public interface RoleManagerMapper {
 		"</script>"})
 	void insertRoleAddMenu(@Param("userrole")List<SysRoleMenu> userrole);
 	
-	
 }

@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.xxw.springcloud.ams.mapper.common.MenuManagerMapper;
+import com.xxw.springcloud.ams.mapper.common.UserManagerMapper;
 import com.xxw.springcloud.ams.model.Header;
 import com.xxw.springcloud.ams.model.SysMenu;
 import com.xxw.springcloud.ams.model.SysRole;
 import com.xxw.springcloud.ams.model.SysRoleMenu;
+import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 
 
@@ -30,6 +32,9 @@ public class MenuManagerController {
 
 	@Autowired
 	private MenuManagerMapper menuManagerMapper;
+	
+	@Autowired
+	private UserManagerMapper userManagerMapper;
 	
 	/**
 	 * 分页获取角色信息
@@ -147,6 +152,35 @@ public class MenuManagerController {
 						break;
 					}
 				}
+			}
+			logger.info("用户菜单查询成功");
+			return ServiceUtil.returnSuccess(sysMenuList, "menuList", header);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ServiceUtil.returnError("11008", "用户菜单查询异常");
+		}
+	}
+	
+	@RequestMapping(value = "/selectMenusByUserId", method = RequestMethod.POST)
+	public String selectMenusByUserId(@RequestBody String inputjson) {
+		try {
+			Header header = ServiceUtil.getContextHeader(inputjson);
+			String bodyStr = ServiceUtil.getContextBody(inputjson);
+
+			SysUser sysUser = JSONObject.parseObject(bodyStr, new TypeReference<SysUser>() {
+			});
+			if(sysUser.getId() == null) {
+				return ServiceUtil.returnError("00013", "用户ID为空");
+			}
+			// 获取已经分配的菜单ID
+			List<SysRole> sysRoleList = userManagerMapper.selectRoleByUserId(sysUser.getId(),100, 0);
+			List<Long> roleIds = new ArrayList<Long>();
+			for (SysRole sur : sysRoleList) {
+				roleIds.add(sur.getId());
+			}
+			List<SysMenu> sysMenuList = new ArrayList<SysMenu>();
+			if(roleIds.size()>0) {
+				sysMenuList = menuManagerMapper.selectMenuIdsByRoleIds(roleIds,100, 0);
 			}
 			logger.info("用户菜单查询成功");
 			return ServiceUtil.returnSuccess(sysMenuList, "menuList", header);
