@@ -256,3 +256,19 @@ CREATE TABLE `ams_bus_xmmx` (
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目明细信息';
+
+DROP TABLE IF EXISTS `ams_bus_user_operation`;
+CREATE TABLE `ams_bus_user_operation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `userID` varchar(50) DEFAULT NULL,
+  `userName` varchar(200) DEFAULT NULL,
+  `operAction` varchar(255) DEFAULT NULL,
+  `reqData` Text DEFAULT NULL,
+  `rspData` Text DEFAULT NULL,
+  
+  `user_create` varchar(20) DEFAULT NULL,
+  `user_modified` varchar(20) DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户操作日志表';
