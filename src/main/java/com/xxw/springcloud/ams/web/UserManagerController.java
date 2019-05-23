@@ -5,9 +5,15 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +24,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.xxw.springcloud.ams.mapper.common.UserManagerMapper;
 import com.xxw.springcloud.ams.model.Header;
+import com.xxw.springcloud.ams.model.SysRole;
 import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.SysUserRole;
 import com.xxw.springcloud.ams.util.ServiceUtil;
@@ -72,7 +79,7 @@ public class UserManagerController {
 			SysUser sysUser = JSONObject.parseObject(bodyStr, new TypeReference<SysUser>() {
 			});
 			users = userManagerMapper.selectUserByUsernameAndPage(sysUser.getUserName(), 10,0);
-			if (null != users) {
+			if (null != users && users.size()>0) {
 				user = users.get(0);
 			}
 		} catch (Exception e) {
@@ -206,6 +213,37 @@ public class UserManagerController {
 		return ServiceUtil.returnSuccess("用户角色分配成功");
 	}
 	
+	@RequestMapping(value="/getRoleByUserId",method = RequestMethod.POST)
+	public String getRoleByUserId(@RequestBody String inputjson) {
+		try {
+			Header header = ServiceUtil.getContextHeader(inputjson);
+			String bodyStr = ServiceUtil.getContextBody(inputjson);
+			
+			SysUser sysUser = JSONObject.parseObject(bodyStr, new TypeReference<SysUser>() {
+			});
+			if(sysUser.getId() == null) {
+				return ServiceUtil.returnError("00013", "用户ID为空");
+			}
+			int pageSize = 20;
+			int pageIndex = 0;
+			if(header!=null) {
+				pageSize = header.getReqpageSize();
+				pageIndex = header.getReqpageIndex();
+			}else {
+				header = new Header();
+			}
+			//计算起止记录数
+			pageIndex = (pageIndex-1)*pageSize;
+			//先清空，再增加
+			List<SysRole> sysUserRoleList = userManagerMapper.selectRoleByUserId(sysUser.getId(), pageSize, pageIndex);
+			logger.info("用户角色查询成功");
+			return ServiceUtil.returnSuccess(sysUserRoleList,"roleList",header);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ServiceUtil.returnError("00011", "用户角色分配异常");
+		}
+	}
+	
 	@RequestMapping(value = "/getUserByname", method = RequestMethod.POST)
 	public String getUserByName(@RequestBody String inputjson) {
 		List<SysUser> users = null;
@@ -225,7 +263,7 @@ public class UserManagerController {
 			}
 			//计算起止记录数
 			pageIndex = (pageIndex-1)*pageSize;
-			users = userManagerMapper.selectUserByUsername(sysUser.getName(), pageSize,pageIndex);
+			users = userManagerMapper.selectUserByname(sysUser.getName(), pageSize,pageIndex);
 			totalSize = userManagerMapper.selectCountUserByNameAndPage(sysUser.getName());
 			header.setRspPageCount(totalSize);
 			logger.info("用户查询成功");
@@ -235,5 +273,46 @@ public class UserManagerController {
 			return ServiceUtil.returnError("00012", "用户查询异常");
 		}
 	}
-    
+	
+	@RequestMapping(value = "/amsLogin", method = RequestMethod.POST)
+	public String userLogin(HttpServletRequest request,HttpServletResponse response,@RequestBody String inputjson) {
+		SysUser user = null;
+		List<SysUser> users = null;
+		try {
+			String bodyStr = ServiceUtil.getContextBody(inputjson);
+			SysUser sysUser = JSONObject.parseObject(bodyStr, new TypeReference<SysUser>() {
+			});
+			String userName = sysUser.getUserName();
+			String password = sysUser.getPassword();
+			if(StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
+				return ServiceUtil.returnError("00014", "用户名/密码为空，请重新输入");
+			}
+			users = userManagerMapper.selectUserByUsernamePasswordAndPage(userName,new String(Base64.getEncoder().encode(password.getBytes())),10,0);
+			if (null != users && users.size()>0) {
+				user = users.get(0);
+				HttpSession session = request.getSession();
+				session.setAttribute("userName", user.getUserName());
+				session.setAttribute("password", user.getPassword());
+				Cookie cookie = new Cookie("sessionId",session.getId());
+				response.addCookie(cookie);
+				return ServiceUtil.returnSuccess("登录成功");
+			}
+			return ServiceUtil.returnError("00015", "用户名/密码错误，请重新输入");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ServiceUtil.returnError("00016", "用户登录异常");
+		}
+	}
+	
+	@RequestMapping(value = "/amsLogout", method = RequestMethod.POST)
+	public String userLogout(HttpServletRequest request) {
+		try {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			return ServiceUtil.returnSuccess("用户退出成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ServiceUtil.returnError("00017", "用户退出异常");
+		}
+	}
 }

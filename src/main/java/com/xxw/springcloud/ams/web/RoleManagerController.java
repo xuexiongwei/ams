@@ -176,7 +176,7 @@ public class RoleManagerController {
 				roleId = sur.getRoleId();
 				sur.setUserCreate(header.getReqUserId());
 				sur.setUserModified(header.getReqUserId());
-				sysRoleMenu.add(sur);
+				sysRoleMenuList.add(sur);
 			}
 			roleManagerMapper.deleteRoleMenu(roleId);
 			roleManagerMapper.insertRoleAddMenu(sysRoleMenuList);
@@ -187,5 +187,4 @@ public class RoleManagerController {
 		logger.info("用户角色分配成功");
 		return ServiceUtil.returnSuccess("用户角色分配成功");
 	}
-    
 }

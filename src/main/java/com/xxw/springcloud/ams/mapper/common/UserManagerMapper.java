@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.xxw.springcloud.ams.model.SysRole;
 import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.SysUserRole;
 
@@ -79,7 +80,7 @@ public interface UserManagerMapper {
 			@Result(property = "gmtCreate", column = "gmt_create"),
 			@Result(property = "gmtModified", column = "gmt_modified")
 	})
-	List<SysUser> selectUserByUsername(@Param("name")String name,@Param("pageSize")int pageSize,@Param("pageIndex")int pageIndex);
+	List<SysUser> selectUserByname(@Param("name")String name,@Param("pageSize")int pageSize,@Param("pageIndex")int pageIndex);
 	
 	/**
 	 * 根据用户名查询用户信息，
@@ -96,6 +97,22 @@ public interface UserManagerMapper {
 			@Result(property = "gmtModified", column = "gmt_modified")
 	})
 	List<SysUser> selectUserByUsernameAndPage(@Param("username")String username,@Param("pageSize")int pageSize,@Param("pageIndex")int pageIndex);
+	
+	/**
+	 * 根据用户名查询用户信息，
+	 * @param pageSize
+	 * @param pageIndex
+	 * @return
+	 */
+	@Select("SELECT id,username,name,password,deptId,email,mobile,status,sex,birth,user_create,user_modified,gmt_create,gmt_modified"
+			+ " FROM ams_sys_user where username = #{username} and password = #{password}  limit #{pageSize} offset #{pageIndex}")
+	@Results({
+			@Result(property = "userCreate",  column = "user_create"),
+			@Result(property = "userModified", column = "user_modified"),
+			@Result(property = "gmtCreate", column = "gmt_create"),
+			@Result(property = "gmtModified", column = "gmt_modified")
+	})
+	List<SysUser> selectUserByUsernamePasswordAndPage(@Param("username")String username,@Param("password")String password,@Param("pageSize")int pageSize,@Param("pageIndex")int pageIndex);
 	
 	
 	/**
@@ -123,4 +140,15 @@ public interface UserManagerMapper {
 			@Result(property = "gmtModified", column = "gmt_modified")
 	})
 	List<SysUser> selectUserAndPage(@Param("pageSize")int pageSize,@Param("pageIndex")int pageIndex);
+	
+	@Select("SELECT role.id,role.roleName,role.roleSign,role.remark,role.user_create,role.user_modified,role.gmt_create,"
+			+ "role.gmt_modified from ams_sys_role as role LEFT JOIN ams_sys_user_role as userrole on (role.id=userrole.roleId) "
+			+ "where userrole.userId=#{userId} limit #{pageSize} offset #{pageIndex}")
+	@Results({
+			@Result(property = "userCreate",  column = "user_create"),
+			@Result(property = "userModified", column = "user_modified"),
+			@Result(property = "gmtCreate", column = "gmt_create"),
+			@Result(property = "gmtModified", column = "gmt_modified")
+	})
+	List<SysRole> selectRoleByUserId(@Param("userId")Long userId,@Param("pageSize")int pageSize,@Param("pageIndex")int pageIndex);
 }

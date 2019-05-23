@@ -95,5 +95,7 @@ public interface RoleManagerMapper {
 		"(#{item.roleId},#{item.menuId},#{item.userCreate},#{item.userModified})",
 		"</foreach>",
 		"</script>"})
-	void insertRoleAddMenu(List<SysRoleMenu> userrole);
+	void insertRoleAddMenu(@Param("userrole")List<SysRoleMenu> userrole);
+	
+	
 }
