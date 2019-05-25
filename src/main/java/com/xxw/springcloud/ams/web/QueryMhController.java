@@ -37,7 +37,7 @@ public class QueryMhController {
 	@RequestMapping("/api/mh/queryDicByNameLike")
 	public String queryByType(@RequestBody String inputjson) {
 
-		logger.debug("exc:queryByType params:inputjson=" + inputjson);
+		logger.debug("exc:queryDicByNameLike params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "请求异常！");
 		Header header = ServiceUtil.getContextHeader(inputjson);
@@ -60,7 +60,39 @@ public class QueryMhController {
 			reM = ServiceUtil.returnError("E", "字典名称 必输！");
 		}
 
-		logger.debug("exc:queryByType return:" + reM);
+		logger.debug("exc:queryDicByNameLike return:" + reM);
+
+		return reM;
+	}
+
+	/**
+	 * 项目许可证号模糊查询
+	 */
+	@RequestMapping("/api/mh/queryJbxxLike")
+	public String queryPrjSNLike(@RequestBody String inputjson) {
+
+		logger.debug("exc:queryJbxxLike params:inputjson=" + inputjson);
+
+		String reM = ServiceUtil.returnError("E", "请求异常！");
+		Header header = ServiceUtil.getContextHeader(inputjson);
+		String bodyStr = ServiceUtil.getContextBody(inputjson);
+		Map<String, Object> params = JSONObject.parseObject(bodyStr);
+
+		Object key = params.get("key");
+		Object val = params.get("val");
+		Object tab = params.get("tab");
+		if (UtilValidate.isNotEmpty(key) && UtilValidate.isNotEmpty(val) && UtilValidate.isNotEmpty(tab)) {
+
+			List<String> items = superMapper.queryJbxxLike(params);
+			if (UtilValidate.isEmpty(items)) {
+				items = FastList.newInstance();
+			}
+			reM = ServiceUtil.returnSuccess(items, "list", header);
+		} else {
+			reM = ServiceUtil.returnError("E", "查询字段[key、val、tab] 必输！");
+		}
+
+		logger.debug("exc:queryJbxxLike return:" + reM);
 
 		return reM;
 	}

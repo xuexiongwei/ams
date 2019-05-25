@@ -262,6 +262,7 @@ CREATE TABLE `ams_bus_user_operation` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `userID` varchar(50) DEFAULT NULL,
   `userName` varchar(200) DEFAULT NULL,
+  `operDesc` varchar(500) DEFAULT NULL,
   `operAction` varchar(255) DEFAULT NULL,
   `prjSN` varchar(500) DEFAULT NULL,
   
