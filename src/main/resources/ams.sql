@@ -143,8 +143,8 @@ CREATE TABLE `ams_bus_file` (
   `fileType` varchar(20) DEFAULT NULL,
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,
-  `gmt_create` datetime DEFAULT NULL,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目文档表';
     
@@ -157,8 +157,8 @@ CREATE TABLE `ams_bus_dxf_entity` (
   `longlatV` text DEFAULT NULL COMMENT '经纬度',
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,
-  `gmt_create` datetime DEFAULT NULL,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图元表';
 
@@ -174,8 +174,8 @@ CREATE TABLE `ams_bus_classifi_dic` (
   
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,
-  `gmt_create` datetime DEFAULT NULL,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典表';
 
@@ -197,8 +197,8 @@ CREATE TABLE `ams_bus_xmjbxx` (
   
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,
-  `gmt_create` datetime DEFAULT NULL,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目基本信息';
 
@@ -233,8 +233,8 @@ CREATE TABLE `ams_bus_xmsx` (
   
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,
-  `gmt_create` datetime DEFAULT NULL,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目属性';
 
@@ -252,8 +252,8 @@ CREATE TABLE `ams_bus_xmmx` (
   
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,
-  `gmt_create` datetime DEFAULT NULL,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目明细信息';
 
@@ -263,12 +263,11 @@ CREATE TABLE `ams_bus_user_operation` (
   `userID` varchar(50) DEFAULT NULL,
   `userName` varchar(200) DEFAULT NULL,
   `operAction` varchar(255) DEFAULT NULL,
-  `reqData` Text DEFAULT NULL,
-  `rspData` Text DEFAULT NULL,
+  `prjSN` varchar(500) DEFAULT NULL,
   
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,
-  `gmt_create` datetime DEFAULT NULL,
-  `gmt_modified` datetime DEFAULT NULL,
+  `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户操作日志表';

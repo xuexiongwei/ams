@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.xxw.springcloud.ams.model.BusFile;
 
@@ -22,8 +23,11 @@ public interface FileMapper {
 	@Select("select * from ams_bus_file where id=#{id}")
 	BusFile queryBusFileByID(Object params);
 
-	// 刪除文档
-	@Select("update ams_bus_file set delFlag='D' where id=#{id}")
-	void delFile(Object params);
+	@Select("select * from ams_bus_file where fileName=#{fileName}")
+	BusFile queryBusFileByName(Object params);
+
+	// 更新文档
+	@Update("update ams_bus_file set delFlag='D' where id=#{id}")
+	void delBusFileByID(Object params);
 
 }

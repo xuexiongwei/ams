@@ -111,6 +111,18 @@ public class FileController {
 						List<BusFile> list = FileUtils.saveUploadedFiles(Arrays.asList(uploadfile), prjSN);
 						if (UtilValidate.isNotEmpty(list)) {
 							for (BusFile busFile : list) {
+								// 数据库中不允许出现同名文件，故需删除上次的同名文件，文件同名则认为是新增
+								BusFile file = superMapper
+										.queryBusFileByName(UtilMisc.toMap("fileName", busFile.getFileName()));
+								if (UtilValidate.isNotEmpty(file)) {
+									// 删除数据库
+									superMapper.delBusFileByID(UtilMisc.toMap("id", file.getId()));
+									// 删除服务器文件
+									File df = new File(FileUtils.UPLOADED_FOLDER + file.getUrlName());
+									if (UtilValidate.isNotEmpty(df) && df.isFile()) {
+										df.deleteOnExit();
+									}
+								}
 								superMapper.saveFile(busFile);
 							}
 						}
@@ -224,7 +236,7 @@ public class FileController {
 
 		Object id = params.get("id");
 		if (UtilValidate.isNotEmpty(id)) {
-			superMapper.delFile(params);
+			superMapper.delBusFileByID(params);
 			reM = ServiceUtil.returnSuccess("删除成功 ！");
 		} else {
 			reM = ServiceUtil.returnError("E", "文档ID 必输！");
