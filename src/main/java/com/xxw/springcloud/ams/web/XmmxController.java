@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.xxw.springcloud.ams.mapper.file.SuperMapper;
 import com.xxw.springcloud.ams.model.Header;
+import com.xxw.springcloud.ams.model.SysUser;
+import com.xxw.springcloud.ams.model.UserOperation;
 import com.xxw.springcloud.ams.model.Xmmx;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.UtilValidate;
@@ -78,19 +80,41 @@ public class XmmxController {
 
 		String reM = ServiceUtil.returnError("E", "保存异常！");
 		try {
+			Header header = ServiceUtil.getContextHeader(inputjson);
 			String bodyStr = ServiceUtil.getContextBody(inputjson);
 			Map<String, Object> params = JSONObject.parseObject(bodyStr);
 
 			Object prjSN = params.get("prjSN");
 			if (UtilValidate.isNotEmpty(prjSN)) {
 
+				boolean save = false;
+				UserOperation uo = new UserOperation(UserOperation.od_jbmx);
+				uo.setUserID(header.getReqUserId());
+				SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
+				uo.setUserName(user.getUserName());
+
 				Object id = params.get("id");
 				if (UtilValidate.isNotEmpty(id)) {
-					superMapper.updateXmsx(params);
+
+					Xmmx xmmx = superMapper.queryXmmxByID(Long.parseLong(id + ""));
+					if (UtilValidate.isNotEmpty(xmmx)) {
+						uo.setOperAction(UserOperation.oa_u);
+						superMapper.updateXmmx(params);
+						save = true;
+					} else {
+						reM = ServiceUtil.returnError("E", "查询指定id=[" + id + "]，未查询到指定数据，操作失败！");
+					}
 				} else {
+					uo.setOperAction(UserOperation.oa_c);
 					superMapper.saveXmmx2(params);
+					save = true;
 				}
-				reM = ServiceUtil.returnSuccess("保存成功 ！");
+
+				if (save) {
+					uo.setPrjSN(prjSN + "");// 许可证号
+					superMapper.saveUserOper(uo);
+					reM = ServiceUtil.returnSuccess("保存成功 ！");
+				}
 			} else {
 				reM = ServiceUtil.returnError("E", "项目许可证不可为空！");
 			}
@@ -115,12 +139,27 @@ public class XmmxController {
 
 		String reM = ServiceUtil.returnError("E", "删除异常！");
 		try {
+			Header header = ServiceUtil.getContextHeader(inputjson);
 			String bodyStr = ServiceUtil.getContextBody(inputjson);
 			Map<String, Object> params = JSONObject.parseObject(bodyStr);
 
 			Object id = params.get("id");
 			if (UtilValidate.isNotEmpty(id)) {
-				superMapper.delXmmx(params);
+				Xmmx xmmx = superMapper.queryXmmxByID(Long.parseLong(id + ""));
+				if (UtilValidate.isNotEmpty(xmmx)) {
+					UserOperation uo = new UserOperation(UserOperation.od_jbmx);
+					uo.setUserID(header.getReqUserId());
+					uo.setOperAction(UserOperation.oa_d);
+					SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
+					uo.setUserName(user.getUserName());
+					uo.setPrjSN(xmmx.getPrjSN());// 许可证号
+					superMapper.saveUserOper(uo);
+					superMapper.delXmmx(params);
+					reM = ServiceUtil.returnSuccess("删除成功 ！");
+				} else {
+					reM = ServiceUtil.returnError("E", "删除失败，未查询到指定数据！id=[" + id + "]");
+				}
+
 			} else {
 				reM = ServiceUtil.returnError("E", "删除时，ID 必传！");
 			}

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.xxw.springcloud.ams.mapper.file.SuperMapper;
 import com.xxw.springcloud.ams.model.Header;
+import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.UserOperation;
 import com.xxw.springcloud.ams.model.Xmjbxx;
 import com.xxw.springcloud.ams.util.ServiceUtil;
@@ -84,11 +85,12 @@ public class XmjbxxController {
 			Object prjSN = params.get("prjSN");
 			if (UtilValidate.isNotEmpty(prjSN)) {
 				// 查询此项目信息是否存在queryXmjbxx
-				Xmjbxx jbxx = superMapper.queryXmjbxx(prjSN + "");
+				Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN + "");
 
-				UserOperation uo = new UserOperation();
+				UserOperation uo = new UserOperation(UserOperation.od_jbxx);
 				uo.setUserID(header.getReqUserId());
-				// uo.setUserName(userName);
+				SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
+				uo.setUserName(user.getUserName());
 
 				if (UtilValidate.isNotEmpty(jbxx)) {
 					uo.setOperAction(UserOperation.oa_u);
@@ -128,23 +130,26 @@ public class XmjbxxController {
 			String bodyStr = ServiceUtil.getContextBody(inputjson);
 			Map<String, Object> params = JSONObject.parseObject(bodyStr);
 
-			Object id = params.get("id");
-			if (UtilValidate.isNotEmpty(id)) {
-				Xmjbxx jbxx = superMapper.queryXmjbxx(id + "");
+			Object prjSN = params.get("prjSN");
+			if (UtilValidate.isNotEmpty(prjSN)) {
+				Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN + "");
 				if (UtilValidate.isNotEmpty(jbxx)) {
-					UserOperation uo = new UserOperation();
+					UserOperation uo = new UserOperation(UserOperation.od_jbxx);
 					uo.setUserID(header.getReqUserId());
 					uo.setOperAction(UserOperation.oa_d);
-					// uo.setUserName(userName);
-					superMapper.delXmjbxx(params);
+					SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
+					uo.setUserName(user.getUserName());
+					superMapper.delXmjbxxByPrjSN(params);
 
 					uo.setPrjSN(jbxx.getPrjSN());// 许可证号
 					superMapper.saveUserOper(uo);
+					reM = ServiceUtil.returnSuccess("删除成功 ！");
 				} else {
-					reM = ServiceUtil.returnSuccess("已被删除，无需再次删除 ！");
+					reM = ServiceUtil.returnSuccess("删除数据不存在，或已被删除，无需再次删除 ！prjSN=[" + prjSN + "]");
 				}
+			} else {
+				reM = ServiceUtil.returnError("E", "删除失败，项目许可证号不能为空！");
 			}
-			reM = ServiceUtil.returnSuccess("删除成功 ！");
 		} catch (Exception e) {
 			logger.error("查询异常！", e);
 			reM = ServiceUtil.returnError("E", "删除异常！" + e.getMessage());

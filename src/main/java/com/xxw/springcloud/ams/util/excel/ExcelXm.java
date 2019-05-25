@@ -10,19 +10,19 @@ import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.xxw.springcloud.ams.mapper.file.SuperMapper;
 
-public class Excel2003 {
+public class ExcelXm {
 
 	private SuperMapper superMapper = null;
-	public static Logger logger = LoggerFactory.getLogger(Excel2003.class);
+	public static Logger logger = LoggerFactory.getLogger(ExcelXm.class);
 
-	public Excel2003(SuperMapper f) {
+	public ExcelXm(SuperMapper f) {
 		superMapper = f;
 	}
 
 	public void testExcel2003NoModel(InputStream inputStream) {
 		try {
 			// 解析每行结果在listener中处理
-			ExcelListener listener = new ExcelListener(superMapper);
+			ExcelXmListener listener = new ExcelXmListener(superMapper);
 
 			ExcelReader excelReader = new ExcelReader(inputStream, ExcelTypeEnum.XLSX, null, listener);
 			excelReader.read();

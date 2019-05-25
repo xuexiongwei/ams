@@ -122,7 +122,7 @@ public interface UserManagerMapper {
 	 * @return
 	 */
 	@Select("SELECT * FROM ams_sys_user where id = #{id}")
-	SysUser selectUserByUserID(String id);
+	SysUser selectUserByUserID(Long id);
 
 	/**
 	 * 根据姓名统计用户信息，

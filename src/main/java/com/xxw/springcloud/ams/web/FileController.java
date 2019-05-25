@@ -34,7 +34,8 @@ import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.UtilMisc;
 import com.xxw.springcloud.ams.util.UtilValidate;
 import com.xxw.springcloud.ams.util.dxf.DxfUtils;
-import com.xxw.springcloud.ams.util.excel.Excel2003;
+import com.xxw.springcloud.ams.util.excel.ExcelDic;
+import com.xxw.springcloud.ams.util.excel.ExcelXm;
 
 @RestController
 public class FileController {
@@ -77,7 +78,7 @@ public class FileController {
 							if (file.isEmpty()) {
 								continue;
 							}
-							Excel2003 _2003 = new Excel2003(superMapper);
+							ExcelXm _2003 = new ExcelXm(superMapper);
 							_2003.testExcel2003NoModel(file.getInputStream());
 						} else if (fname.endsWith(".dxf")) {
 							// dxf 文件名命名规范为 项目许可证号
@@ -125,6 +126,19 @@ public class FileController {
 								}
 								superMapper.saveFile(busFile);
 							}
+						}
+					}
+				} else if (UpLoadType.DIC.toString().equals(upLoadType)) {// 基础数据导入
+
+					for (MultipartFile file : uploadfile) {
+
+						String fname = file.getOriginalFilename().toLowerCase();
+						if (fname.endsWith(".xls") || fname.endsWith(".xlsx")) {
+							if (file.isEmpty()) {
+								continue;
+							}
+							ExcelDic _2003 = new ExcelDic(superMapper);
+							_2003.testExcel2003NoModel(file.getInputStream());
 						}
 					}
 				} else {

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
@@ -48,6 +49,12 @@ public interface XmsxMapper {
 	@Delete("delete from ams_bus_xmsx where id=#{id}")
 	void delXmsx(Map<String, Object> params);
 
+	@Delete("delete from ams_bus_xmsx where prjSN=#{prjSN}")
+	void delXmsxByPrjSN(String prjSN);
+
+	@Select("select * from ams_bus_xmsx where id=#{id}")
+	Xmsx queryXmsxByID(Long id);
+
 	// 查询属性信息
 	@SelectProvider(type = XmsxProvider.class, method = "findXmsxByAttr")
 	public List<Xmsx> findXmsxByAttr(Map<String, Object> params);
@@ -72,13 +79,14 @@ public interface XmsxMapper {
 		private String createSql(Map<String, Object> params) {
 
 			String sql = " FROM ams_bus_xmsx where 1=1 ";
-			if (UtilValidate.isNotEmpty(params.get("id"))) {
-				sql += " AND id = #{id}";
+			for (Map.Entry<String, Object> entry : params.entrySet()) {
+				String key = entry.getKey();
+				if ("pageSize|pageIndex".indexOf(key) != -1)
+					continue;
+				if (UtilValidate.isNotEmpty(params.get(key))) {
+					sql += " AND " + key + " = #{" + key + "}";
+				}
 			}
-			if (UtilValidate.isNotEmpty(params.get("prjSN"))) {
-				sql += " AND prjSN = #{prjSN}";
-			}
-
 			return sql;
 		}
 	}

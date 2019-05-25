@@ -3,6 +3,7 @@ package com.xxw.springcloud.ams.mapper.file;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -39,5 +40,12 @@ public interface DicMapper {
 	// 根据字典类型查询所有字典
 	@Select("select * from ams_bus_classifi_dic where type=#{type}")
 	List<ClassifiDic> queryDicByCode3(Map<String, Object> params);
+
+	@Select("select * from ams_bus_classifi_dic where name like \"%\"#{name}\"%\" and other=#{other}")
+	List<ClassifiDic> queryDicByNameLike(Map<String, Object> params);
+
+	// 通过字典类型删除字典
+	@Delete("delete from ams_bus_classifi_dic where type=#{type}")
+	void delDicByType(String type);
 
 }

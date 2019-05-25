@@ -16,7 +16,7 @@ import com.xxw.springcloud.ams.model.Xmjbxx;
 import com.xxw.springcloud.ams.model.Xmmx;
 import com.xxw.springcloud.ams.model.Xmsx;
 import com.xxw.springcloud.ams.util.BeanUtils;
-import com.xxw.springcloud.ams.util.SerialNumberUtil;
+import com.xxw.springcloud.ams.util.FastList;
 
 /**
  * 解析excel 1.判断重复项 2.检查字段是否匹配一致 3.提示数据有错文档及其行数
@@ -24,17 +24,18 @@ import com.xxw.springcloud.ams.util.SerialNumberUtil;
  * @author yangwei
  *
  */
-public class ExcelListener extends AnalysisEventListener<Object> {
+public class ExcelXmListener extends AnalysisEventListener<Object> {
 
 	private SuperMapper superMapper = null;
-	public static Logger logger = LoggerFactory.getLogger(ExcelListener.class);
+	public static Logger logger = LoggerFactory.getLogger(ExcelXmListener.class);
 
-	public ExcelListener(SuperMapper f) {
+	public ExcelXmListener(SuperMapper f) {
 		superMapper = f;
 	}
 
 	// 自定义用于暂时存储data。
-	Map<String, String> data = new HashMap<String, String>();
+	List<String> dataxmsxDel = FastList.newInstance();
+	List<String> dataxmmxDel = FastList.newInstance();
 
 	// 可以通过实例获取该值
 	public void invoke(Object object, AnalysisContext context) {
@@ -56,7 +57,7 @@ public class ExcelListener extends AnalysisEventListener<Object> {
 
 				String prjSN = items.get(0) + "";
 
-				Xmjbxx jbxx = superMapper.queryXmjbxx(prjSN);
+				Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN);
 				if (null == jbxx)
 					jbxx = new Xmjbxx();
 
@@ -79,8 +80,15 @@ public class ExcelListener extends AnalysisEventListener<Object> {
 								"delaySN", "delayCountDay", "cancelSN", "cancelDate", "correctionSN", "correctionDate",
 								"imgJudgeRes", "exproprInfo", "remark" },
 						items);
-				if (null != sx.getPrjSN())
+				if (null != sx.getPrjSN()) {
+					// 删除所有再更新
+					String prjsn = sx.getPrjSN();
+					if (!dataxmsxDel.contains(prjsn)) {
+						superMapper.delXmsxByPrjSN(sx.getPrjSN());
+						dataxmsxDel.add(prjsn);
+					}
 					superMapper.saveXmsx(sx);
+				}
 			}
 
 			if (no == 3) {// 项目明细
@@ -110,61 +118,12 @@ public class ExcelListener extends AnalysisEventListener<Object> {
 					}
 					mx.setPrjClasfiCode(code);
 
+					String prjsn = mx.getPrjSN();
+					if (!dataxmmxDel.contains(prjsn)) {
+						superMapper.delXmmxByPrjSN(mx.getPrjSN());
+						dataxmmxDel.add(prjsn);
+					}
 					superMapper.saveXmmx(mx);
-				}
-			}
-
-			if (no == 4) {// 分类体系设计
-
-				ClassifiDic dic = null;
-				String curentCode = "";
-				String dic1ID = "";
-
-				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("type", DicEnum.FJ);
-
-				for (int i = 0; i < 10; i++) {
-					if (i % 2 == 0)
-						continue;
-					String parentCode = "";
-					// 一级分类
-					for (int j = 0; j < i / 2; j++) {
-						parentCode += items.get(j * 2) + "";
-					}
-					curentCode = parentCode + items.get(i - 1);
-
-					String curentID = data.get(curentCode);
-					if (null == curentID) {
-
-						params.put("code", curentCode);
-						dic = superMapper.queryDicByCode2(params);
-						boolean isNew = false;
-						if (null == dic) {
-							isNew = true;
-							dic = new ClassifiDic();
-							dic1ID = SerialNumberUtil.getUUID();
-							dic.setId(dic1ID);
-							dic.setType(DicEnum.FJ);// 分级字典
-							dic.setOther(i / 2 + 1 + "");
-
-							String v = data.get(parentCode);
-							if (null != v) {
-								dic.setParentID(v);
-							} else {
-								dic.setParentID("");// 设置为空字符串，方便后续查找
-							}
-						} else {
-							dic1ID = dic.getId();
-						}
-						dic.setCode(curentCode);// 分级编码
-						dic.setName(items.get(i) + "");// 分级名称
-						if (isNew)
-							superMapper.saveDic(dic);
-						else
-							superMapper.updateDic(dic);
-
-						data.put(curentCode, dic1ID);
-					}
 				}
 			}
 		} catch (Exception e) {
@@ -175,6 +134,7 @@ public class ExcelListener extends AnalysisEventListener<Object> {
 
 	@Override
 	public void doAfterAllAnalysed(AnalysisContext arg0) {
-		data.clear();
+		dataxmsxDel.clear();
+		dataxmmxDel.clear();
 	}
 }

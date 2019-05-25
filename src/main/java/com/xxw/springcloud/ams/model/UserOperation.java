@@ -16,11 +16,17 @@ public class UserOperation implements Serializable {
 	public final static String oa_d = "删除";
 	public final static String oa_u = "修改";
 
+	public final static String od_jbxx = "项目基本信息";
+	public final static String od_jbsx = "项目属性信息";
+	public final static String od_jbmx = "项目明细信息";
+
 	private Long id;
 	// 用户ID
 	private String userID;
 	// 用户名字
 	private String userName;
+	// 操作描述
+	private String operDesc;
 	// 操作类型
 	private String operAction;
 	// 许可证号
@@ -34,6 +40,10 @@ public class UserOperation implements Serializable {
 	private String gmtCreate;
 	// 记录修改时间
 	private String gmtModified;
+
+	public UserOperation(String operDesc) {
+		this.operDesc = operDesc;
+	}
 
 	public Long getId() {
 		return id;
@@ -105,5 +115,13 @@ public class UserOperation implements Serializable {
 
 	public void setGmtModified(String gmtModified) {
 		this.gmtModified = gmtModified;
+	}
+
+	public String getOperDesc() {
+		return operDesc;
+	}
+
+	public void setOperDesc(String operDesc) {
+		this.operDesc = operDesc;
 	}
 }
