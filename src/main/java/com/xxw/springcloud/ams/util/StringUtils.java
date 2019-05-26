@@ -1,5 +1,8 @@
 package com.xxw.springcloud.ams.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * 使用此方法，防止字符串内存泄漏
  * 
@@ -36,6 +39,34 @@ public class StringUtils {
 			return "";
 		} else {
 			return new String(source.substring(start));
+		}
+	}
+
+	/**
+	 * 四舍五入
+	 * 
+	 * @param d
+	 * @return
+	 */
+	public static Double sswr(Double d) {
+		if (null == d)
+			return 0.0d;
+		BigDecimal b = new BigDecimal(d);
+		double f1 = b.setScale(2, RoundingMode.HALF_UP).doubleValue();
+		return f1;
+	}
+
+	/**
+	 * 获取非空字符串
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	public static String getStr(Object obj) {
+		if (null == obj) {
+			return "";
+		} else {
+			return obj.toString();
 		}
 	}
 

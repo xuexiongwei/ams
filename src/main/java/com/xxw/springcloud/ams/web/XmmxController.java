@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xxw.springcloud.ams.enums.DicEnum;
 import com.xxw.springcloud.ams.mapper.file.SuperMapper;
+import com.xxw.springcloud.ams.model.ClassifiDic;
 import com.xxw.springcloud.ams.model.Header;
 import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.UserOperation;
 import com.xxw.springcloud.ams.model.Xmmx;
 import com.xxw.springcloud.ams.util.ServiceUtil;
+import com.xxw.springcloud.ams.util.UtilMisc;
 import com.xxw.springcloud.ams.util.UtilValidate;
 
 @RestController
@@ -92,6 +95,48 @@ public class XmmxController {
 				uo.setUserID(header.getReqUserId());
 				SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
 				uo.setUserName(user.getUserName());
+
+				// 分析五级分类
+				Object codeO = params.get("prjClasfiCode");
+				if (UtilValidate.isNotEmpty(codeO)) {
+					String code = codeO.toString();
+					String codeT = code.substring(0, 2);
+					ClassifiDic dic = superMapper
+							.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+					String name = dic.getName();
+					params.put("prjClasfiName1", name);
+
+					if (code.length() >= 4) {
+						codeT = code.substring(0, 4);
+						dic = superMapper.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+						name = dic.getName();
+						params.put("prjClasfiName2", name);
+
+						if (code.length() >= 5) {
+							codeT = code.substring(0, 5);
+							dic = superMapper
+									.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+							name = dic.getName();
+							params.put("prjClasfiName3", name);
+
+							if (code.length() >= 8) {
+								codeT = code.substring(0, 8);
+								dic = superMapper
+										.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+								name = dic.getName();
+								params.put("prjClasfiName4", name);
+
+								if (code.length() >= 10) {
+									codeT = code.substring(0, 10);
+									dic = superMapper.queryDicByCode2(
+											UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+									name = dic.getName();
+									params.put("prjClasfiName5", name);
+								}
+							}
+						}
+					}
+				}
 
 				Object id = params.get("id");
 				if (UtilValidate.isNotEmpty(id)) {

@@ -27,6 +27,7 @@ public interface SuperMapper extends FileMapper, DxfMapper, DicMapper, XmjbxxMap
 					+ params.get("key") + " like '%" + params.get("val") + "%'";
 			return sql;
 		}
+
 	}
 
 }

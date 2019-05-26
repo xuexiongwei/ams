@@ -17,6 +17,7 @@ import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.UserOperation;
 import com.xxw.springcloud.ams.model.Xmsx;
 import com.xxw.springcloud.ams.util.ServiceUtil;
+import com.xxw.springcloud.ams.util.UtilMisc;
 import com.xxw.springcloud.ams.util.UtilValidate;
 
 @RestController
@@ -110,6 +111,83 @@ public class XmsxController {
 					uo.setPrjSN(prjSN + "");// 许可证号
 					superMapper.saveUserOper(uo);
 					reM = ServiceUtil.returnSuccess("保存成功 ！");
+
+					// 判断工程状态,并更新
+					List<Xmsx> sxl = superMapper.queryXmsxByPrjSNAndSerialNumber2(
+							UtilMisc.toMap("prjSN", params.get("prjSN"), "serialNumber", params.get("serialNumber")));
+					String buldStatus = "";// 工程状态
+					String checkSN = "";
+					String cancelSN = "";
+					for (Xmsx xmsx : sxl) {
+						String checkSNT = xmsx.getCheckSN();// 验收文号
+						String cancelSNT = xmsx.getCancelSN();// 撤（注）销证号
+						if (UtilValidate.isNotEmpty(checkSNT))
+							checkSN = checkSNT;
+						if (UtilValidate.isNotEmpty(cancelSNT))
+							cancelSN = cancelSNT;
+					}
+					if (UtilValidate.isEmpty(checkSN) && UtilValidate.isEmpty(cancelSN)) {
+						buldStatus = "未申报";
+					} else if (UtilValidate.isEmpty(checkSN) && UtilValidate.isNotEmpty(cancelSN)) {
+						buldStatus = "已撤（注）销";
+					} else if (UtilValidate.isNotEmpty(checkSN) && UtilValidate.isEmpty(cancelSN)) {
+						buldStatus = "已验收";
+					} else {
+						buldStatus = "未分析出工程状态！";
+					}
+					superMapper.updateBuldStatusByPrjSNAndSerialNumber(UtilMisc.toMap("prjSN", params.get("prjSN"),
+							"serialNumber", params.get("serialNumber"), "buldStatus", buldStatus));
+
+					// 更新项目状态
+					List<Xmsx> sxL = superMapper.queryXmsxByPrjSN(params.get("prjSN") + "");
+					if (UtilValidate.isNotEmpty(sxL)) {
+						String prjStatus = "";// 项目状态
+						int count = sxL.size();
+						int ys = 0;// 验收个数
+						int czx = 0;// 撤（注）销 个数
+
+						boolean hasDelaySN = false;// 是否存在延期文号
+						boolean hasCorrectionSN = false;// 是否存补正证号
+						for (Xmsx sxt : sxL) {
+							checkSN = sxt.getCheckSN();// 验收文号
+							cancelSN = sxt.getCancelSN();// 撤（注）销证号
+							String delaySN = sxt.getDelaySN();// 延期文号
+							String correctionSN = sxt.getCorrectionSN();// 补正号
+
+							if (UtilValidate.isNotEmpty(checkSN)) {
+								ys++;
+							} else if (UtilValidate.isNotEmpty(cancelSN)) {
+								czx++;
+							}
+							if (UtilValidate.isNotEmpty(delaySN) && !hasDelaySN) {
+								hasDelaySN = true;
+							}
+							if (UtilValidate.isNotEmpty(correctionSN) && !hasCorrectionSN) {
+								hasCorrectionSN = true;
+							}
+						}
+						if (ys + czx > count) {
+							prjStatus = "基础数据有问题，请检查！错误：验收文号个数+撤（注）销个数 大于 总项目数";
+						} else if (ys == count && czx == 0) {
+							prjStatus = "已验收";
+						} else if (ys == 0 && czx == 0) {
+							prjStatus = "未申报";
+						} else if (ys == 0 && czx == count) {
+							prjStatus = "已撤（注）销";
+						} else if (ys != count && czx != count && ys + czx == count) {
+							prjStatus = "已完结";
+						} else if (ys == 0 && czx != count && czx != 0) {
+							prjStatus = "部分撤（注）销";
+						} else if (ys != 0 && ys != count && czx == 0) {
+							prjStatus = "部分验收";
+						} else if (ys != 0 && ys + czx != count && czx != 0) {
+							prjStatus = "未撤（注）销部分、部分验收";
+						} else {
+							prjStatus = "未分析出项目状态！";
+						}
+						superMapper.updatePrjStatusByPrjSN(
+								UtilMisc.toMap("prjStatus", prjStatus, "prjSN", params.get("prjSN")));
+					}
 				}
 			} else {
 				reM = ServiceUtil.returnError("E", "项目许可证不可为空！");

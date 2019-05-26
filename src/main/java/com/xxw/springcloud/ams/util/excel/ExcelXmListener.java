@@ -17,6 +17,9 @@ import com.xxw.springcloud.ams.model.Xmmx;
 import com.xxw.springcloud.ams.model.Xmsx;
 import com.xxw.springcloud.ams.util.BeanUtils;
 import com.xxw.springcloud.ams.util.FastList;
+import com.xxw.springcloud.ams.util.StringUtils;
+import com.xxw.springcloud.ams.util.UtilMisc;
+import com.xxw.springcloud.ams.util.UtilValidate;
 
 /**
  * 解析excel 1.判断重复项 2.检查字段是否匹配一致 3.提示数据有错文档及其行数
@@ -65,9 +68,37 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 						jbxx, new String[] { "prjSN", "prjUnit", "prjAdr", "prjName", "prjType", "contacts",
 								"contactInf", "prjTemSN", "specialNotifi", "noticeTime", "effectiveTime", "remark" },
 						items);
-				if (null == jbxx.getId())
+				String prjName = jbxx.getPrjName();
+				if (UtilValidate.isNotEmpty(prjName)) {
+					// 改扩建、改建、改造、翻建
+					if (prjName.indexOf("改扩建") != -1 || prjName.indexOf("改建") != -1 || prjName.indexOf("改造") != -1
+							|| prjName.indexOf("翻建") != -1) {
+						jbxx.setPrjType("改扩建");
+					} else {
+						jbxx.setPrjType("新建");
+					}
+					// 许可证类型
+				} else {
+					jbxx.setPrjType("");
+				}
+				// 许可证类型
+				if (UtilValidate.isNotEmpty(prjSN)) {
+					// 乡村建设项目
+					if (prjSN.indexOf("乡") != -1) {
+						jbxx.setPrjSNType("乡村建设项目");
+					} else if (prjSN.indexOf("临") != -1) {
+						jbxx.setPrjSNType("临时建设项目");
+					} else if (prjSN.indexOf("补正") != -1) {
+						jbxx.setPrjSNType("补正项目");
+					} else {
+						jbxx.setPrjSNType("城镇建设项目");
+					}
+				} else {
+					jbxx.setPrjSNType("");
+				}
+				if (null == jbxx.getId()) {
 					superMapper.saveXmjbxx(jbxx);
-				else
+				} else
 					superMapper.updateXmjbxx(jbxx);
 			}
 
@@ -88,6 +119,83 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 						dataxmsxDel.add(prjsn);
 					}
 					superMapper.saveXmsx(sx);
+
+					// 判断工程状态,并更新
+					List<Xmsx> sxl = superMapper.queryXmsxByPrjSNAndSerialNumber2(
+							UtilMisc.toMap("prjSN", (Object) sx.getPrjSN(), "serialNumber", sx.getSerialNumber()));
+					String buldStatus = "";// 工程状态
+					String checkSN = "";
+					String cancelSN = "";
+					for (Xmsx xmsx : sxl) {// 查找到不为空的行
+						String checkSNT = xmsx.getCheckSN();// 验收文号
+						String cancelSNT = xmsx.getCancelSN();// 撤（注）销证号
+						if (UtilValidate.isNotEmpty(checkSNT))
+							checkSN = checkSNT;
+						if (UtilValidate.isNotEmpty(cancelSNT))
+							cancelSN = cancelSNT;
+					}
+					if (UtilValidate.isEmpty(checkSN) && UtilValidate.isEmpty(cancelSN)) {
+						buldStatus = "未申报";
+					} else if (UtilValidate.isEmpty(checkSN) && UtilValidate.isNotEmpty(cancelSN)) {
+						buldStatus = "已撤（注）销";
+					} else if (UtilValidate.isNotEmpty(checkSN) && UtilValidate.isEmpty(cancelSN)) {
+						buldStatus = "已验收";
+					} else {
+						buldStatus = "未分析出工程状态！";
+					}
+					superMapper.updateBuldStatusByPrjSNAndSerialNumber(UtilMisc.toMap("prjSN", (Object) sx.getPrjSN(),
+							"serialNumber", sx.getSerialNumber(), "buldStatus", buldStatus));
+
+					// 更新项目状态
+					List<Xmsx> sxL = superMapper.queryXmsxByPrjSN(sx.getPrjSN());
+					if (UtilValidate.isNotEmpty(sxL)) {
+						String prjStatus = "";// 项目状态
+						int count = sxL.size();
+						int ys = 0;// 验收个数
+						int czx = 0;// 撤（注）销 个数
+
+						boolean hasDelaySN = false;// 是否存在延期文号
+						boolean hasCorrectionSN = false;// 是否存补正证号
+						for (Xmsx sxt : sxL) {
+							checkSN = sxt.getCheckSN();// 验收文号
+							cancelSN = sxt.getCancelSN();// 撤（注）销证号
+							String delaySN = sxt.getDelaySN();// 延期文号
+							String correctionSN = sxt.getCorrectionSN();// 补正号
+
+							if (UtilValidate.isNotEmpty(checkSN)) {
+								ys++;
+							} else if (UtilValidate.isNotEmpty(cancelSN)) {
+								czx++;
+							}
+							if (UtilValidate.isNotEmpty(delaySN) && !hasDelaySN) {
+								hasDelaySN = true;
+							}
+							if (UtilValidate.isNotEmpty(correctionSN) && !hasCorrectionSN) {
+								hasCorrectionSN = true;
+							}
+						}
+						if (ys + czx > count) {
+							prjStatus = "基础数据有问题，请检查！错误：验收文号个数+撤（注）销个数 大于 总项目数";
+						} else if (ys == count && czx == 0) {
+							prjStatus = "已验收";
+						} else if (ys == 0 && czx == 0) {
+							prjStatus = "未申报";
+						} else if (ys == 0 && czx == count) {
+							prjStatus = "已撤（注）销";
+						} else if (ys != count && czx != count && ys + czx == count) {
+							prjStatus = "已完结";
+						} else if (ys == 0 && czx != count && czx != 0) {
+							prjStatus = "部分撤（注）销";
+						} else if (ys != 0 && ys != count && czx == 0) {
+							prjStatus = "部分验收";
+						} else if (ys != 0 && ys + czx != count && czx != 0) {
+							prjStatus = "未撤（注）销部分、部分验收";
+						} else {
+							prjStatus = "未分析出项目状态！";
+						}
+						superMapper.updatePrjStatusByPrjSN(
+								UtilMisc.toMap("prjStatus", (Object) prjStatus, "prjSN", sx.getPrjSN()));
+					}
 				}
 			}
 
@@ -98,7 +206,7 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 				// 还差分级信息-------------------------------------------------------------------------------------------------
 				if (null != mx.getPrjSN()) {
 
-					List<Object> levs = items.subList(7, 11);
+					List<Object> levs = items.subList(7, 12);// [居住类项目, 配套公共服务设施, 配套公共服务设施, null, null]
 
 					Map<String, Object> params = new HashMap<String, Object>();
 					params.put("type", DicEnum.FJ);
@@ -117,6 +225,12 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 						}
 					}
 					mx.setPrjClasfiCode(code);
+
+					mx.setPrjClasfiName1(StringUtils.getStr(levs.get(0)));
+					mx.setPrjClasfiName2(StringUtils.getStr(levs.get(1)));
+					mx.setPrjClasfiName3(StringUtils.getStr(levs.get(2)));
+					mx.setPrjClasfiName4(StringUtils.getStr(levs.get(3)));
+					mx.setPrjClasfiName5(StringUtils.getStr(levs.get(4)));
 
 					String prjsn = mx.getPrjSN();
 					if (!dataxmmxDel.contains(prjsn)) {

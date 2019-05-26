@@ -21,28 +21,32 @@ public class ServiceUtil {
 
 	public static final String successCode = "000000";
 	public static final String successMsg = "交易成功";
+
 	/**
 	 * 通过入参获取头对象
+	 * 
 	 * @param inputjson
 	 * @return
 	 */
 	public static Header getContextHeader(String inputjson) {
 		Map<String, Object> inputMap = jsonStringToMap(inputjson);
 		Map<String, Object> headerMap = null;
-		if(inputMap.get("header") != null) {
+		if (inputMap.get("header") != null) {
 			headerMap = (Map<String, Object>) inputMap.remove("header");
 		}
 		String header = mapToJsonString(headerMap);
-		
-		if(StringUtils.isNotEmpty(header)) {
-			Header headerObj = JSON.parseObject(header, new TypeReference<Header>() {});
+
+		if (StringUtils.isNotEmpty(header)) {
+			Header headerObj = JSON.parseObject(header, new TypeReference<Header>() {
+			});
 			return headerObj;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 通过入参获取body
+	 * 
 	 * @param inputjson
 	 * @return
 	 */
@@ -51,9 +55,10 @@ public class ServiceUtil {
 		inputMap.remove("header");
 		return mapToJsonString(inputMap);
 	}
-	
+
 	/**
 	 * 返回成功信息，可传递成功消息，也可以不传递
+	 * 
 	 * @param msg
 	 * @return
 	 */
@@ -61,24 +66,25 @@ public class ServiceUtil {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		Header headerObj = new Header();
 		headerObj.setRspReturnCode(successCode);
-		String msg0 = "【"+SessionContext.get(SessionContext.FieldId.serialNumber.toString())+"】";
-		if(msg.length>0) {
+		String msg0 = "【" + SessionContext.get(SessionContext.FieldId.serialNumber.toString()) + "】";
+		if (msg.length > 0) {
 			msg0 += msg[0];
-		}else {
+		} else {
 			msg0 += successMsg;
 		}
 		headerObj.setRspReturnMsg(msg0);
 		returnMap.put("header", headerObj);
 		return JSON.toJSONString(returnMap);
 	}
-	
+
 	/**
 	 * 返回失败信息
+	 * 
 	 * @param code
 	 * @param msg
 	 * @return
 	 */
-	public static String returnError(String code,String msg) {
+	public static String returnError(String code, String msg) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		Header headerObj = new Header();
 		headerObj.setRspReturnCode(code);
@@ -86,20 +92,21 @@ public class ServiceUtil {
 		returnMap.put("header", headerObj);
 		return JSON.toJSONString(returnMap);
 	}
-	
+
 	/**
 	 * 根据beanlist返回标准成功信息
+	 * 
 	 * @param bean
 	 * @param header
 	 * @return
 	 */
-	public static String returnSuccess(List beanList,String listKey,Header header) {
-		Map<String, Object> returnMap =  new HashMap<String, Object>(); 
-		if(header == null) {
+	public static String returnSuccess(List beanList, String listKey, Header header) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		if (header == null) {
 			header = new Header();
 		}
 		header.setRspReturnCode(successCode);
-		String msg0 = "【"+SessionContext.get(SessionContext.FieldId.serialNumber.toString())+"】"+successMsg;
+		String msg0 = "【" + SessionContext.get(SessionContext.FieldId.serialNumber.toString()) + "】" + successMsg;
 		header.setRspReturnMsg(msg0);
 		String headerStr = JSON.toJSONString(header);
 		Map<String, Object> headerMap = jsonStringToMap(headerStr);
@@ -107,22 +114,46 @@ public class ServiceUtil {
 		returnMap.put(listKey, beanList);
 		return mapToJsonString(returnMap);
 	}
-	
+
 	/**
-	 * 根据bean返回标准成功信息
+	 * 根据beanlist返回标准成功信息
+	 * 
 	 * @param bean
 	 * @param header
 	 * @return
 	 */
-	public static String returnSuccess(Object bean,Header header) {
-		Map<String, Object> returnMap =  new HashMap<String, Object>(); 
-		if(header == null) {
+	public static String returnSuccess(Map map, String mapKey, Header header) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		if (header == null) {
 			header = new Header();
 		}
 		header.setRspReturnCode(successCode);
-		String msg0 = "【"+SessionContext.get(SessionContext.FieldId.serialNumber.toString())+"】"+successMsg;
-		if(!StringUtils.isEmpty(header.getRspReturnMsg())) {
-			msg0 = "【"+SessionContext.get(SessionContext.FieldId.serialNumber.toString())+"】"+header.getRspReturnMsg();
+		String msg0 = "【" + SessionContext.get(SessionContext.FieldId.serialNumber.toString()) + "】" + successMsg;
+		header.setRspReturnMsg(msg0);
+		String headerStr = JSON.toJSONString(header);
+		Map<String, Object> headerMap = jsonStringToMap(headerStr);
+		returnMap.put("header", headerMap);
+		returnMap.put(mapKey, map);
+		return mapToJsonString(returnMap);
+	}
+
+	/**
+	 * 根据bean返回标准成功信息
+	 * 
+	 * @param bean
+	 * @param header
+	 * @return
+	 */
+	public static String returnSuccess(Object bean, Header header) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		if (header == null) {
+			header = new Header();
+		}
+		header.setRspReturnCode(successCode);
+		String msg0 = "【" + SessionContext.get(SessionContext.FieldId.serialNumber.toString()) + "】" + successMsg;
+		if (!StringUtils.isEmpty(header.getRspReturnMsg())) {
+			msg0 = "【" + SessionContext.get(SessionContext.FieldId.serialNumber.toString()) + "】"
+					+ header.getRspReturnMsg();
 		}
 		header.setRspReturnMsg(msg0);
 		String headerStr = JSON.toJSONString(header);
@@ -133,10 +164,10 @@ public class ServiceUtil {
 		returnMap.putAll(beanMap);
 		return mapToJsonString(returnMap);
 	}
-	
+
 	public static Map<String, Object> jsonStringToMap(String jsonString, int... length) {
-		SerializeConfig config = SerializeConfig.getGlobalInstance();  
-    	config.put(BigDecimal.class, BigDecimalCodecDefined.instance);
+		SerializeConfig config = SerializeConfig.getGlobalInstance();
+		config.put(BigDecimal.class, BigDecimalCodecDefined.instance);
 		if (StringUtils.isEmpty(jsonString)) {
 			return null;
 		}
@@ -147,22 +178,22 @@ public class ServiceUtil {
 		});
 		return inputMap;
 	}
-	
+
 	public static String mapToJsonString(Map<String, Object> inputMap) {
 		if (null == inputMap) {
 			return null;
 		}
-		String jsonString = JSON.toJSONString(inputMap,SerializerFeature.WriteBigDecimalAsPlain);
+		String jsonString = JSON.toJSONString(inputMap, SerializerFeature.WriteBigDecimalAsPlain);
 		return jsonString;
 	}
-	
+
 	public static String replace(String str) {
-	    String destination = "";
-	    if (str!=null) {
-	        Pattern p = Pattern.compile("\\s*|\t|\r|\n");
-	        Matcher m = p.matcher(str);
-	        destination = m.replaceAll("");
-	    }
-	    return destination;
+		String destination = "";
+		if (str != null) {
+			Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+			Matcher m = p.matcher(str);
+			destination = m.replaceAll("");
+		}
+		return destination;
 	}
 }

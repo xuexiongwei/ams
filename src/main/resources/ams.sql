@@ -195,6 +195,9 @@ CREATE TABLE `ams_bus_xmjbxx` (
   `effectiveTime` varchar(255) DEFAULT NULL,
   `remark` varchar(1000) DEFAULT NULL,
   
+  `prjSNType` varchar(255) DEFAULT NULL,
+  `prjStatus` varchar(255) DEFAULT NULL,
+  
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,
   `gmt_create` datetime NULL DEFAULT CURRENT_TIMESTAMP,
@@ -230,6 +233,7 @@ CREATE TABLE `ams_bus_xmsx` (
   `imgJudgeRes` varchar(500) DEFAULT NULL,
   `exproprInfo` varchar(2000) DEFAULT NULL,
   `remark` varchar(2000) DEFAULT NULL,
+  `buldStatus` varchar(255) DEFAULT NULL,
   
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,
@@ -249,6 +253,12 @@ CREATE TABLE `ams_bus_xmmx` (
   `blendArea` DOUBLE DEFAULT NULL,
   `aboveGroundLen` DOUBLE DEFAULT NULL,
   `prjClasfiCode` varchar(255) DEFAULT NULL,
+  
+  `prjClasfiName1` varchar(255) DEFAULT "",
+  `prjClasfiName2` varchar(255) DEFAULT "",
+  `prjClasfiName3` varchar(255) DEFAULT "",
+  `prjClasfiName4` varchar(255) DEFAULT "",
+  `prjClasfiName5` varchar(255) DEFAULT "",
   
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,

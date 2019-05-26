@@ -55,6 +55,21 @@ public interface XmsxMapper {
 	@Select("select * from ams_bus_xmsx where id=#{id}")
 	Xmsx queryXmsxByID(Long id);
 
+	// 用于判断项目及工程状态
+	@Select("select distinct prjSN,serialNumber,prjNature,checkSN,checkDate,cancelSN,cancelDate,delayCountDay from ams_bus_xmsx where prjSN=#{prjSN}")
+	List<Xmsx> queryXmsxByPrjSN(String prjSN);
+
+	@Select("select distinct prjSN,serialNumber,prjAttr from ams_bus_xmsx where prjSN=#{prjSN} and serialNumber=#{serialNumber}")
+	List<Xmsx> queryXmsxByPrjSNAndSerialNumber(Map<String, Object> params);
+
+	// 用于判断工程状态
+	@Select("select distinct prjSN,checkSN,checkDate,cancelSN,cancelDate from ams_bus_xmsx where prjSN=#{prjSN} and serialNumber=#{serialNumber}")
+	List<Xmsx> queryXmsxByPrjSNAndSerialNumber2(Map<String, Object> params);
+
+	// 更新工程状态
+	@Select("update ams_bus_xmsx set buldStatus=#{buldStatus} where prjSN=#{prjSN} and serialNumber=#{serialNumber}")
+	void updateBuldStatusByPrjSNAndSerialNumber(Map<String, Object> params);
+
 	// 查询属性信息
 	@SelectProvider(type = XmsxProvider.class, method = "findXmsxByAttr")
 	public List<Xmsx> findXmsxByAttr(Map<String, Object> params);

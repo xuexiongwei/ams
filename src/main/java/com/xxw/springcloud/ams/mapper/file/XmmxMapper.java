@@ -15,13 +15,17 @@ import com.xxw.springcloud.ams.util.UtilValidate;
 public interface XmmxMapper {
 
 	// 保存项目明细
-	@Insert("insert into ams_bus_xmmx (prjSN, serialNumber, serialFunct, aboveGroundArea, underGroundArea, blendArea, aboveGroundLen, prjClasfiCode) "
-			+ "values (#{prjSN}, #{serialNumber}, #{serialFunct}, #{aboveGroundArea}, #{underGroundArea}, #{blendArea}, #{aboveGroundLen}, #{prjClasfiCode})")
+	@Insert("insert into ams_bus_xmmx (prjSN, serialNumber, serialFunct, aboveGroundArea, underGroundArea, blendArea, aboveGroundLen, "
+			+ "prjClasfiCode,prjClasfiName1,prjClasfiName2,prjClasfiName3,prjClasfiName4,prjClasfiName5) "
+			+ "values (#{prjSN}, #{serialNumber}, #{serialFunct}, #{aboveGroundArea}, #{underGroundArea}, #{blendArea}, #{aboveGroundLen}, #{prjClasfiCode},"
+			+ "#{prjClasfiName1},#{prjClasfiName2},#{prjClasfiName3},#{prjClasfiName4},#{prjClasfiName5})")
 	void saveXmmx(Xmmx mx);
 
 	// 保存项目明细
-	@Insert("insert into ams_bus_xmmx (prjSN, serialNumber, serialFunct, aboveGroundArea, underGroundArea, blendArea, aboveGroundLen, prjClasfiCode) "
-			+ "values (#{prjSN}, #{serialNumber}, #{serialFunct}, #{aboveGroundArea}, #{underGroundArea}, #{blendArea}, #{aboveGroundLen}, #{prjClasfiCode})")
+	@Insert("insert into ams_bus_xmmx (prjSN, serialNumber, serialFunct, aboveGroundArea, underGroundArea, blendArea, aboveGroundLen, "
+			+ "prjClasfiCode,prjClasfiName1,prjClasfiName2,prjClasfiName3,prjClasfiName4,prjClasfiName5) "
+			+ "values (#{prjSN}, #{serialNumber}, #{serialFunct}, #{aboveGroundArea}, #{underGroundArea}, #{blendArea}, #{aboveGroundLen}, #{prjClasfiCode},"
+			+ "#{prjClasfiName1},#{prjClasfiName2},#{prjClasfiName3},#{prjClasfiName4},#{prjClasfiName5})")
 	void saveXmmx2(Map<String, Object> params);
 
 	// 更新项目明细
@@ -39,6 +43,10 @@ public interface XmmxMapper {
 	@Select("select * from ams_bus_xmmx where id=#{id}")
 	Xmmx queryXmmxByID(Long id);
 
+	// 去重查询项目明细，用于分类
+	@Select("select distinct serialNumber,substring(prjClasfiCode,1,4) as \"prjClasfiCode\" from ams_bus_xmmx where prjSN=#{prjSN}")
+	List<Xmmx> queryXmmxByPrjSN(String prjSN);
+
 	// 查询属性信息
 	@SelectProvider(type = XmmxProvider.class, method = "findXmmxByAttr")
 	public List<Xmmx> findXmmxByAttr(Map<String, Object> params);
@@ -49,7 +57,10 @@ public interface XmmxMapper {
 	class XmmxProvider {
 		public String findXmmxByAttr(Map<String, Object> params) {
 			String sql = "SELECT * " + createSql(params);
-			sql += " limit #{pageSize} offset #{pageIndex}";
+
+			if (UtilValidate.isNotEmpty(params.get("pageSize")) && UtilValidate.isNotEmpty(params.get("pageIndex"))) {
+				sql += " limit #{pageSize} offset #{pageIndex}";
+			}
 			return sql;
 		}
 
