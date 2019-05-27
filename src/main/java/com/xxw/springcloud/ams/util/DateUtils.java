@@ -2,6 +2,7 @@ package com.xxw.springcloud.ams.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,5 +84,34 @@ public class DateUtils {
 		}
 
 		return tl.get();
+	}
+
+	/**
+	 * 增加或减少天数，重新计算日期
+	 * 
+	 * @param day
+	 * @return
+	 */
+	public static String dayJiaJian(Date date, int day) {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.DAY_OF_MONTH, day);
+		return sf.format(c.getTime());
+	}
+
+	/**
+	 * 增加或减少月数，重新计算日期
+	 * 
+	 * @param month
+	 * @return
+	 */
+	public static String monthJiaJian(Date date, int month) {
+		Calendar curr = Calendar.getInstance();
+		curr.setTime(date);
+		curr.set(Calendar.MONTH, curr.get(Calendar.MONTH) + month); // 月
+		Date d = curr.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		return sdf.format(d);
 	}
 }

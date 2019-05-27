@@ -45,18 +45,10 @@ public class Xmsx implements Serializable {
 	private String checkSN;
 	// 验收日期
 	private String checkDate;
-	// 延期文号
-	private String delaySN;
-	// 延长期
-	private String delayCountDay;
 	// 撤（注）销证号
 	private String cancelSN;
 	// 撤（注）销日期
 	private String cancelDate;
-	// 补正证号
-	private String correctionSN;
-	// 补正日期
-	private String correctionDate;
 	// 影像判读结果
 	private String imgJudgeRes;
 	// 代征用地情况
@@ -212,22 +204,6 @@ public class Xmsx implements Serializable {
 		this.checkDate = checkDate;
 	}
 
-	public String getDelaySN() {
-		return delaySN;
-	}
-
-	public void setDelaySN(String delaySN) {
-		this.delaySN = delaySN;
-	}
-
-	public String getDelayCountDay() {
-		return delayCountDay;
-	}
-
-	public void setDelayCountDay(String delayCountDay) {
-		this.delayCountDay = delayCountDay;
-	}
-
 	public String getCancelSN() {
 		return cancelSN;
 	}
@@ -242,22 +218,6 @@ public class Xmsx implements Serializable {
 
 	public void setCancelDate(String cancelDate) {
 		this.cancelDate = cancelDate;
-	}
-
-	public String getCorrectionSN() {
-		return correctionSN;
-	}
-
-	public void setCorrectionSN(String correctionSN) {
-		this.correctionSN = correctionSN;
-	}
-
-	public String getCorrectionDate() {
-		return correctionDate;
-	}
-
-	public void setCorrectionDate(String correctionDate) {
-		this.correctionDate = correctionDate;
 	}
 
 	public String getImgJudgeRes() {

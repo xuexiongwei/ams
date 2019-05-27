@@ -18,6 +18,7 @@ import com.xxw.springcloud.ams.model.Xmsx;
 import com.xxw.springcloud.ams.util.FastList;
 import com.xxw.springcloud.ams.util.FastMap;
 import com.xxw.springcloud.ams.util.ServiceUtil;
+import com.xxw.springcloud.ams.util.StringUtils;
 import com.xxw.springcloud.ams.util.UtilValidate;
 
 @RestController
@@ -52,7 +53,7 @@ public class View2Controller {
 				header = new Header();
 			}
 
-			totalSize = superMapper.findUserOperByAttrCount(params);
+			totalSize = superMapper.findXmjbxxByAttrCount(params);
 
 			pageIndex = (pageIndex - 1) * pageSize;
 			params.put("pageSize", pageSize);
@@ -73,17 +74,18 @@ public class View2Controller {
 				String specialNotifi = jb.getSpecialNotifi();// 特别告知事项
 				String prjTemSN = jb.getPrjTemSN();// 附带临建批号
 				String remark = jb.getRemark();// 备注
-				item.put("prjSN", prjSN);
-				item.put("prjUnit", prjUnit);
-				item.put("prjAdr", prjAdr);
-				item.put("prjName", prjName);
-				item.put("prjType", prjType);
-				item.put("contacts", contacts);
-				item.put("contactInf", contactInf);
-				item.put("specialNotifi", specialNotifi);
-				item.put("prjTemSN", prjTemSN);
-				item.put("remark", remark);
-				item.put("prjStatus", jb.getPrjStatus());// 项目状态
+				item.put("prjSN", StringUtils.getStr(prjSN));
+				item.put("prjUnit", StringUtils.getStr(prjUnit));
+				item.put("prjAdr", StringUtils.getStr(prjAdr));
+				item.put("prjName", StringUtils.getStr(prjName));
+				item.put("prjType", StringUtils.getStr(prjType));
+				item.put("contacts", StringUtils.getStr(contacts));
+				item.put("contactInf", StringUtils.getStr(contactInf));
+				item.put("specialNotifi", StringUtils.getStr(specialNotifi));
+				item.put("prjTemSN", StringUtils.getStr(prjTemSN));
+				item.put("remark", StringUtils.getStr(remark));
+				item.put("prjStatus", StringUtils.getStr(jb.getPrjStatus()));// 项目状态
+				item.put("prjXz", "");// 项目性质
 				List<Xmsx> sxL = superMapper.queryXmsxByPrjSN(jb.getPrjSN());
 				if (UtilValidate.isNotEmpty(sxL)) {
 					item.put("prjXz", sxL.get(0).getPrjNature() + "等" + sxL.size() + "项");// 项目性质

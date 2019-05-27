@@ -242,7 +242,7 @@ public class View3Controller {
 									if (UtilValidate.isNotEmpty(checkDocSN)) {
 										tongj.put("checkDocSN", checkDocSN);
 									}
-									String checkDocDate = xmsx.getCheckDocDate();// 验线文号
+									String checkDocDate = xmsx.getCheckDocDate();// 验线日期
 									if (UtilValidate.isNotEmpty(checkDocDate)) {
 										tongj.put("checkDocDate", checkDocDate);
 									}
@@ -254,14 +254,6 @@ public class View3Controller {
 									if (UtilValidate.isNotEmpty(checkDate)) {
 										tongj.put("checkDate", checkDate);
 									}
-									String delaySN = xmsx.getDelaySN();// 延期文号
-									if (UtilValidate.isNotEmpty(delaySN)) {
-										tongj.put("delaySN", delaySN);
-									}
-									String delayCountDay = xmsx.getDelayCountDay();// 延长期
-									if (UtilValidate.isNotEmpty(delayCountDay)) {
-										tongj.put("delayCountDay", delayCountDay);
-									}
 									String cancelSN = xmsx.getCancelSN();// 撤（注）销证号
 									if (UtilValidate.isNotEmpty(cancelSN)) {
 										tongj.put("cancelSN", cancelSN);
@@ -269,14 +261,6 @@ public class View3Controller {
 									String cancelDate = xmsx.getCancelDate();// 撤（注）销日期
 									if (UtilValidate.isNotEmpty(cancelDate)) {
 										tongj.put("cancelDate", cancelDate);
-									}
-									String correctionSN = xmsx.getCorrectionSN();// 补正证号
-									if (UtilValidate.isNotEmpty(correctionSN)) {
-										tongj.put("correctionSN", correctionSN);
-									}
-									String correctionDate = xmsx.getCorrectionDate();// 补正日期
-									if (UtilValidate.isNotEmpty(correctionDate)) {
-										tongj.put("correctionDate", correctionDate);
 									}
 									String imgJudgeRes = xmsx.getImgJudgeRes();// 影像判读结果
 									if (UtilValidate.isNotEmpty(imgJudgeRes)) {

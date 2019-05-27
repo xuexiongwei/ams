@@ -116,9 +116,9 @@ public class ExcelDicListener extends AnalysisEventListener<Object> {
 				String dic1ID = SerialNumberUtil.getUUID();
 				dic.setId(dic1ID);
 				dic.setType(DicEnum.CYXZGHB);// 分级字典
-				dic.setCode(items.get(0) + "");
-				dic.setName(items.get(1) + "");
-				dic.setOther("");
+				dic.setCode(items.get(3) + "");
+				dic.setName(items.get(2) + "");
+				dic.setOther(items.get(1) + "");
 				superMapper.saveDic(dic);
 			}
 		} catch (Exception e) {

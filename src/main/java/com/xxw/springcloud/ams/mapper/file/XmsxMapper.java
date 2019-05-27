@@ -17,32 +17,27 @@ public interface XmsxMapper {
 	// 保存项目属性
 	@Insert("insert into ams_bus_xmsx (prjSN, serialNumber, prjNature, prjAttr, strucType, peacetimeUses, aboveGroundLev, "
 			+ "underGroundLev, aboveGroundHet, underGroundHet, buildings, housingStockNum, checkDocSN, checkDocDate, checkSN, "
-			+ "checkDate, delaySN, delayCountDay, cancelSN, cancelDate, correctionSN, correctionDate, imgJudgeRes, exproprInfo, "
-			+ "remark) "
+			+ "checkDate, cancelSN, cancelDate, imgJudgeRes, exproprInfo, remark) "
 			+ "values (#{prjSN}, #{serialNumber}, #{prjNature}, #{prjAttr}, #{strucType}, #{peacetimeUses}, #{aboveGroundLev}, "
 			+ "#{underGroundLev}, #{aboveGroundHet}, #{underGroundHet}, #{buildings}, #{housingStockNum}, #{checkDocSN}, #{checkDocDate}, #{checkSN},"
-			+ "#{checkDate}, #{delaySN}, #{delayCountDay}, #{cancelSN}, #{cancelDate}, #{correctionSN},  #{correctionDate}, #{imgJudgeRes}, #{exproprInfo},"
-			+ "#{remark})")
+			+ "#{checkDate}, #{cancelSN}, #{cancelDate}, #{imgJudgeRes}, #{exproprInfo},#{remark})")
 	void saveXmsx(Xmsx sx);
 
 	// 保存项目属性
 	@Insert("insert into ams_bus_xmsx (prjSN, serialNumber, prjNature, prjAttr, strucType, peacetimeUses, aboveGroundLev, "
 			+ "underGroundLev, aboveGroundHet, underGroundHet, buildings, housingStockNum, checkDocSN, checkDocDate, checkSN, "
-			+ "checkDate, delaySN, delayCountDay, cancelSN, cancelDate, correctionSN, correctionDate, imgJudgeRes, exproprInfo, "
-			+ "remark) "
+			+ "checkDate, cancelSN, cancelDate, imgJudgeRes, exproprInfo, remark) "
 			+ "values (#{prjSN}, #{serialNumber}, #{prjNature}, #{prjAttr}, #{strucType}, #{peacetimeUses}, #{aboveGroundLev}, "
 			+ "#{underGroundLev}, #{aboveGroundHet}, #{underGroundHet}, #{buildings}, #{housingStockNum}, #{checkDocSN}, #{checkDocDate}, #{checkSN},"
-			+ "#{checkDate}, #{delaySN}, #{delayCountDay}, #{cancelSN}, #{cancelDate}, #{correctionSN},  #{correctionDate}, #{imgJudgeRes}, #{exproprInfo},"
-			+ "#{remark})")
+			+ "#{checkDate}, #{cancelSN}, #{cancelDate}, #{imgJudgeRes}, #{exproprInfo},#{remark})")
 	void saveXmsx2(Map<String, Object> params);
 
 	// 更新项目属性
 	@Update("update ams_bus_xmsx set prjNature=#{prjNature}, prjAttr=#{prjAttr}, strucType=#{strucType}, "
 			+ "peacetimeUses=#{peacetimeUses}, aboveGroundLev=#{aboveGroundLev}, underGroundLev=#{underGroundLev}, aboveGroundHet=#{aboveGroundHet}, "
 			+ "underGroundHet=#{underGroundHet}, buildings=#{buildings}, housingStockNum=#{housingStockNum}, checkDocSN=#{checkDocSN}, checkDocDate=#{checkDocDate},"
-			+ "checkSN=#{checkSN},checkDate=#{checkDate}, delaySN=#{delaySN}, delayCountDay=#{delayCountDay}, cancelSN=#{cancelSN}, cancelDate=#{cancelDate}, "
-			+ "correctionSN=#{correctionSN},  correctionDate=#{correctionDate}, imgJudgeRes=#{imgJudgeRes}, exproprInfo=#{exproprInfo},remark=#{remark}"
-			+ "where id=#{id}")
+			+ "checkSN=#{checkSN},checkDate=#{checkDate}, cancelSN=#{cancelSN}, cancelDate=#{cancelDate}, "
+			+ "imgJudgeRes=#{imgJudgeRes}, exproprInfo=#{exproprInfo},remark=#{remark} where id=#{id}")
 	void updateXmsx(Map<String, Object> params);
 
 	// 删除项目属性
@@ -56,7 +51,7 @@ public interface XmsxMapper {
 	Xmsx queryXmsxByID(Long id);
 
 	// 用于判断项目及工程状态
-	@Select("select distinct prjSN,serialNumber,prjNature,checkSN,checkDate,cancelSN,cancelDate,delayCountDay from ams_bus_xmsx where prjSN=#{prjSN}")
+	@Select("select distinct prjSN,serialNumber,prjNature,checkSN,checkDate,cancelSN,cancelDate from ams_bus_xmsx where prjSN=#{prjSN}")
 	List<Xmsx> queryXmsxByPrjSN(String prjSN);
 
 	@Select("select distinct prjSN,serialNumber,prjAttr from ams_bus_xmsx where prjSN=#{prjSN} and serialNumber=#{serialNumber}")

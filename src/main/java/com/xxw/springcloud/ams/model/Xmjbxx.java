@@ -38,6 +38,15 @@ public class Xmjbxx implements Serializable {
 	// 备注
 	private String remark;
 
+	// 延期文号
+	private String delaySN;
+	// 延长期
+	private String delayCountDay;
+	// 补正证号
+	private String correctionSN;
+	// 补正日期
+	private String correctionDate;
+
 	// 用户创建
 	private String userCreate;
 	// 用户修改
@@ -202,5 +211,37 @@ public class Xmjbxx implements Serializable {
 
 	public void setPrjStatus(String prjStatus) {
 		this.prjStatus = prjStatus;
+	}
+
+	public String getDelaySN() {
+		return delaySN;
+	}
+
+	public void setDelaySN(String delaySN) {
+		this.delaySN = delaySN;
+	}
+
+	public String getDelayCountDay() {
+		return delayCountDay;
+	}
+
+	public void setDelayCountDay(String delayCountDay) {
+		this.delayCountDay = delayCountDay;
+	}
+
+	public String getCorrectionSN() {
+		return correctionSN;
+	}
+
+	public void setCorrectionSN(String correctionSN) {
+		this.correctionSN = correctionSN;
+	}
+
+	public String getCorrectionDate() {
+		return correctionDate;
+	}
+
+	public void setCorrectionDate(String correctionDate) {
+		this.correctionDate = correctionDate;
 	}
 }
