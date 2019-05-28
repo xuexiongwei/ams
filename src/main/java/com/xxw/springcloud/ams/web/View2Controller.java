@@ -19,6 +19,7 @@ import com.xxw.springcloud.ams.util.FastList;
 import com.xxw.springcloud.ams.util.FastMap;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.StringUtils;
+import com.xxw.springcloud.ams.util.UtilMisc;
 import com.xxw.springcloud.ams.util.UtilValidate;
 
 @RestController
@@ -86,9 +87,12 @@ public class View2Controller {
 				item.put("remark", StringUtils.getStr(remark));
 				item.put("prjStatus", StringUtils.getStr(jb.getPrjStatus()));// 项目状态
 				item.put("prjXz", "");// 项目性质
-				List<Xmsx> sxL = superMapper.queryXmsxByPrjSN(jb.getPrjSN());
-				if (UtilValidate.isNotEmpty(sxL)) {
-					item.put("prjXz", sxL.get(0).getPrjNature() + "等" + sxL.size() + "项");// 项目性质
+				if (UtilValidate.isNotEmpty(prjSN)) {
+					List<Xmsx> xmsxl = superMapper.findXmsxByAttr(UtilMisc.toMap("prjSN", prjSN, "serialNumber", 1));
+					if (UtilValidate.isNotEmpty(xmsxl)) {
+						int max = superMapper.queryXmsxMaxIndexByPrjSN(jb.getPrjSN());
+						item.put("prjXz", xmsxl.get(0).getPrjNature() + "等" + max + "项");// 项目性质
+					}
 				}
 			}
 			header.setRspPageCount(totalSize);

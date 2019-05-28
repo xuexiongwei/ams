@@ -139,7 +139,6 @@ CREATE TABLE `ams_bus_file` (
   `updateTime` datetime DEFAULT NULL,
   `fileName` varchar(200) DEFAULT NULL,
   `urlName` varchar(200) DEFAULT NULL,
-  `delFlag` varchar(20) DEFAULT NULL,
   `fileType` varchar(20) DEFAULT NULL,
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,

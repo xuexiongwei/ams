@@ -54,6 +54,9 @@ public interface XmsxMapper {
 	@Select("select distinct prjSN,serialNumber,prjNature,checkSN,checkDate,cancelSN,cancelDate from ams_bus_xmsx where prjSN=#{prjSN}")
 	List<Xmsx> queryXmsxByPrjSN(String prjSN);
 
+	@Select("select MAX(serialNumber) from ams_bus_xmsx where prjSN=#{prjSN}")
+	int queryXmsxMaxIndexByPrjSN(String prjSN);
+
 	@Select("select distinct prjSN,serialNumber,prjAttr from ams_bus_xmsx where prjSN=#{prjSN} and serialNumber=#{serialNumber}")
 	List<Xmsx> queryXmsxByPrjSNAndSerialNumber(Map<String, Object> params);
 

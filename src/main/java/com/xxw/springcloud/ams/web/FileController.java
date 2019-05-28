@@ -109,9 +109,11 @@ public class FileController {
 					if (UtilValidate.isEmpty(prjSN)) {
 						reM = ServiceUtil.returnError(null, "许可证号[prjSN]必输！");
 					} else {
-						List<BusFile> list = FileUtils.saveUploadedFiles(Arrays.asList(uploadfile), prjSN);
+						Map<String, BusFile> list = FileUtils.getBusFilesEntity(Arrays.asList(uploadfile), prjSN);
 						if (UtilValidate.isNotEmpty(list)) {
-							for (BusFile busFile : list) {
+							for (Map.Entry<String, BusFile> entry : list.entrySet()) {
+								BusFile busFile = entry.getValue();
+
 								// 数据库中不允许出现同名文件，故需删除上次的同名文件，文件同名则认为是新增
 								BusFile file = superMapper
 										.queryBusFileByName(UtilMisc.toMap("fileName", busFile.getFileName()));
@@ -126,6 +128,7 @@ public class FileController {
 								}
 								superMapper.saveFile(busFile);
 							}
+							FileUtils.saveUploadedFiles(Arrays.asList(uploadfile), list);
 						}
 					}
 				} else if (UpLoadType.DIC.toString().equals(upLoadType)) {// 基础数据导入
@@ -160,41 +163,51 @@ public class FileController {
 	 * 文件的下载
 	 */
 	@RequestMapping("/api/download")
-	public String download(@RequestParam("id") String id, HttpServletRequest request, HttpServletResponse response) {
+	public String download(String id, String fname, HttpServletRequest request, HttpServletResponse response) {
 
-		logger.debug("exc:download params:id=" + id);
+		logger.debug("exc:download params:id=" + id + ",fname=" + fname);
 
 		String reM = ServiceUtil.returnSuccess("下载成功！");
 
 		try {
-			BusFile file = superMapper.queryBusFileByID(UtilMisc.toMap("id", id));
-			if (UtilValidate.isNotEmpty(file)) {
-
-				String fileName = file.getFileName();
-
-				InputStream inputStream = new FileInputStream(new File(FileUtils.UPLOADED_FOLDER + file.getUrlName()));
-				OutputStream outputStream = response.getOutputStream();
-				// 指明为下载
-				response.setContentType("application/x-download");
-				String agent = request.getHeader("User-Agent").toUpperCase(); // 获得浏览器信息并转换为大写
-				if (agent.indexOf("MSIE") > 0 || (agent.indexOf("GECKO") > 0 && agent.indexOf("RV:11") > 0)) { // IE浏览器和Edge浏览器
-					fileName = URLEncoder.encode(fileName, "UTF-8");
-				} else { // 其他浏览器
-					fileName = new String(fileName.getBytes("UTF-8"), "iso-8859-1");
-				}
-				response.addHeader("Content-Disposition", "attachment;fileName=" + fileName); // 设置文件名
-				// 把输入流copy到输出流
-				IOUtils.copy(inputStream, outputStream);
-				outputStream.flush();
-
-				inputStream.close();
-				outputStream.close();
+			if (UtilValidate.isEmpty(id) && UtilValidate.isEmpty(fname)) {
+				reM = ServiceUtil.returnError(null, "下载参数：id/fname 不能同时为空！");
 			} else {
-				reM = ServiceUtil.returnSuccess("下载文件为空！");
+				BusFile file = null;
+				if (UtilValidate.isNotEmpty(id)) {
+					file = superMapper.queryBusFileByID(UtilMisc.toMap("id", id));
+				} else {
+					file = superMapper.queryBusFileByName(UtilMisc.toMap("fileName", fname));
+				}
+				if (UtilValidate.isNotEmpty(file)) {
+
+					String fileName = file.getFileName() + "." + file.getFileType();
+
+					InputStream inputStream = new FileInputStream(
+							new File(FileUtils.UPLOADED_FOLDER + file.getUrlName()));
+					OutputStream outputStream = response.getOutputStream();
+					// 指明为下载
+					response.setContentType("application/x-download");
+					String agent = request.getHeader("User-Agent").toUpperCase(); // 获得浏览器信息并转换为大写
+					if (agent.indexOf("MSIE") > 0 || (agent.indexOf("GECKO") > 0 && agent.indexOf("RV:11") > 0)) { // IE浏览器和Edge浏览器
+						fileName = URLEncoder.encode(fileName, "UTF-8");
+					} else { // 其他浏览器
+						fileName = new String(fileName.getBytes("UTF-8"), "iso-8859-1");
+					}
+					response.addHeader("Content-Disposition", "attachment;fileName=" + fileName); // 设置文件名
+					// 把输入流copy到输出流
+					IOUtils.copy(inputStream, outputStream);
+					outputStream.flush();
+
+					inputStream.close();
+					outputStream.close();
+				} else {
+					reM = ServiceUtil.returnError(null, "下载文件不存在！");
+				}
 			}
 		} catch (Exception e) {
 			logger.error("下载文件失败！", e);
-			reM = ServiceUtil.returnSuccess("下载文件失败！" + e.getMessage());
+			reM = ServiceUtil.returnError(null, "下载文件失败！" + e.getMessage());
 		}
 
 		logger.debug("exc:download return:" + reM);
@@ -216,17 +229,12 @@ public class FileController {
 		Map<String, Object> params = JSONObject.parseObject(bodyStr);
 
 		Object prjSN = params.get("prjSN");
-		Object delFlag = params.get("delFlag");
 		if (UtilValidate.isNotEmpty(prjSN)) {
-			if (UtilValidate.isNotEmpty(delFlag)) {
-				List<BusFile> items = superMapper.queryBusFiles(params);
-				if (UtilValidate.isEmpty(items)) {
-					items = FastList.newInstance();
-				}
-				reM = ServiceUtil.returnSuccess(items, "busFileList", header);
-			} else {
-				reM = ServiceUtil.returnError("E", "删除标志 必输！");
+			List<BusFile> items = superMapper.queryBusFiles(params);
+			if (UtilValidate.isEmpty(items)) {
+				items = FastList.newInstance();
 			}
+			reM = ServiceUtil.returnSuccess(items, "busFileList", header);
 		} else {
 			reM = ServiceUtil.returnError("E", "项目许可证号 必输！");
 		}
@@ -250,8 +258,20 @@ public class FileController {
 
 		Object id = params.get("id");
 		if (UtilValidate.isNotEmpty(id)) {
-			superMapper.delBusFileByID(params);
-			reM = ServiceUtil.returnSuccess("删除成功 ！");
+
+			BusFile file = superMapper.queryBusFileByID(UtilMisc.toMap("id", id));
+			if (UtilValidate.isNotEmpty(file)) {
+				// 删除数据库
+				superMapper.delBusFileByID(UtilMisc.toMap("id", file.getId()));
+				// 删除服务器文件
+				File df = new File(FileUtils.UPLOADED_FOLDER + file.getUrlName());
+				if (UtilValidate.isNotEmpty(df) && df.isFile()) {
+					df.deleteOnExit();
+				}
+				reM = ServiceUtil.returnSuccess("删除成功 ！");
+			} else {
+				reM = ServiceUtil.returnError("E", "删除文档不存在！");
+			}
 		} else {
 			reM = ServiceUtil.returnError("E", "文档ID 必输！");
 		}

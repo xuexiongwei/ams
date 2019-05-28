@@ -44,8 +44,8 @@ public interface XmmxMapper {
 	Xmmx queryXmmxByID(Long id);
 
 	// 去重查询项目明细，用于分类
-	@Select("select distinct serialNumber,substring(prjClasfiCode,1,4) as \"prjClasfiCode\" from ams_bus_xmmx where prjSN=#{prjSN}")
-	List<Xmmx> queryXmmxByPrjSN(String prjSN);
+	@Select("select distinct serialNumber,prjClasfiName1,prjClasfiName2 from ams_bus_xmmx where prjSN=#{prjSN}")
+	List<Xmmx> queryDistinctXmmxByPrjSN(String prjSN);
 
 	// 查询属性信息
 	@SelectProvider(type = XmmxProvider.class, method = "findXmmxByAttr")

@@ -80,7 +80,7 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 						}
 						// 许可证类型
 					} else {
-						jbxx.setPrjType("");
+						jbxx.setPrjType("新建");
 					}
 					// 许可证类型
 					if (prjSN.indexOf("乡") != -1) {
