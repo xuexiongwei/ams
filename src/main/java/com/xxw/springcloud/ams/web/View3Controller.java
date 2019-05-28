@@ -145,7 +145,7 @@ public class View3Controller {
 								if (null != cfc && cfc.length() == 10) {
 									String fl04 = cfc.substring(5, 8);
 									String fl05 = cfc.substring(8, 10);
-									if ("141".equals(fl04) && "02".indexOf(fl05) == -1) {// 总建筑面积不计算人防工程（FS）
+									if (!("141".equals(fl04) && "02".indexOf(fl05) != -1)) {// 总建筑面积不计算人防工程（FS）
 										// 总建筑面积（平方米）
 										Double sumArea = (Double) tongj.get("sumArea");
 										tongj.put("sumArea", StringUtils.sswr(sumArea + aga + uga));

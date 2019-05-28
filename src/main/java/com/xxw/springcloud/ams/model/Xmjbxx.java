@@ -60,6 +60,8 @@ public class Xmjbxx implements Serializable {
 	private String prjSNType;
 	// 项目状态
 	private String prjStatus;
+	// 项目年份
+	private String prjYear;
 
 	public Long getId() {
 		return id;
@@ -243,5 +245,13 @@ public class Xmjbxx implements Serializable {
 
 	public void setCorrectionDate(String correctionDate) {
 		this.correctionDate = correctionDate;
+	}
+
+	public String getPrjYear() {
+		return prjYear;
+	}
+
+	public void setPrjYear(String prjYear) {
+		this.prjYear = prjYear;
 	}
 }

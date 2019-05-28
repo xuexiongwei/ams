@@ -200,6 +200,7 @@ CREATE TABLE `ams_bus_xmjbxx` (
   
   `prjSNType` varchar(255) DEFAULT NULL,
   `prjStatus` varchar(255) DEFAULT NULL,
+  `prjYear` varchar(50) DEFAULT NULL,
   
   `user_create` varchar(20) DEFAULT NULL,
   `user_modified` varchar(20) DEFAULT NULL,

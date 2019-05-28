@@ -92,20 +92,18 @@ public class XmjbxxController {
 				SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
 				uo.setUserName(user.getUserName());
 
-				if (UtilValidate.isNotEmpty(prjSN)) {
-					// 乡村建设项目
-					if ((prjSN + "").indexOf("乡") != -1) {
-						params.put("prjSNType", "乡村建设项目");
-					} else if ((prjSN + "").indexOf("临") != -1) {
-						params.put("prjSNType", "临时建设项目");
-					} else if ((prjSN + "").indexOf("补正") != -1) {
-						params.put("prjSNType", "补正项目");
-					} else {
-						params.put("prjSNType", "城镇建设项目");
-					}
+				// 许可证类型
+				if ((prjSN + "").indexOf("乡") != -1) {
+					params.put("prjSNType", "乡村建设项目");
+				} else if ((prjSN + "").indexOf("临") != -1) {
+					params.put("prjSNType", "临时建设项目");
+				} else if ((prjSN + "").indexOf("补正") != -1) {
+					params.put("prjSNType", "补正项目");
 				} else {
-					params.put("prjSNType", "");
+					params.put("prjSNType", "城镇建设项目");
 				}
+				// 项目年份
+				jbxx.setPrjYear((prjSN + "").substring(0, 4));
 
 				if (UtilValidate.isNotEmpty(jbxx)) {
 					uo.setOperAction(UserOperation.oa_u);

@@ -92,6 +92,10 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 					} else {
 						jbxx.setPrjSNType("城镇建设项目");
 					}
+
+					// 项目年份
+					jbxx.setPrjYear(prjSN.substring(0, 4));
+
 					if (null == jbxx.getId()) {
 						superMapper.saveXmjbxx(jbxx);
 					} else

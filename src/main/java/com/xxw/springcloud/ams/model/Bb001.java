@@ -12,7 +12,7 @@ public class Bb001 implements Serializable {
 
 	private static final long serialVersionUID = -3638380273919111505L;
 
-	private String year;
+	private String prjYear;
 	private String prjSN;
 	private String prjSNType;
 	private String prjType;
@@ -28,12 +28,12 @@ public class Bb001 implements Serializable {
 	private String sxid;
 	private String mxid;
 
-	public String getYear() {
-		return year;
+	public String getPrjYear() {
+		return prjYear;
 	}
 
-	public void setYear(String year) {
-		this.year = year;
+	public void setPrjYear(String prjYear) {
+		this.prjYear = prjYear;
 	}
 
 	public String getPrjSN() {
