@@ -59,31 +59,30 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 				items.remove(0);
 
 				String prjSN = items.get(0) + "";
+				if (UtilValidate.isNotEmpty(prjSN)) {
+					Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN);
+					if (null == jbxx)
+						jbxx = new Xmjbxx();
 
-				Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN);
-				if (null == jbxx)
-					jbxx = new Xmjbxx();
-
-				BeanUtils.setProperty(
-						jbxx, new String[] { "prjSN", "prjUnit", "prjAdr", "prjName", "prjType", "contacts",
-								"contactInf", "prjTemSN", "specialNotifi", "noticeTime", "effectiveTime", "remark" },
-						items);
-				String prjName = jbxx.getPrjName();
-				if (UtilValidate.isNotEmpty(prjName)) {
-					// 改扩建、改建、改造、翻建
-					if (prjName.indexOf("改扩建") != -1 || prjName.indexOf("改建") != -1 || prjName.indexOf("改造") != -1
-							|| prjName.indexOf("翻建") != -1) {
-						jbxx.setPrjType("改扩建");
+					BeanUtils.setProperty(jbxx,
+							new String[] { "prjSN", "prjUnit", "prjAdr", "prjName", "prjType", "contacts", "contactInf",
+									"prjTemSN", "specialNotifi", "noticeTime", "effectiveTime", "delaySN",
+									"delayCountDay", "correctionSN", "correctionDate", "remark" },
+							items);
+					String prjName = jbxx.getPrjName();
+					if (UtilValidate.isNotEmpty(prjName)) {
+						// 改扩建、改建、改造、翻建
+						if (prjName.indexOf("改扩建") != -1 || prjName.indexOf("改建") != -1 || prjName.indexOf("改造") != -1
+								|| prjName.indexOf("翻建") != -1) {
+							jbxx.setPrjType("改扩建");
+						} else {
+							jbxx.setPrjType("新建");
+						}
+						// 许可证类型
 					} else {
-						jbxx.setPrjType("新建");
+						jbxx.setPrjType("");
 					}
 					// 许可证类型
-				} else {
-					jbxx.setPrjType("");
-				}
-				// 许可证类型
-				if (UtilValidate.isNotEmpty(prjSN)) {
-					// 乡村建设项目
 					if (prjSN.indexOf("乡") != -1) {
 						jbxx.setPrjSNType("乡村建设项目");
 					} else if (prjSN.indexOf("临") != -1) {
@@ -93,25 +92,28 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 					} else {
 						jbxx.setPrjSNType("城镇建设项目");
 					}
+					if (null == jbxx.getId()) {
+						superMapper.saveXmjbxx(jbxx);
+					} else
+						superMapper.updateXmjbxx(jbxx);
 				} else {
-					jbxx.setPrjSNType("");
+					logger.error("解析excel 页签序号：" + no + ",行数：" + (row + 1) + " 许可证号不能为空 或 文档下方不能留有空行！");
+					throw new RuntimeException("解析excel 页签序号：" + no + ",行数：" + (row + 1) + "  许可证号不能为空  或 文档下方不能留有空行！");
 				}
-				if (null == jbxx.getId()) {
-					superMapper.saveXmjbxx(jbxx);
-				} else
-					superMapper.updateXmjbxx(jbxx);
 			}
 
 			if (no == 2) {// 项目属性
-				Xmsx sx = new Xmsx();
-				BeanUtils.setProperty(sx,
-						new String[] { "prjSN", "serialNumber", "prjNature", "prjAttr", "peacetimeUses",
-								"aboveGroundLev", "underGroundLev", "aboveGroundHet", "underGroundHet", "buildings",
-								"housingStockNum", "strucType", "checkDocSN", "checkDocDate", "checkSN", "checkDate",
-								"delaySN", "delayCountDay", "cancelSN", "cancelDate", "correctionSN", "correctionDate",
-								"imgJudgeRes", "exproprInfo", "remark" },
-						items);
-				if (null != sx.getPrjSN()) {
+
+				String prjSN = items.get(0) + "";
+				String serialNumber = items.get(1) + "";
+				if (UtilValidate.isNotEmpty(prjSN) && UtilValidate.isNotEmpty(serialNumber)) {
+					Xmsx sx = new Xmsx();
+					BeanUtils.setProperty(sx,
+							new String[] { "prjSN", "serialNumber", "prjNature", "prjAttr", "peacetimeUses",
+									"aboveGroundLev", "underGroundLev", "aboveGroundHet", "underGroundHet", "buildings",
+									"housingStockNum", "strucType", "checkDocSN", "checkDocDate", "checkSN",
+									"checkDate", "cancelSN", "cancelDate", "imgJudgeRes", "exproprInfo", "remark" },
+							items);
 					// 删除所有再更新
 					String prjsn = sx.getPrjSN();
 					if (!dataxmsxDel.contains(prjsn)) {
@@ -124,15 +126,21 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 					StatusUtils.updateBuldStatus(superMapper, sx.getPrjSN(), sx.getSerialNumber());
 					// 更新项目状态
 					StatusUtils.updatePrjStatus(superMapper, sx.getPrjSN());
+				} else {
+					logger.error("解析excel 页签序号：" + no + ",行数：" + (row + 1) + " 许可证号/建筑序号不能为空  或 文档下方不能留有空行！");
+					throw new RuntimeException(
+							"解析excel 页签序号：" + no + ",行数：" + (row + 1) + "  许可证号/建筑序号不能为空  或 文档下方不能留有空行！");
 				}
 			}
 
 			if (no == 3) {// 项目明细
-				Xmmx mx = new Xmmx();
-				BeanUtils.setProperty(mx, new String[] { "prjSN", "serialNumber", "serialFunct", "aboveGroundArea",
-						"underGroundArea", "blendArea", "aboveGroundLen" }, items);
-				// 还差分级信息-------------------------------------------------------------------------------------------------
-				if (null != mx.getPrjSN()) {
+				String prjSN = items.get(0) + "";
+				String serialNumber = items.get(1) + "";
+				if (UtilValidate.isNotEmpty(prjSN) && UtilValidate.isNotEmpty(serialNumber)) {
+					Xmmx mx = new Xmmx();
+					BeanUtils.setProperty(mx, new String[] { "prjSN", "serialNumber", "serialFunct", "aboveGroundArea",
+							"underGroundArea", "blendArea", "aboveGroundLen" }, items);
+					// 还差分级信息-------------------------------------------------------------------------------------------------
 
 					List<Object> levs = items.subList(7, 12);// [居住类项目, 配套公共服务设施, 配套公共服务设施, null, null]
 
@@ -166,11 +174,15 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 						dataxmmxDel.add(prjsn);
 					}
 					superMapper.saveXmmx(mx);
+				} else {
+					logger.error("解析excel 页签序号：" + no + ",行数：" + (row + 1) + " 许可证号/建筑序号不能为空  或 文档下方不能留有空行！");
+					throw new RuntimeException(
+							"解析excel 页签序号：" + no + ",行数：" + (row + 1) + "  许可证号/建筑序号不能为空  或 文档下方不能留有空行！");
 				}
 			}
 		} catch (Exception e) {
 			logger.error("解析excel 页签序号：" + no + ",行数：" + (row + 1) + " 解析异常！", e);
-			throw new RuntimeException("解析excel 页签序号：" + no + ",行数：" + (row + 1) + " 解析异常！");
+			throw new RuntimeException("解析excel 页签序号：" + no + ",行数：" + (row + 1) + " 解析异常！" + e.getMessage());
 		}
 	}
 
