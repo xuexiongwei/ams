@@ -124,12 +124,8 @@ public class View3Controller {
 									tongj.put("checkDocDate", "");// 验线日期
 									tongj.put("checkSN", "");// 验收文号
 									tongj.put("checkDate", "");// 验收日期
-									tongj.put("delaySN", "");// 延期文号
-									tongj.put("delayCountDay", "");// 延长期
 									tongj.put("cancelSN", "");// 撤（注）销证号
 									tongj.put("cancelDate", "");// 撤（注）销日期
-									tongj.put("correctionSN", "");// 补正证号
-									tongj.put("correctionDate", "");// 补正日期
 									tongj.put("imgJudgeRes", "");// 影像判读结果
 									tongj.put("exproprInfo", "");// 代征用地情况
 									tongj.put("remark", "");// 备注
@@ -158,7 +154,7 @@ public class View3Controller {
 									if (cfc.length() == 10) {
 										String fl04 = cfc.substring(5, 8);
 										String fl05 = cfc.substring(8, 10);
-										if (!"141".equals(fl04) && "01|02".indexOf(fl05) != -1) {// 总建筑面积不计算人防工程
+										if ("141".equals(fl04) && "02".indexOf(fl05) == -1) {// 总建筑面积不计算人防工程（FS）
 											// 总建筑面积（平方米）
 											Double sumArea = (Double) tongj.get("sumArea");
 											tongj.put("sumArea", StringUtils.sswr(sumArea + aga + uga));
@@ -275,110 +271,98 @@ public class View3Controller {
 										tongj.put("remark", remark);
 									}
 								}
+								/**
+								 * 规划项目性质的显示说明： 同一个许可证号下的同一个建筑序号下，
+								 * 1）属性表中【规划性质/人防】存在“规划项目性质：”和“人防工程情况：”则表示当前项目含有规划项目性质的建筑也含有人防工程的建筑，此时读取明细表，该许可证号下该建筑序号下，除人防工程（FS）的建筑显示在“规划项目性质包括：”下，人防工程（FS）的建筑显示在“人防工程情况：”下；
+								 * 2）属性表中【规划性质/人防】只存在“规划项目性质包括：”此时读取明细表，该许可证号下该建筑序号下，所有建筑显示在“规划项目性质：”下，人防工程（FS）的建筑显示在“人防工程情况：”下；
+								 * 3）属性表中【规划性质/人防】只存在“人防工程情况：”此时读取明细表，该许可证号下该建筑序号下，所有建筑显示在“人防工程情况：”下。
+								 * 
+								 */
 
 								// 分析附属属性
 								sxl = superMapper.queryXmsxByPrjSNAndSerialNumber(
 										UtilMisc.toMap("prjSN", (Object) prjSN, "serialNumber", serialNumber));
+								boolean ghxmxz = false;
+								boolean rfgcqk = false;
 								for (Xmsx xmsx : sxl) {
+									// 判断同一个序号下，是否存在【规划项目性质：】
+									String prjAttr = xmsx.getPrjAttr();// 规划项目/人防
+									if ("规划项目性质：".equals(prjAttr) && !ghxmxz) {
+										ghxmxz = true;
+									}
+									if ("人防工程情况：".equals(prjAttr) && !rfgcqk) {
+										rfgcqk = true;
+									}
+								}
+								if (UtilValidate.isNotEmpty(sxl)) {
+									Xmsx xmsx = sxl.get(0);
 									String prjAttr = xmsx.getPrjAttr();// 规划项目/人防
 									if (UtilValidate.isNotEmpty(prjAttr)) {// 如果此字段为空，则无需显示明细信息
 										// 第二行表格信息
 										mxl = superMapper.findXmmxByAttr(
 												UtilMisc.toMap("prjSN", (Object) prjSN, "serialNumber", serialNumber));
 										for (Xmmx mx : mxl) {
-											// 第五级分类
-											cfc = mx.getPrjClasfiCode();
-											if (cfc.length() == 10) {
-												String fl04 = cfc.substring(5, 8);
-												String fl05 = cfc.substring(8, 10);
-												List<Map<String, Object>> items02 = null;
-												if ("人防工程情况：".equals(prjAttr)) {
-													// [规划项目性质包括：]或 [人防工程情况：]等
-													Map<String, Object> its = FastMap.newInstance();
-													// 人防工程
-													if ("141".equals(fl04) && "01|02".indexOf(fl05) != -1) {
-														its.put("serialFunct", mx.getSerialFunct());// 建筑功能
-														// 建筑面积（平方米）
-														Double f1 = mx.getAboveGroundArea();
-														its.put("aboveGroundArea", StringUtils.sswr(f1));// 地上建筑面积（平方米）
-														Double f2 = mx.getUnderGroundArea();
-														its.put("underGroundArea", StringUtils.sswr(f2));// 地下建筑面积（平方米）
-														Double f3 = mx.getBlendArea();
-														its.put("blendArea", StringUtils.sswr(f3));// 混合建筑面积（平方米）
-														Double f4 = mx.getAboveGroundLen();
-														its.put("aboveGroundLen", StringUtils.sswr(f4));// 地上建筑长度（米）
 
-														dic = superMapper.queryDicByCode2(UtilMisc.toMap("type",
-																(Object) DicEnum.FJ, "code", cfc.substring(0, 8)));
-														String c3 = dic.getName();
-														dic = superMapper.queryDicByCode2(UtilMisc.toMap("type",
-																(Object) DicEnum.FJ, "code", cfc));
-														String c4 = dic.getName();
+											String prjAttrTem = "";
 
-														its.put("buldType", c3 + "/" + c4);// 建筑类型
-
-														Map<String, Object> xxl = null;
-														if (index.containsKey("detail")) {
-															xxl = (Map<String, Object>) index.get("detail");
-														} else {
-															xxl = FastMap.newInstance();
-															index.put("detail", xxl);
-														}
-														if (xxl.containsKey(prjAttr)) {
-															items02 = (List<Map<String, Object>>) xxl.get(prjAttr);
-														} else {
-															items02 = FastList.newInstance();
-															xxl.put(prjAttr, items02);
-														}
-														items02.add(its);
-													}
-
-												} else if ("规划项目性质：".equals(prjAttr)) {
-													Map<String, Object> its = FastMap.newInstance();
-													// 非人防工程
-													if (!"141".equals(fl04)) {
-														its.put("serialFunct", mx.getSerialFunct());// 建筑功能
-														// 建筑面积（平方米）
-														Double f1 = mx.getAboveGroundArea();
-														its.put("aboveGroundArea", StringUtils.sswr(f1));// 地上建筑面积（平方米）
-														Double f2 = mx.getUnderGroundArea();
-														its.put("underGroundArea", StringUtils.sswr(f2));// 地下建筑面积（平方米）
-														Double f3 = mx.getBlendArea();
-														its.put("blendArea", StringUtils.sswr(f3));// 混合建筑面积（平方米）
-														Double f4 = mx.getAboveGroundLen();
-														its.put("aboveGroundLen", StringUtils.sswr(f4));// 地上建筑长度（米）
-
-														dic = superMapper.queryDicByCode2(UtilMisc.toMap("type",
-																(Object) DicEnum.FJ, "code", cfc.substring(0, 8)));
-														String c3 = dic.getName();
-														dic = superMapper.queryDicByCode2(UtilMisc.toMap("type",
-																(Object) DicEnum.FJ, "code", cfc));
-														String c4 = dic.getName();
-
-														its.put("buldType", c3 + "/" + c4);// 建筑类型
-
-														Map<String, Object> xxl = null;
-														if (index.containsKey("detail")) {
-															xxl = (Map<String, Object>) index.get("detail");
-														} else {
-															xxl = FastMap.newInstance();
-															index.put("detail", xxl);
-														}
-
-														if (xxl.containsKey(prjAttr)) {
-															items02 = (List<Map<String, Object>>) xxl.get(prjAttr);
-														} else {
-															items02 = FastList.newInstance();
-															xxl.put(prjAttr, items02);
-														}
-
-														items02.add(its);
+											List<Map<String, Object>> items02 = null;
+											Map<String, Object> its = FastMap.newInstance();
+											if (ghxmxz) {// 含规划项目性质
+												// 第五级分类
+												cfc = mx.getPrjClasfiCode();
+												if (cfc.length() == 10) {
+													String fl04 = cfc.substring(5, 8);
+													String fl05 = cfc.substring(8, 10);
+													if ("141".equals(fl04) && "02".indexOf(fl05) != -1) {// 满足1/2
+														prjAttrTem = "人防工程情况：";
+														continue;
 													}
 												}
+												prjAttrTem = "规划项目性质：";
+											} else if (!ghxmxz && rfgcqk) {// 满足3
+												prjAttrTem = "人防工程情况：";
+											}
+											if (UtilValidate.isNotEmpty(prjAttrTem)) {
+												its.put("serialFunct", mx.getSerialFunct());// 建筑功能
+												Double f1 = mx.getAboveGroundArea();
+												its.put("aboveGroundArea", StringUtils.sswr(f1));// 地上建筑面积（平方米）
+												Double f2 = mx.getUnderGroundArea();
+												its.put("underGroundArea", StringUtils.sswr(f2));// 地下建筑面积（平方米）
+												Double f3 = mx.getBlendArea();
+												its.put("blendArea", StringUtils.sswr(f3));// 混合建筑面积（平方米）
+												Double f4 = mx.getAboveGroundLen();
+												its.put("aboveGroundLen", StringUtils.sswr(f4));// 地上建筑长度（米）
+												if (cfc.length() >= 5) {
+													String c3 = mx.getPrjClasfiName3();
+													its.put("buldType", c3);// 建筑类型,存在三级分类
+													if (cfc.length() >= 8) {
+														String c4 = mx.getPrjClasfiName4();
+														its.put("buldType", c4);// 建筑类型,存在四级分类
+														if (cfc.length() >= 10) {
+															String c5 = mx.getPrjClasfiName5();
+															its.put("buldType", c4 + "/" + c5);// 建筑类型，存在五级分类
+														}
+													}
+												}
+												Map<String, Object> xxl = null;
+												if (index.containsKey("detail")) {
+													xxl = (Map<String, Object>) index.get("detail");
+												} else {
+													xxl = FastMap.newInstance();
+													index.put("detail", xxl);
+												}
+												if (xxl.containsKey(prjAttrTem)) {
+													items02 = (List<Map<String, Object>>) xxl.get(prjAttrTem);
+												} else {
+													items02 = FastList.newInstance();
+													xxl.put(prjAttrTem, items02);
+												}
+												items02.add(its);
 											}
 										}
 									}
 								}
+
 							}
 						}
 					}
@@ -386,7 +370,9 @@ public class View3Controller {
 				reM = ServiceUtil.returnSuccess(viewM, "viewList", header);
 			}
 
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			logger.error("查询异常！", e);
 			reM = ServiceUtil.returnError("E", "查询异常！" + e.getMessage());
 		}
