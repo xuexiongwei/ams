@@ -1,20 +1,25 @@
 package com.xxw.springcloud.ams.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class SysMenu implements Serializable {
 
 	private static final long serialVersionUID = 3106131106176793474L;
 
 	private Long id;
+	
+	private String disId;
 
-	private String parentId;
+	private Long parentId;
 
 	private String name;
 
 	private String url;
 	
-	private String orderNum;
+	private List<SysMenu> children;
+	
+	private int orderNum;
 
 	private String userCreate;
 
@@ -25,7 +30,7 @@ public class SysMenu implements Serializable {
 	private String gmtModified;
 	
 	private int isMark;
-	public SysMenu(Long id, String parentId, String name, String url, String orderNum, String userCreate,
+	public SysMenu(Long id, Long parentId, String name, String url, int orderNum, String userCreate,
 			String userModified, String gmtCreate, String gmtModified) {
 		super();
 		this.id = id;
@@ -47,11 +52,11 @@ public class SysMenu implements Serializable {
 		this.id = id;
 	}
 
-	public String getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(String parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 
@@ -71,11 +76,11 @@ public class SysMenu implements Serializable {
 		this.url = url;
 	}
 
-	public String getOrderNum() {
+	public int getOrderNum() {
 		return orderNum;
 	}
 
-	public void setOrderNum(String orderNum) {
+	public void setOrderNum(int orderNum) {
 		this.orderNum = orderNum;
 	}
 
@@ -119,4 +124,20 @@ public class SysMenu implements Serializable {
 		this.isMark = isMark;
 	}
 
+	public List<SysMenu> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<SysMenu> children) {
+		this.children = children;
+	}
+
+	public String getDisId() {
+		return disId;
+	}
+
+	public void setDisId(String disId) {
+		this.disId = disId;
+	}
+	
 }
