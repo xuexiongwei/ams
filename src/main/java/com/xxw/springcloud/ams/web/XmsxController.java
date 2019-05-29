@@ -15,6 +15,7 @@ import com.xxw.springcloud.ams.mapper.file.SuperMapper;
 import com.xxw.springcloud.ams.model.Header;
 import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.UserOperation;
+import com.xxw.springcloud.ams.model.Xmjbxx;
 import com.xxw.springcloud.ams.model.Xmsx;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.StatusUtils;
@@ -86,37 +87,42 @@ public class XmsxController {
 			Object prjSN = params.get("prjSN");
 			if (UtilValidate.isNotEmpty(prjSN)) {
 
-				boolean save = false;
-				UserOperation uo = new UserOperation(UserOperation.od_jbsx);
-				uo.setUserID(header.getReqUserId());
-				SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
-				uo.setUserName(user.getUserName());
+				Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN + "");
+				if (UtilValidate.isNotEmpty(jbxx)) {
+					boolean save = false;
+					UserOperation uo = new UserOperation(UserOperation.od_jbsx);
+					uo.setUserID(header.getReqUserId());
+					SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
+					uo.setUserName(user.getUserName());
 
-				Object id = params.get("id");
-				if (UtilValidate.isNotEmpty(id)) {
-					Xmsx xmsx = superMapper.queryXmsxByID(Long.parseLong(id + ""));
-					if (UtilValidate.isNotEmpty(xmsx)) {
-						uo.setOperAction(UserOperation.oa_u);
-						superMapper.updateXmsx(params);
-						save = true;
+					Object id = params.get("id");
+					if (UtilValidate.isNotEmpty(id)) {
+						Xmsx xmsx = superMapper.queryXmsxByID(Long.parseLong(id + ""));
+						if (UtilValidate.isNotEmpty(xmsx)) {
+							uo.setOperAction(UserOperation.oa_u);
+							superMapper.updateXmsx(params);
+							save = true;
+						} else {
+							reM = ServiceUtil.returnError("E", "查询指定id=[" + id + "]，未查询到指定数据，操作失败！");
+						}
 					} else {
-						reM = ServiceUtil.returnError("E", "查询指定id=[" + id + "]，未查询到指定数据，操作失败！");
+						uo.setOperAction(UserOperation.oa_c);
+						superMapper.saveXmsx2(params);
+						save = true;
+					}
+					if (save) {
+						uo.setPrjSN(prjSN + "");// 许可证号
+						superMapper.saveUserOper(uo);
+						reM = ServiceUtil.returnSuccess("保存成功 ！");
+
+						// 判断工程状态,并更新
+						StatusUtils.updateBuldStatus(superMapper, prjSN.toString(),
+								Long.parseLong(params.get("serialNumber") + ""));
+						// 更新项目状态
+						StatusUtils.updatePrjStatus(superMapper, prjSN.toString());
 					}
 				} else {
-					uo.setOperAction(UserOperation.oa_c);
-					superMapper.saveXmsx2(params);
-					save = true;
-				}
-				if (save) {
-					uo.setPrjSN(prjSN + "");// 许可证号
-					superMapper.saveUserOper(uo);
-					reM = ServiceUtil.returnSuccess("保存成功 ！");
-
-					// 判断工程状态,并更新
-					StatusUtils.updateBuldStatus(superMapper, prjSN.toString(),
-							Long.parseLong(params.get("serialNumber") + ""));
-					// 更新项目状态
-					StatusUtils.updatePrjStatus(superMapper, prjSN.toString());
+					reM = ServiceUtil.returnError("E", "项目许可证不可为空！");
 				}
 			} else {
 				reM = ServiceUtil.returnError("E", "项目许可证不可为空！");

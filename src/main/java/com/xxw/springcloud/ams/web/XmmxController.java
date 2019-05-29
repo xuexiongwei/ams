@@ -17,6 +17,7 @@ import com.xxw.springcloud.ams.model.ClassifiDic;
 import com.xxw.springcloud.ams.model.Header;
 import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.UserOperation;
+import com.xxw.springcloud.ams.model.Xmjbxx;
 import com.xxw.springcloud.ams.model.Xmmx;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.UtilMisc;
@@ -90,75 +91,81 @@ public class XmmxController {
 			Object prjSN = params.get("prjSN");
 			if (UtilValidate.isNotEmpty(prjSN)) {
 
-				boolean save = false;
-				UserOperation uo = new UserOperation(UserOperation.od_jbmx);
-				uo.setUserID(header.getReqUserId());
-				SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
-				uo.setUserName(user.getUserName());
+				Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN + "");
+				if (UtilValidate.isNotEmpty(jbxx)) {
+					boolean save = false;
+					UserOperation uo = new UserOperation(UserOperation.od_jbmx);
+					uo.setUserID(header.getReqUserId());
+					SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
+					uo.setUserName(user.getUserName());
 
-				// 分析五级分类
-				Object codeO = params.get("prjClasfiCode");
-				if (UtilValidate.isNotEmpty(codeO)) {
-					String code = codeO.toString();
-					String codeT = code.substring(0, 2);
-					ClassifiDic dic = superMapper
-							.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
-					String name = dic.getName();
-					params.put("prjClasfiName1", name);
+					// 分析五级分类
+					Object codeO = params.get("prjClasfiCode");
+					if (UtilValidate.isNotEmpty(codeO)) {
+						String code = codeO.toString();
+						String codeT = code.substring(0, 2);
+						ClassifiDic dic = superMapper
+								.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+						String name = dic.getName();
+						params.put("prjClasfiName1", name);
 
-					if (code.length() >= 4) {
-						codeT = code.substring(0, 4);
-						dic = superMapper.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
-						name = dic.getName();
-						params.put("prjClasfiName2", name);
-
-						if (code.length() >= 5) {
-							codeT = code.substring(0, 5);
+						if (code.length() >= 4) {
+							codeT = code.substring(0, 4);
 							dic = superMapper
 									.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
 							name = dic.getName();
-							params.put("prjClasfiName3", name);
+							params.put("prjClasfiName2", name);
 
-							if (code.length() >= 8) {
-								codeT = code.substring(0, 8);
+							if (code.length() >= 5) {
+								codeT = code.substring(0, 5);
 								dic = superMapper
 										.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
 								name = dic.getName();
-								params.put("prjClasfiName4", name);
+								params.put("prjClasfiName3", name);
 
-								if (code.length() >= 10) {
-									codeT = code.substring(0, 10);
+								if (code.length() >= 8) {
+									codeT = code.substring(0, 8);
 									dic = superMapper.queryDicByCode2(
 											UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
 									name = dic.getName();
-									params.put("prjClasfiName5", name);
+									params.put("prjClasfiName4", name);
+
+									if (code.length() >= 10) {
+										codeT = code.substring(0, 10);
+										dic = superMapper.queryDicByCode2(
+												UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+										name = dic.getName();
+										params.put("prjClasfiName5", name);
+									}
 								}
 							}
 						}
 					}
-				}
 
-				Object id = params.get("id");
-				if (UtilValidate.isNotEmpty(id)) {
+					Object id = params.get("id");
+					if (UtilValidate.isNotEmpty(id)) {
 
-					Xmmx xmmx = superMapper.queryXmmxByID(Long.parseLong(id + ""));
-					if (UtilValidate.isNotEmpty(xmmx)) {
-						uo.setOperAction(UserOperation.oa_u);
-						superMapper.updateXmmx(params);
-						save = true;
+						Xmmx xmmx = superMapper.queryXmmxByID(Long.parseLong(id + ""));
+						if (UtilValidate.isNotEmpty(xmmx)) {
+							uo.setOperAction(UserOperation.oa_u);
+							superMapper.updateXmmx(params);
+							save = true;
+						} else {
+							reM = ServiceUtil.returnError("E", "查询指定id=[" + id + "]，未查询到指定数据，操作失败！");
+						}
 					} else {
-						reM = ServiceUtil.returnError("E", "查询指定id=[" + id + "]，未查询到指定数据，操作失败！");
+						uo.setOperAction(UserOperation.oa_c);
+						superMapper.saveXmmx2(params);
+						save = true;
+					}
+
+					if (save) {
+						uo.setPrjSN(prjSN + "");// 许可证号
+						superMapper.saveUserOper(uo);
+						reM = ServiceUtil.returnSuccess("保存成功 ！");
 					}
 				} else {
-					uo.setOperAction(UserOperation.oa_c);
-					superMapper.saveXmmx2(params);
-					save = true;
-				}
-
-				if (save) {
-					uo.setPrjSN(prjSN + "");// 许可证号
-					superMapper.saveUserOper(uo);
-					reM = ServiceUtil.returnSuccess("保存成功 ！");
+					reM = ServiceUtil.returnError("E", "通过项目许可证未查询到项目信息！");
 				}
 			} else {
 				reM = ServiceUtil.returnError("E", "项目许可证不可为空！");
