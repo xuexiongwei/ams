@@ -116,8 +116,18 @@ public interface XmjbxxMapper {
 
 		public String findbb001Detail(Map<String, Object> params) {
 
-			String sql = createSqlbb001(params, false);
-			sql = sql.replace("distinct", "distinct sxid,mxid,");
+			String sql = " from bb001v where 1=1";
+			String kes = " ";
+
+			for (Map.Entry<String, Object> entry : params.entrySet()) {
+				String key = entry.getKey();
+				if ("pageSize|pageIndex".indexOf(key) != -1)
+					continue;
+				kes += key + ",";
+				sql += " AND " + key + " = #{" + key + "}";
+			}
+			kes = kes.substring(0, kes.length() - 1);
+			sql = "select distinct sxid,mxid," + kes + sql;
 			return sql;
 		}
 
@@ -136,7 +146,23 @@ public interface XmjbxxMapper {
 				if ("pageSize|pageIndex".indexOf(key) != -1)
 					continue;
 				kes += key + ",";
-				sql += " AND " + key + " like 	\"%\"#{" + key + "}\"%\"";
+
+				// 处理复选框值
+				String vals = entry.getValue() + "";
+				// 处理字符末尾,号
+				if (vals.endsWith(","))
+					vals = vals.substring(0, vals.length() - 1);
+				if (vals.endsWith("]"))
+					vals = vals.substring(0, vals.length() - 1);
+				if (vals.startsWith("["))
+					vals = vals.substring(1, vals.length());
+
+				vals = vals.replace("\"", "'");
+				// 更改参数
+				params.put(key, vals);
+
+				sql += " AND " + key + " in (" + params.get(key) + ")";
+
 			}
 
 			kes = kes.substring(0, kes.length() - 1);

@@ -282,3 +282,73 @@ CREATE TABLE `ams_bus_user_operation` (
   `gmt_modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户操作日志表';
+
+------------------------------------------------------------------------视图表-----------------------------------------------------
+CREATE VIEW
+    bb001v
+    (
+        prjYear,
+        prjSNType,
+        prjType,
+        prjUnit,
+        prjStatus,
+        buldStatus,
+        prjAdr,
+        prjClasfiName1,
+        prjClasfiName2,
+        prjClasfiName3,
+        prjClasfiName4,
+        prjClasfiName5,
+        sxid,
+        mxid
+    ) AS
+    (
+        SELECT DISTINCT
+            `a`.`prjYear`        AS `prjYear`,
+            `a`.`prjSNType`      AS `prjSNType`,
+            `a`.`prjType`        AS `prjType`,
+            `a`.`prjUnit`        AS `prjUnit`,
+            `a`.`prjStatus`      AS `prjStatus`,
+            `a`.`buldStatus`     AS `buldStatus`,
+            `a`.`prjAdr`         AS `prjAdr`,
+            `a`.`prjClasfiName1` AS `prjClasfiName1`,
+            `a`.`prjClasfiName2` AS `prjClasfiName2`,
+            `a`.`prjClasfiName3` AS `prjClasfiName3`,
+            `a`.`prjClasfiName4` AS `prjClasfiName4`,
+            `a`.`prjClasfiName5` AS `prjClasfiName5`,
+            `a`.`sxid`           AS `sxid`,
+            `a`.`mxid`           AS `mxid`
+        FROM
+            (
+                SELECT
+                    `jb`.`prjYear`        AS `prjYear`,
+                    `jb`.`prjSNType`      AS `prjSNType`,
+                    `jb`.`prjType`        AS `prjType`,
+                    `jb`.`prjUnit`        AS `prjUnit`,
+                    `jb`.`prjStatus`      AS `prjStatus`,
+                    `sx`.`buldStatus`     AS `buldStatus`,
+                    `jb`.`prjAdr`         AS `prjAdr`,
+                    `mx`.`prjClasfiName1` AS `prjClasfiName1`,
+                    `mx`.`prjClasfiName2` AS `prjClasfiName2`,
+                    `mx`.`prjClasfiName3` AS `prjClasfiName3`,
+                    `mx`.`prjClasfiName4` AS `prjClasfiName4`,
+                    `mx`.`prjClasfiName5` AS `prjClasfiName5`,
+                    `sx`.`id`             AS `sxid`,
+                    `mx`.`id`             AS `mxid`
+                FROM
+                    ((`ams`.`ams_bus_xmjbxx` `jb`
+                LEFT JOIN
+                    `ams`.`ams_bus_xmsx` `sx`
+                ON
+                    (
+                        `jb`.`prjSN` = `sx`.`prjSN`))
+                LEFT JOIN
+                    `ams`.`ams_bus_xmmx` `mx`
+                ON
+                    (
+                        `jb`.`prjSN` = `mx`.`prjSN`
+                    AND `sx`.`serialNumber` = `mx`.`serialNumber`
+                    AND `mx`.`prjClasfiName5` <> '人防工程（FS）'))) `a`
+        WHERE
+            `a`.`sxid` IS NOT NULL
+    )

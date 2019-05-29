@@ -16,6 +16,7 @@ import com.xxw.springcloud.ams.model.Bb001;
 import com.xxw.springcloud.ams.model.Header;
 import com.xxw.springcloud.ams.model.Xmmx;
 import com.xxw.springcloud.ams.model.Xmsx;
+import com.xxw.springcloud.ams.util.FastList;
 import com.xxw.springcloud.ams.util.FastMap;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.StringUtils;
@@ -58,8 +59,74 @@ public class View1Controller {
 			params.put("pageSize", pageSize);
 			params.put("pageIndex", pageIndex);
 			List<Bb001> bb001s = superMapper.findbb001(params);// 查询出数据只为分页
-			Map<String, String> viewM = FastMap.newInstance();
-			for (int i = 0; i < bb001s.size(); i++) {
+			List<Map<String, Object>> viewM = FastList.newInstance();
+			for (Bb001 b : bb001s) {
+
+				Map<String, Object> item = FastMap.newInstance();
+				viewM.add(item);
+
+				params.clear();
+				String prjYear = b.getPrjYear();
+				if (UtilValidate.isNotEmpty(prjYear)) {
+					params.put("prjYear", prjYear);
+				}
+				String prjSNType = b.getPrjSNType();
+				if (UtilValidate.isNotEmpty(prjSNType)) {
+					params.put("prjSNType", prjSNType);
+				}
+				String prjType = b.getPrjType();
+				if (UtilValidate.isNotEmpty(prjType)) {
+					params.put("prjType", prjType);
+				}
+				String prjUnit = b.getPrjUnit();
+				if (UtilValidate.isNotEmpty(prjUnit)) {
+					params.put("prjUnit", prjUnit);
+				}
+				String prjStatus = b.getPrjStatus();
+				if (UtilValidate.isNotEmpty(prjStatus)) {
+					params.put("prjStatus", prjStatus);
+				}
+				String buldStatus = b.getBuldStatus();
+				if (UtilValidate.isNotEmpty(buldStatus)) {
+					params.put("buldStatus", buldStatus);
+				}
+				String prjAdr = b.getPrjAdr();
+				if (UtilValidate.isNotEmpty(prjAdr)) {
+					params.put("prjAdr", prjAdr);
+				}
+				String prjClasfiName1 = b.getPrjClasfiName1();
+				if (UtilValidate.isNotEmpty(prjClasfiName1)) {
+					params.put("prjClasfiName1", prjClasfiName1);
+				}
+				String prjClasfiName2 = b.getPrjClasfiName2();
+				if (UtilValidate.isNotEmpty(prjClasfiName2)) {
+					params.put("prjClasfiName2", prjClasfiName2);
+				}
+				String prjClasfiName3 = b.getPrjClasfiName3();
+				if (UtilValidate.isNotEmpty(prjClasfiName3)) {
+					params.put("prjClasfiName3", prjClasfiName3);
+				}
+				String prjClasfiName4 = b.getPrjClasfiName4();
+				if (UtilValidate.isNotEmpty(prjClasfiName4)) {
+					params.put("prjClasfiName4", prjClasfiName1);
+				}
+				String prjClasfiName5 = b.getPrjClasfiName5();
+				if (UtilValidate.isNotEmpty(prjClasfiName5)) {
+					params.put("prjClasfiName5", prjClasfiName5);
+				}
+				item.put("prjYear", StringUtils.getStr(prjYear));
+				item.put("prjType", StringUtils.getStr(prjType));
+				item.put("prjSNType", StringUtils.getStr(prjSNType));
+				item.put("prjUnit", StringUtils.getStr(prjUnit));
+				item.put("prjStatus", StringUtils.getStr(prjStatus));
+				item.put("buldStatus", StringUtils.getStr(buldStatus));
+				item.put("prjAdr", StringUtils.getStr(prjAdr));
+				item.put("prjClasfiName1", StringUtils.getStr(prjClasfiName1));
+				item.put("prjClasfiName2", StringUtils.getStr(prjClasfiName2));
+				item.put("prjClasfiName3", StringUtils.getStr(prjClasfiName3));
+				item.put("prjClasfiName4", StringUtils.getStr(prjClasfiName1));
+				item.put("prjClasfiName5", StringUtils.getStr(prjClasfiName5));
+
 				// 查询属性id 及 明细 id 信息
 				List<Bb001> bb001L = superMapper.findbb001Detail(params);
 				// // 统计数据
@@ -123,13 +190,13 @@ public class View1Controller {
 					// 建筑长度（米）
 					sumLen = StringUtils.sswr(sumLen + agl);
 				}
-				viewM.put("count", count + "");// 项目个数
-				viewM.put("sumArea", sumArea + "");// 总面积
-				viewM.put("sumLen", sumLen + "");// 总建筑长度
-				viewM.put("aboveGroundSumArea", aboveGroundSumArea + "");// 地上建筑面积（平方米）
-				viewM.put("underGroundSumArea", underGroundSumArea + "");// 地下建筑面积（平方米）
-				viewM.put("buildings", buildings + "");// 栋数
-				viewM.put("housingStockNum", housingStockNum + "");// 住房套数
+				item.put("count", count);// 项目个数
+				item.put("sumArea", sumArea);// 总面积
+				item.put("sumLen", sumLen);// 总建筑长度
+				item.put("aboveGroundSumArea", aboveGroundSumArea);// 地上建筑面积（平方米）
+				item.put("underGroundSumArea", underGroundSumArea);// 地下建筑面积（平方米）
+				item.put("buildings", buildings);// 栋数
+				item.put("housingStockNum", housingStockNum);// 住房套数
 			}
 			header.setRspPageCount(totalSize);
 			reM = ServiceUtil.returnSuccess(viewM, "viewList", header);
