@@ -66,7 +66,7 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 
 					BeanUtils.setProperty(jbxx,
 							new String[] { "prjSN", "prjUnit", "prjAdr", "prjName", "prjType", "contacts", "contactInf",
-									"prjTemSN", "specialNotifi", "noticeTime", "effectiveTime", "delaySN",
+									"prjTemSN", "specialNotifi", "prjSNType", "noticeTime", "effectiveTime", "delaySN",
 									"delayCountDay", "correctionSN", "correctionDate", "remark" },
 							items);
 					String prjName = jbxx.getPrjName();
@@ -82,17 +82,6 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 					} else {
 						jbxx.setPrjType("新建");
 					}
-					// 许可证类型
-					if (prjSN.indexOf("乡") != -1) {
-						jbxx.setPrjSNType("乡村建设项目");
-					} else if (prjSN.indexOf("临") != -1) {
-						jbxx.setPrjSNType("临时建设项目");
-					} else if (prjSN.indexOf("补正") != -1) {
-						jbxx.setPrjSNType("补正项目");
-					} else {
-						jbxx.setPrjSNType("城镇建设项目");
-					}
-
 					// 项目年份
 					jbxx.setPrjYear(prjSN.substring(0, 4));
 
