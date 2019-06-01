@@ -16,6 +16,8 @@ import com.xxw.springcloud.ams.model.Header;
 import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.UserOperation;
 import com.xxw.springcloud.ams.model.Xmjbxx;
+import com.xxw.springcloud.ams.util.Check;
+import com.xxw.springcloud.ams.util.DateUtils;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.UtilValidate;
 
@@ -84,27 +86,149 @@ public class XmjbxxController {
 
 			Object prjSN = params.get("prjSN");
 			if (UtilValidate.isNotEmpty(prjSN)) {
-				// 查询此项目信息是否存在queryXmjbxx
-				Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN + "");
-
-				UserOperation uo = new UserOperation(UserOperation.od_jbxx);
-				uo.setUserID(header.getReqUserId());
-				SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
-				uo.setUserName(user.getUserName());
-
-				// 项目年份
-				jbxx.setPrjYear((prjSN + "").substring(0, 4));
-
-				if (UtilValidate.isNotEmpty(jbxx)) {
-					uo.setOperAction(UserOperation.oa_u);
-					superMapper.updateXmjbxx2(params);
-				} else {
-					uo.setOperAction(UserOperation.oa_c);
-					superMapper.saveXmjbxx2(params);
+				String year = "";
+				boolean check = true;
+				if ((prjSN + "").length() < 4) {
+					check = false;
+					reM = ServiceUtil.returnError("E", "项目许可证长度不满足要求！");
 				}
-				uo.setPrjSN(params.get("prjSN") + "");// 许可证号
-				superMapper.saveUserOper(uo);
-				reM = ServiceUtil.returnSuccess("保存成功！");
+				if ((prjSN + "").length() >= 4) {
+					year = (prjSN + "").substring(0, 4);
+					if (!Check.check(Check.date1, year + "/01/01")) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "项目许可证必须以时间开头！");
+					}
+				}
+				if (UtilValidate.isEmpty(params.get("prjUnit"))) {
+					check = false;
+					reM = ServiceUtil.returnError("E", "建设单位 为必填项！");
+				}
+				if (UtilValidate.isEmpty(params.get("prjType"))) {
+					check = false;
+					reM = ServiceUtil.returnError("E", "建设类型 为必填项！");
+				} else {
+					if ("新建|改扩建".indexOf(params.get("prjType") + "") == -1) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "建设类型 为[新建、改扩建]！");
+					}
+				}
+				if (UtilValidate.isNotEmpty(params.get("prjTemSN"))) {
+					if ((params.get("prjTemSN") + "").indexOf("临") == -1) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "请输入有效临建证号！");
+					}
+				}
+				if (UtilValidate.isEmpty(params.get("prjSNType"))) {
+					check = false;
+					reM = ServiceUtil.returnError("E", "许可证类型 为必填项！");
+				} else {
+					if ("城镇建设项目|乡村建设项目|临时建设项目|补正项目".indexOf(params.get("prjSNType") + "") == -1) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "许可证类型 为[城镇建设项目、乡村建设项目、临时建设项目、补正项目]！");
+					} else {
+						if ("临时建设项目".equals(params.get("prjSNType") + "")) {
+							// 发件日期 选填，格式为（年/月/日），*临建项目必填
+							if (UtilValidate.isEmpty(params.get("noticeTime"))) {
+								check = false;
+								reM = ServiceUtil.returnError("E", "发件日期 临建项目必填！");
+							}
+							// 有效期（月） 选填，数字，整数，*临建项目必填
+							if (UtilValidate.isEmpty(params.get("effectiveTime"))) {
+								check = false;
+								reM = ServiceUtil.returnError("E", "有效期（月） 临建项目必填！");
+							}
+						}
+
+					}
+				}
+
+				if (UtilValidate.isNotEmpty(params.get("noticeTime"))) {
+					if (!Check.check(Check.date1, params.get("noticeTime") + "")) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "请输入有效 [发件日期],格式YYYY/MM/DD！");
+					}
+				}
+
+				if (UtilValidate.isNotEmpty(params.get("effectiveTime"))) {
+					if (!Check.check(Check.zzs, params.get("effectiveTime") + "")) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "请输入有效 [有效期（月）],整数！");
+					}
+				}
+				if (UtilValidate.isNotEmpty(params.get("delayCountDay"))) {
+					if (!Check.check(Check.zzs, params.get("delayCountDay") + "")) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "请输入有效 [延长期（月）],整数！");
+					}
+				}
+				if (UtilValidate.isNotEmpty(params.get("correctionDate"))) {
+					if (!Check.check(Check.date1, params.get("correctionDate") + "")) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "请输入有效 [补正日期],格式YYYY/MM/DD！");
+					} else if (DateUtils.nowDateString(DateUtils.FORMAT6)
+							.compareTo(params.get("correctionDate") + "") < 0) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "补正日期 必须小于当前系统日期!");
+					}
+				}
+
+				/**
+				 * 延期文号 选填，文本，50个字符，为空时【延长期】必为空；填写时【延长期】必填写 <br>
+				 * 延长期（月） 选填，数字，整数，为空时【延期文号】必为空；填写时【延期文号】必填写
+				 * 
+				 */
+				if (UtilValidate.isEmpty(params.get("delaySN")) && UtilValidate.isNotEmpty("delayCountDay")
+						|| UtilValidate.isEmpty(params.get("delayCountDay")) && UtilValidate.isNotEmpty("delaySN")) {
+					check = false;
+					reM = ServiceUtil.returnError("E", "[延期文号]&[延长期（月）] 必须同时存在或同时不存在！");
+				}
+				/**
+				 * 补正证号 选填，文本，50个字符，为空时【补正日期】必为空；填写时【补正日期】必填写<br>
+				 * 补正日期 选填，文本，格式必须为（年/月/日），小于当前录入时间，为空时【补正证号】必为空；填写时【补正证号】必填写
+				 * 
+				 */
+				if (UtilValidate.isEmpty(params.get("correctionSN")) && UtilValidate.isNotEmpty("correctionDate")
+						|| UtilValidate.isEmpty(params.get("correctionDate"))
+								&& UtilValidate.isNotEmpty("correctionSN")) {
+					check = false;
+					reM = ServiceUtil.returnError("E", "[补正证号]&[补正日期] 必须同时存在或同时不存在！");
+				}
+
+				// 备注 选填，需判断本许可证号，若含有“补正”，这里必填原许可证号，格式如“2004规（朝）建字0190号补正”
+				if ((prjSN + "").indexOf("补正") != 1) {
+					if (UtilValidate.isEmpty(params.get("remark"))) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "本许可证号，含有“补正”，[备注]必填原许可证号！");
+					} else if ((params.get("remark") + "").indexOf("号补正") == -1) {
+						check = false;
+						reM = ServiceUtil.returnError("E", "本许可证号，含有“补正”，[备注]必填原许可证号，格式如“2004规（朝）建字0190号补正”");
+					}
+				}
+
+				if (check) {
+
+					// 查询此项目信息是否存在queryXmjbxx
+					Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN + "");
+
+					UserOperation uo = new UserOperation(UserOperation.od_jbxx);
+					uo.setUserID(header.getReqUserId());
+					SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
+					uo.setUserName(user.getUserName());
+
+					// 项目年份
+					jbxx.setPrjYear((prjSN + "").substring(0, 4));
+
+					if (UtilValidate.isNotEmpty(jbxx)) {
+						uo.setOperAction(UserOperation.oa_u);
+						superMapper.updateXmjbxx2(params);
+					} else {
+						uo.setOperAction(UserOperation.oa_c);
+						superMapper.saveXmjbxx2(params);
+					}
+					uo.setPrjSN(params.get("prjSN") + "");// 许可证号
+					superMapper.saveUserOper(uo);
+					reM = ServiceUtil.returnSuccess("保存成功！");
+				}
 			} else {
 				reM = ServiceUtil.returnError("E", "项目许可证不可为空！");
 			}
