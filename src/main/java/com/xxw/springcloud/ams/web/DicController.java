@@ -81,4 +81,33 @@ public class DicController {
 
 		return reM;
 	}
+
+	/**
+	 * 级联查询
+	 */
+	@RequestMapping("/api/dic/queryJL")
+	public String queryJL(@RequestBody String inputjson) {
+
+		logger.info("exc:queryByType params:inputjson=" + inputjson);
+
+		String reM = ServiceUtil.returnError("E", "请求异常！");
+		Header header = ServiceUtil.getContextHeader(inputjson);
+		String bodyStr = ServiceUtil.getContextBody(inputjson);
+		Map<String, Object> params = JSONObject.parseObject(bodyStr);
+
+		Object type = params.get("type");
+		if (UtilValidate.isNotEmpty(type)) {
+			List<ClassifiDic> items = superMapper.queryDicByCode(params);
+			if (UtilValidate.isEmpty(items)) {
+				items = FastList.newInstance();
+			}
+			reM = ServiceUtil.returnSuccess(items, "classifiDicList", header);
+		} else {
+			reM = ServiceUtil.returnError("E", "字典类型 必输！");
+		}
+
+		logger.info("exc:queryByType return:" + reM);
+
+		return reM;
+	}
 }

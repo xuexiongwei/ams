@@ -29,9 +29,9 @@ public interface DicMapper {
 	@Select("select * from ams_bus_classifi_dic where type=#{type} and parentID =#{parentID} and name=#{name}")
 	ClassifiDic queryDicByName(Map<String, Object> params);
 
-	// 根据字典码值，类型，父ID查询字典
-	@Select("select * from ams_bus_classifi_dic where type=#{type} and parentID =#{parentID} and code=#{code}")
-	ClassifiDic queryDicByCode(Map<String, Object> params);
+	// 根据字典类型，父ID查询字典
+	@Select("select * from ams_bus_classifi_dic where type=#{type} and parentID =#{parentID}")
+	List<ClassifiDic> queryDicByCode(Map<String, Object> params);
 
 	// 根据字典码值，类型查询字典
 	@Select("select * from ams_bus_classifi_dic where type=#{type} and code=#{code}")
