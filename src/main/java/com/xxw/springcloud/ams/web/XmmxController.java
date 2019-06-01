@@ -19,6 +19,7 @@ import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.UserOperation;
 import com.xxw.springcloud.ams.model.Xmjbxx;
 import com.xxw.springcloud.ams.model.Xmmx;
+import com.xxw.springcloud.ams.util.FastMap;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.UtilMisc;
 import com.xxw.springcloud.ams.util.UtilValidate;
@@ -219,6 +220,97 @@ public class XmmxController {
 		} catch (Exception e) {
 			logger.error("查询异常！", e);
 			reM = ServiceUtil.returnError("E", "删除异常！" + e.getMessage());
+		}
+
+		logger.info("exc:query return:" + reM);
+
+		return reM;
+	}
+
+	/**
+	 * 查询明细对应分类信息
+	 */
+	@RequestMapping("/api/xmmx/queryDicByID")
+	public String queryDicByID(@RequestBody String inputjson) {
+
+		logger.info("exc:query params:inputjson=" + inputjson);
+
+		String reM = ServiceUtil.returnError("E", "字典查询异常！");
+		try {
+			Header header = ServiceUtil.getContextHeader(inputjson);
+			String bodyStr = ServiceUtil.getContextBody(inputjson);
+			Map<String, Object> params = JSONObject.parseObject(bodyStr);
+
+			Object id = params.get("id");
+			Map<String, Object> view = FastMap.newInstance();
+
+			if (UtilValidate.isNotEmpty(id)) {
+				Xmmx xmmx = superMapper.queryXmmxByID(Long.parseLong(id + ""));
+				if (UtilValidate.isNotEmpty(xmmx)) {
+
+					String code = xmmx.getPrjClasfiCode();
+					if (UtilValidate.isNotEmpty(code)) {
+
+						String codeT = code.substring(0, 2);
+						List<ClassifiDic> dic = superMapper
+								.queryDicByCode(UtilMisc.toMap("type", (Object) DicEnum.FJ, "parentID", ""));
+						view.put("prjClasfiName1List", dic);
+						ClassifiDic dicObj = superMapper
+								.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+						view.put("prjClasfiName1Obj", dicObj);
+
+						if (code.length() >= 4) {
+							codeT = code.substring(0, 4);
+							dic = superMapper.queryDicByCode(
+									UtilMisc.toMap("type", (Object) DicEnum.FJ, "parentID", dicObj.getId()));
+							view.put("prjClasfiName2List", dic);
+							dicObj = superMapper
+									.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+							view.put("prjClasfiName2Obj", dicObj);
+
+							if (code.length() >= 5) {
+								codeT = code.substring(0, 5);
+								dic = superMapper.queryDicByCode(
+										UtilMisc.toMap("type", (Object) DicEnum.FJ, "parentID", dicObj.getId()));
+								view.put("prjClasfiName3List", dic);
+								dicObj = superMapper
+										.queryDicByCode2(UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+								view.put("prjClasfiName3Obj", dicObj);
+
+								if (code.length() >= 8) {
+									codeT = code.substring(0, 8);
+									dic = superMapper.queryDicByCode(
+											UtilMisc.toMap("type", (Object) DicEnum.FJ, "parentID", dicObj.getId()));
+									view.put("prjClasfiName4List", dic);
+									dicObj = superMapper.queryDicByCode2(
+											UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+									view.put("prjClasfiName4Obj", dicObj);
+
+									if (code.length() >= 10) {
+										codeT = code.substring(0, 10);
+										dic = superMapper.queryDicByCode(UtilMisc.toMap("type", (Object) DicEnum.FJ,
+												"parentID", dicObj.getId()));
+										view.put("prjClasfiName5List", dic);
+										dicObj = superMapper.queryDicByCode2(
+												UtilMisc.toMap("type", (Object) DicEnum.FJ, "code", codeT));
+										view.put("prjClasfiName5Obj", dicObj);
+									}
+								}
+							}
+						}
+					}
+					reM = ServiceUtil.returnSuccess(view, "viewObj", header);
+				} else {
+					reM = ServiceUtil.returnError("E", "未查询到指定数据！id=[" + id + "]");
+				}
+
+			} else {
+				reM = ServiceUtil.returnError("E", "字典查询时，ID 必传！");
+			}
+
+		} catch (Exception e) {
+			logger.error("查询异常！", e);
+			reM = ServiceUtil.returnError("E", "字典查询异常！" + e.getMessage());
 		}
 
 		logger.info("exc:query return:" + reM);
