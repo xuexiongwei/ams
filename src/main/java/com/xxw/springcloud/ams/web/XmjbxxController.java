@@ -19,6 +19,7 @@ import com.xxw.springcloud.ams.model.Xmjbxx;
 import com.xxw.springcloud.ams.util.Check;
 import com.xxw.springcloud.ams.util.DateUtils;
 import com.xxw.springcloud.ams.util.ServiceUtil;
+import com.xxw.springcloud.ams.util.StringUtils;
 import com.xxw.springcloud.ams.util.UtilValidate;
 
 @RestController
@@ -90,13 +91,13 @@ public class XmjbxxController {
 				boolean check = true;
 				if ((prjSN + "").length() < 4) {
 					check = false;
-					reM = ServiceUtil.returnError("E", "项目许可证长度不满足要求！");
+					reM = ServiceUtil.returnError("E", "项目许可证长度不满足要求，无法提取项目日期！");
 				}
 				if ((prjSN + "").length() >= 4) {
-					year = (prjSN + "").substring(0, 4);
-					if (!Check.check(Check.date1, year + "/01/01")) {
+					year = StringUtils.getYear(prjSN + "");
+					if (UtilValidate.isEmpty(year)) {
 						check = false;
-						reM = ServiceUtil.returnError("E", "项目许可证必须以时间开头！");
+						reM = ServiceUtil.returnError("E", "项目许可证 中无法提取项目日期！");
 					}
 				}
 				if (UtilValidate.isEmpty(params.get("prjUnit"))) {
@@ -216,7 +217,7 @@ public class XmjbxxController {
 					uo.setUserName(user.getUserName());
 
 					// 项目年份
-					jbxx.setPrjYear((prjSN + "").substring(0, 4));
+					jbxx.setPrjYear(year);
 
 					if (UtilValidate.isNotEmpty(jbxx)) {
 						uo.setOperAction(UserOperation.oa_u);

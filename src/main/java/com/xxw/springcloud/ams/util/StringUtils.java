@@ -2,6 +2,8 @@ package com.xxw.springcloud.ams.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 使用此方法，防止字符串内存泄漏
@@ -70,4 +72,21 @@ public class StringUtils {
 		}
 	}
 
+	/**
+	 * 提取许可证中年份
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String getYear(String str) {
+		Pattern p = Pattern.compile("[0-9\\.]+");
+		Matcher m = p.matcher(str);
+		while (m.find()) {
+			String date = m.group();
+			if ("1900".compareTo(date) < 0 && "2999".compareTo(date) > 0) {
+				return date;
+			}
+		}
+		return "";
+	}
 }
