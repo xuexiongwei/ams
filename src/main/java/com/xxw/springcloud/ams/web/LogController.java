@@ -30,7 +30,7 @@ public class LogController {
 	@RequestMapping("/api/userOperation/queryUserOperByDate")
 	public String query(@RequestBody String inputjson) {
 
-		logger.debug("exc:queryUserOperByDate params:inputjson=" + inputjson);
+		logger.info("exc:queryUserOperByDate params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "查询异常！");
 		try {
@@ -72,7 +72,7 @@ public class LogController {
 			reM = ServiceUtil.returnError("E", "查询异常！" + e.getMessage());
 		}
 
-		logger.debug("exc:queryUserOperByDate return:" + reM);
+		logger.info("exc:queryUserOperByDate return:" + reM);
 
 		return reM;
 	}

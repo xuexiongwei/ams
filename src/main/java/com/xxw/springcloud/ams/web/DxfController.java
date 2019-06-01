@@ -33,7 +33,7 @@ public class DxfController {
 	@RequestMapping("/api/dxf/query")
 	public String query(@RequestBody String inputjson) {
 
-		logger.debug("exc:query params:inputjson=" + inputjson);
+		logger.info("exc:query params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "请求异常！");
 		Header header = ServiceUtil.getContextHeader(inputjson);
@@ -51,7 +51,7 @@ public class DxfController {
 			reM = ServiceUtil.returnError("E", "项目许可证号 必输！");
 		}
 
-		logger.debug("exc:query return:" + reM);
+		logger.info("exc:query return:" + reM);
 
 		return reM;
 	}
@@ -62,7 +62,7 @@ public class DxfController {
 	@RequestMapping("/api/dxf/convertZB")
 	public String convertZB(@RequestBody String inputjson) {
 
-		logger.debug("exc:convertZB params:inputjson=" + inputjson);
+		logger.info("exc:convertZB params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "请求异常！");
 		Header header = ServiceUtil.getContextHeader(inputjson);
@@ -87,7 +87,7 @@ public class DxfController {
 		} else {
 			reM = ServiceUtil.returnError("E", "经度数据为空！");
 		}
-		logger.debug("exc:convertZB return:" + reM);
+		logger.info("exc:convertZB return:" + reM);
 
 		return reM;
 	}

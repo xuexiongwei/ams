@@ -58,7 +58,7 @@ public class FileController {
 	public String uploadFile(@RequestParam("files") MultipartFile[] uploadfile,
 			@RequestParam("upLoadType") String upLoadType, String prjSN) {
 
-		logger.debug("exc:uploadFile params:upLoadType=" + upLoadType);
+		logger.info("exc:uploadFile params:upLoadType=" + upLoadType);
 
 		String reM = ServiceUtil.returnSuccess("上传成功！");
 
@@ -154,7 +154,7 @@ public class FileController {
 			}
 		}
 
-		logger.debug("exc:uploadFile return:" + reM);
+		logger.info("exc:uploadFile return:" + reM);
 
 		return reM;
 	}
@@ -165,7 +165,7 @@ public class FileController {
 	@RequestMapping("/api/download")
 	public String download(String id, String fname, HttpServletRequest request, HttpServletResponse response) {
 
-		logger.debug("exc:download params:id=" + id + ",fname=" + fname);
+		logger.info("exc:download params:id=" + id + ",fname=" + fname);
 
 		String reM = ServiceUtil.returnSuccess("下载成功！");
 
@@ -210,7 +210,7 @@ public class FileController {
 			reM = ServiceUtil.returnError(null, "下载文件失败！" + e.getMessage());
 		}
 
-		logger.debug("exc:download return:" + reM);
+		logger.info("exc:download return:" + reM);
 
 		return reM;
 	}
@@ -221,7 +221,7 @@ public class FileController {
 	@RequestMapping("/api/file/query")
 	public String query(@RequestBody String inputjson) {
 
-		logger.debug("exc:query params:inputjson=" + inputjson);
+		logger.info("exc:query params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "请求异常！");
 		Header header = ServiceUtil.getContextHeader(inputjson);
@@ -239,7 +239,7 @@ public class FileController {
 			reM = ServiceUtil.returnError("E", "项目许可证号 必输！");
 		}
 
-		logger.debug("exc:query return:" + reM);
+		logger.info("exc:query return:" + reM);
 
 		return reM;
 	}
@@ -250,7 +250,7 @@ public class FileController {
 	@RequestMapping("/api/file/del")
 	public String del(@RequestBody String inputjson) {
 
-		logger.debug("exc:query params:inputjson=" + inputjson);
+		logger.info("exc:query params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "请求异常！");
 		String bodyStr = ServiceUtil.getContextBody(inputjson);
@@ -276,7 +276,7 @@ public class FileController {
 			reM = ServiceUtil.returnError("E", "文档ID 必输！");
 		}
 
-		logger.debug("exc:query return:" + reM);
+		logger.info("exc:query return:" + reM);
 
 		return reM;
 	}

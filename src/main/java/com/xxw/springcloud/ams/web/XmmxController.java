@@ -36,7 +36,7 @@ public class XmmxController {
 	@RequestMapping("/api/xmmx/query")
 	public String query(@RequestBody String inputjson) {
 
-		logger.debug("exc:query params:inputjson=" + inputjson);
+		logger.info("exc:query params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnSuccess("查询成功！");
 		try {
@@ -69,7 +69,7 @@ public class XmmxController {
 			reM = ServiceUtil.returnError("E", "查询异常！" + e.getMessage());
 		}
 
-		logger.debug("exc:query return:" + reM);
+		logger.info("exc:query return:" + reM);
 
 		return reM;
 	}
@@ -80,7 +80,7 @@ public class XmmxController {
 	@RequestMapping("/api/xmmx/createOrUpdate")
 	public String createOrUpdate(@RequestBody String inputjson) {
 
-		logger.debug("exc:query params:inputjson=" + inputjson);
+		logger.info("exc:query params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "保存异常！");
 		try {
@@ -176,7 +176,7 @@ public class XmmxController {
 			reM = ServiceUtil.returnError("E", "保存异常！" + e.getMessage());
 		}
 
-		logger.debug("exc:query return:" + reM);
+		logger.info("exc:query return:" + reM);
 
 		return reM;
 	}
@@ -187,7 +187,7 @@ public class XmmxController {
 	@RequestMapping("/api/xmmx/del")
 	public String del(@RequestBody String inputjson) {
 
-		logger.debug("exc:query params:inputjson=" + inputjson);
+		logger.info("exc:query params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "删除异常！");
 		try {
@@ -221,7 +221,7 @@ public class XmmxController {
 			reM = ServiceUtil.returnError("E", "删除异常！" + e.getMessage());
 		}
 
-		logger.debug("exc:query return:" + reM);
+		logger.info("exc:query return:" + reM);
 
 		return reM;
 	}

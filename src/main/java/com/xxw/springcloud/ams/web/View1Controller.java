@@ -35,7 +35,7 @@ public class View1Controller {
 	@RequestMapping("/api/view/bb001")
 	public String bb001(@RequestBody String inputjson) {
 
-		logger.debug("exc:queryUserOperByDate params:inputjson=" + inputjson);
+		logger.info("exc:queryUserOperByDate params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "查询异常！");
 		try {
@@ -207,7 +207,7 @@ public class View1Controller {
 			reM = ServiceUtil.returnError("E", "查询异常！" + e.getMessage());
 		}
 
-		logger.debug("exc:queryUserOperByDate return:" + reM);
+		logger.info("exc:queryUserOperByDate return:" + reM);
 
 		return reM;
 	}

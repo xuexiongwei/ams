@@ -37,7 +37,7 @@ public class QueryMhController {
 	@RequestMapping("/api/mh/queryDicByNameLike")
 	public String queryByType(@RequestBody String inputjson) {
 
-		logger.debug("exc:queryDicByNameLike params:inputjson=" + inputjson);
+		logger.info("exc:queryDicByNameLike params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "请求异常！");
 		Header header = ServiceUtil.getContextHeader(inputjson);
@@ -60,7 +60,7 @@ public class QueryMhController {
 			reM = ServiceUtil.returnError("E", "字典名称 必输！");
 		}
 
-		logger.debug("exc:queryDicByNameLike return:" + reM);
+		logger.info("exc:queryDicByNameLike return:" + reM);
 
 		return reM;
 	}
@@ -71,7 +71,7 @@ public class QueryMhController {
 	@RequestMapping("/api/mh/queryJbxxLike")
 	public String queryPrjSNLike(@RequestBody String inputjson) {
 
-		logger.debug("exc:queryJbxxLike params:inputjson=" + inputjson);
+		logger.info("exc:queryJbxxLike params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "请求异常！");
 		Header header = ServiceUtil.getContextHeader(inputjson);
@@ -92,7 +92,7 @@ public class QueryMhController {
 			reM = ServiceUtil.returnError("E", "查询字段[key、val、tab] 必输！");
 		}
 
-		logger.debug("exc:queryJbxxLike return:" + reM);
+		logger.info("exc:queryJbxxLike return:" + reM);
 
 		return reM;
 	}

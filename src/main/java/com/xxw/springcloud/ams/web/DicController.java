@@ -32,7 +32,7 @@ public class DicController {
 	@RequestMapping("/api/dic/queryByType")
 	public String queryByType(@RequestBody String inputjson) {
 
-		logger.debug("exc:queryByType params:inputjson=" + inputjson);
+		logger.info("exc:queryByType params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "请求异常！");
 		Header header = ServiceUtil.getContextHeader(inputjson);
@@ -50,7 +50,7 @@ public class DicController {
 			reM = ServiceUtil.returnError("E", "字典类型 必输！");
 		}
 
-		logger.debug("exc:queryByType return:" + reM);
+		logger.info("exc:queryByType return:" + reM);
 
 		return reM;
 	}
@@ -61,7 +61,7 @@ public class DicController {
 	@RequestMapping("/api/dic/create")
 	public String create(@RequestBody String inputjson) {
 
-		logger.debug("exc:queryByType params:inputjson=" + inputjson);
+		logger.info("exc:queryByType params:inputjson=" + inputjson);
 
 		String reM = ServiceUtil.returnError("E", "请求异常！");
 		String bodyStr = ServiceUtil.getContextBody(inputjson);
@@ -77,7 +77,7 @@ public class DicController {
 			reM = ServiceUtil.returnError("E", "字典类型 必输！");
 		}
 
-		logger.debug("exc:queryByType return:" + reM);
+		logger.info("exc:queryByType return:" + reM);
 
 		return reM;
 	}
