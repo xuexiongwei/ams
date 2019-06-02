@@ -177,8 +177,10 @@ public class XmsxController {
 				 * 验线日期 选填，文本，格式必须为（年/月/日），小于当前录入时间，为空时【验线文号】必为空；填写时【验线文号】必填写
 				 * 
 				 */
-				if (UtilValidate.isEmpty(params.get("checkDocSN")) && UtilValidate.isNotEmpty("checkDocDate")
-						|| UtilValidate.isEmpty(params.get("checkDocDate")) && UtilValidate.isNotEmpty("checkDocSN")) {
+				if (UtilValidate.isEmpty(params.get("checkDocSN"))
+						&& UtilValidate.isNotEmpty(params.get("checkDocDate"))
+						|| UtilValidate.isEmpty(params.get("checkDocDate"))
+								&& UtilValidate.isNotEmpty(params.get("checkDocSN"))) {
 					check = false;
 					reM = ServiceUtil.returnError("E", "[验线文号]&[验线日期] 必须同时存在或同时不存在！");
 				}
@@ -187,8 +189,9 @@ public class XmsxController {
 				 * 验收日期 选填，文本，格式必须为（年/月/日），小于当前录入时间，为空时【验收文号】必为空；填写时【验收文号】必填写
 				 * 
 				 */
-				if (UtilValidate.isEmpty(params.get("checkSN")) && UtilValidate.isNotEmpty("checkDate")
-						|| UtilValidate.isEmpty(params.get("checkDate")) && UtilValidate.isNotEmpty("checkSN")) {
+				if (UtilValidate.isEmpty(params.get("checkSN")) && UtilValidate.isNotEmpty(params.get("checkDate"))
+						|| UtilValidate.isEmpty(params.get("checkDate"))
+								&& UtilValidate.isNotEmpty(params.get("checkSN"))) {
 					check = false;
 					reM = ServiceUtil.returnError("E", "[验收文号]&[验收日期] 必须同时存在或同时不存在！");
 				}
@@ -200,8 +203,9 @@ public class XmsxController {
 				 * 
 				 */
 
-				if (UtilValidate.isEmpty(params.get("cancelSN")) && UtilValidate.isNotEmpty("cancelDate")
-						|| UtilValidate.isEmpty(params.get("cancelDate")) && UtilValidate.isNotEmpty("cancelSN")) {
+				if (UtilValidate.isEmpty(params.get("cancelSN")) && UtilValidate.isNotEmpty(params.get("cancelDate"))
+						|| UtilValidate.isEmpty(params.get("cancelDate"))
+								&& UtilValidate.isNotEmpty(params.get("cancelSN"))) {
 					check = false;
 					reM = ServiceUtil.returnError("E", "[撤（注）销证号]&[撤（注）销日期] 必须同时存在或同时不存在！");
 				}

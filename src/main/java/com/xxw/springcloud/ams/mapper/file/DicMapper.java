@@ -33,6 +33,9 @@ public interface DicMapper {
 	@Select("select * from ams_bus_classifi_dic where type=#{type} and parentID =#{parentID}")
 	List<ClassifiDic> queryDicByCode(Map<String, Object> params);
 
+	@Select("select distinct name from ams_bus_classifi_dic where type=#{type} and name like \"%\"#{name}\"%\" and other=#{other}")
+	List<String> queryDicNameByType(Map<String, Object> params);
+
 	// 根据字典码值，类型查询字典
 	@Select("select * from ams_bus_classifi_dic where type=#{type} and code=#{code}")
 	ClassifiDic queryDicByCode2(Map<String, Object> params);

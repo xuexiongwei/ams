@@ -83,7 +83,7 @@ public class FileController {
 						} else if (fname.endsWith(".dxf")) {
 							// dxf 文件名命名规范为 项目许可证号
 							prjSN = fname.replace(".dxf", "");
-							prjSN = fname.replace(".DXF", "");
+							prjSN = prjSN.replace(".DXF", "");
 							List<DxfEntity> items = DxfUtils.analysis(file, prjSN);
 							if (UtilValidate.isNotEmpty(items)) {
 

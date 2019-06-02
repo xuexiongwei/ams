@@ -110,4 +110,35 @@ public class DicController {
 
 		return reM;
 	}
+
+	/**
+	 * 查询五级分类
+	 */
+	@RequestMapping("/api/dic/queryDL")
+	public String queryDL(@RequestBody String inputjson) {
+
+		logger.info("exc:queryByType params:inputjson=" + inputjson);
+
+		String reM = ServiceUtil.returnError("E", "请求异常！");
+		Header header = ServiceUtil.getContextHeader(inputjson);
+		String bodyStr = ServiceUtil.getContextBody(inputjson);
+		Map<String, Object> params = JSONObject.parseObject(bodyStr);
+
+		Object type = params.get("type");
+		Object name = params.get("name");
+		Object other = params.get("other");
+		if (UtilValidate.isNotEmpty(type) && UtilValidate.isNotEmpty(name) && UtilValidate.isNotEmpty(other)) {
+			List<String> items = superMapper.queryDicNameByType(params);
+			if (UtilValidate.isEmpty(items)) {
+				items = FastList.newInstance();
+			}
+			reM = ServiceUtil.returnSuccess(items, "classifiDicList", header);
+		} else {
+			reM = ServiceUtil.returnError("E", "字典类型 必输！");
+		}
+
+		logger.info("exc:queryByType return:" + reM);
+
+		return reM;
+	}
 }

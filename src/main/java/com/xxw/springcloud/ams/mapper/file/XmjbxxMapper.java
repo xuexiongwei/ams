@@ -40,7 +40,7 @@ public interface XmjbxxMapper {
 	void updatePrjStatusByPrjSN(Map<String, Object> params);
 
 	// 删除项目基本信息
-	@Delete("delete from ams_bus_xmjbxx where prjSN=#{prjSN}")
+	@Delete("delete from ams_bus_xmjbxx where id=#{id}")
 	void delXmjbxxByPrjSN(Map<String, Object> params);
 
 	@Select("update ams_bus_xmjbxx set prjUnit=#{prjUnit},prjAdr=#{prjAdr}, prjName=#{prjName}, prjType=#{prjType}, contacts=#{contacts},"

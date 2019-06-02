@@ -20,6 +20,7 @@ import com.xxw.springcloud.ams.util.Check;
 import com.xxw.springcloud.ams.util.DateUtils;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.StringUtils;
+import com.xxw.springcloud.ams.util.UtilMisc;
 import com.xxw.springcloud.ams.util.UtilValidate;
 
 @RestController
@@ -178,8 +179,9 @@ public class XmjbxxController {
 				 * 延长期（月） 选填，数字，整数，为空时【延期文号】必为空；填写时【延期文号】必填写
 				 * 
 				 */
-				if (UtilValidate.isEmpty(params.get("delaySN")) && UtilValidate.isNotEmpty("delayCountDay")
-						|| UtilValidate.isEmpty(params.get("delayCountDay")) && UtilValidate.isNotEmpty("delaySN")) {
+				if (UtilValidate.isEmpty(params.get("delaySN")) && UtilValidate.isNotEmpty(params.get("delayCountDay"))
+						|| UtilValidate.isEmpty(params.get("delayCountDay"))
+								&& UtilValidate.isNotEmpty(params.get("delaySN"))) {
 					check = false;
 					reM = ServiceUtil.returnError("E", "[延期文号]&[延长期（月）] 必须同时存在或同时不存在！");
 				}
@@ -188,15 +190,16 @@ public class XmjbxxController {
 				 * 补正日期 选填，文本，格式必须为（年/月/日），小于当前录入时间，为空时【补正证号】必为空；填写时【补正证号】必填写
 				 * 
 				 */
-				if (UtilValidate.isEmpty(params.get("correctionSN")) && UtilValidate.isNotEmpty("correctionDate")
+				if (UtilValidate.isEmpty(params.get("correctionSN"))
+						&& UtilValidate.isNotEmpty(params.get("correctionDate"))
 						|| UtilValidate.isEmpty(params.get("correctionDate"))
-								&& UtilValidate.isNotEmpty("correctionSN")) {
+								&& UtilValidate.isNotEmpty(params.get("correctionSN"))) {
 					check = false;
 					reM = ServiceUtil.returnError("E", "[补正证号]&[补正日期] 必须同时存在或同时不存在！");
 				}
 
 				// 备注 选填，需判断本许可证号，若含有“补正”，这里必填原许可证号，格式如“2004规（朝）建字0190号补正”
-				if ((prjSN + "").indexOf("补正") != 1) {
+				if ((prjSN + "").indexOf("补正") != -1) {
 					if (UtilValidate.isEmpty(params.get("remark"))) {
 						check = false;
 						reM = ServiceUtil.returnError("E", "本许可证号，含有“补正”，[备注]必填原许可证号！");
@@ -216,9 +219,7 @@ public class XmjbxxController {
 					SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
 					uo.setUserName(user.getUserName());
 
-					// 项目年份
-					jbxx.setPrjYear(year);
-
+					params.put("prjYear", year);
 					if (UtilValidate.isNotEmpty(jbxx)) {
 						uo.setOperAction(UserOperation.oa_u);
 						superMapper.updateXmjbxx2(params);
@@ -258,9 +259,9 @@ public class XmjbxxController {
 			String bodyStr = ServiceUtil.getContextBody(inputjson);
 			Map<String, Object> params = JSONObject.parseObject(bodyStr);
 
-			Object prjSN = params.get("prjSN");
-			if (UtilValidate.isNotEmpty(prjSN)) {
-				Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN + "");
+			Object id = params.get("id");
+			if (UtilValidate.isNotEmpty(id)) {
+				Xmjbxx jbxx = superMapper.queryXmjbxxByID(UtilMisc.toMap("id", id));
 				if (UtilValidate.isNotEmpty(jbxx)) {
 					UserOperation uo = new UserOperation(UserOperation.od_jbxx);
 					uo.setUserID(header.getReqUserId());
@@ -273,10 +274,10 @@ public class XmjbxxController {
 					superMapper.saveUserOper(uo);
 					reM = ServiceUtil.returnSuccess("删除成功 ！");
 				} else {
-					reM = ServiceUtil.returnSuccess("删除数据不存在，或已被删除，无需再次删除 ！prjSN=[" + prjSN + "]");
+					reM = ServiceUtil.returnSuccess("删除数据不存在，或已被删除，无需再次删除 ！id=[" + id + "]");
 				}
 			} else {
-				reM = ServiceUtil.returnError("E", "删除失败，项目许可证号不能为空！");
+				reM = ServiceUtil.returnError("E", "删除失败，数据ID不能为空！");
 			}
 		} catch (Exception e) {
 			logger.error("查询异常！", e);
