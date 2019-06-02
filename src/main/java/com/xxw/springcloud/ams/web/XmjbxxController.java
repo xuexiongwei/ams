@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xxw.springcloud.ams.enums.DicEnum;
 import com.xxw.springcloud.ams.mapper.file.SuperMapper;
+import com.xxw.springcloud.ams.model.ClassifiDic;
 import com.xxw.springcloud.ams.model.Header;
 import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.UserOperation;
@@ -218,6 +220,15 @@ public class XmjbxxController {
 					uo.setUserID(header.getReqUserId());
 					SysUser user = superMapper.selectUserByUserID(Long.parseLong(header.getReqUserId()));
 					uo.setUserName(user.getUserName());
+
+					Object prjAdrCode = params.get("prjAdrCode");
+					if (UtilValidate.isNotEmpty(prjAdrCode)) {
+						ClassifiDic dic = superMapper
+								.queryDicByCode2(UtilMisc.toMap("type", DicEnum.CYXZGHB, "code", prjAdrCode));
+						if (UtilValidate.isNotEmpty(dic)) {
+							params.put("prjAdr", dic.getName() + params.get("prjAdrDetail"));
+						}
+					}
 
 					params.put("prjYear", year);
 					if (UtilValidate.isNotEmpty(jbxx)) {
