@@ -19,6 +19,10 @@ public class Xmjbxx implements Serializable {
 	private String prjUnit;
 	// 建设位置
 	private String prjAdr;
+	// 建设位置Code
+	private String prjAdrCode;
+	// 建设位置详情
+	private String prjAdrDetail;
 	// 工程名称
 	private String prjName;
 	// 建设类型
@@ -253,5 +257,21 @@ public class Xmjbxx implements Serializable {
 
 	public void setPrjYear(String prjYear) {
 		this.prjYear = prjYear;
+	}
+
+	public String getPrjAdrCode() {
+		return prjAdrCode;
+	}
+
+	public void setPrjAdrCode(String prjAdrCode) {
+		this.prjAdrCode = prjAdrCode;
+	}
+
+	public String getPrjAdrDetail() {
+		return prjAdrDetail;
+	}
+
+	public void setPrjAdrDetail(String prjAdrDetail) {
+		this.prjAdrDetail = prjAdrDetail;
 	}
 }

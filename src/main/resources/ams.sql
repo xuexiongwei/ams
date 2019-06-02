@@ -184,6 +184,8 @@ CREATE TABLE `ams_bus_xmjbxx` (
   `prjSN` varchar(200) DEFAULT NULL,
   `prjUnit` varchar(1000) DEFAULT NULL,
   `prjAdr` varchar(1000) DEFAULT NULL,
+  `prjAdrCode` varchar(50) DEFAULT NULL,
+  `prjAdrDetail` varchar(1000) DEFAULT NULL,
   `prjName` varchar(1000) DEFAULT NULL,
   `prjType` varchar(255) DEFAULT NULL,
   `contacts` varchar(255) DEFAULT NULL,
