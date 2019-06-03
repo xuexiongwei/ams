@@ -69,7 +69,7 @@ public class StatusUtils {
 	 * @throws ParseException
 	 */
 	public static void updatePrjMark(SuperMapper superMapper, String prjSN) throws ParseException {
-		String prjMark = "";// 项目标识
+		String prjMark = "正常";// 项目标识
 		// 查询项目基本信息获取有效期字段
 		Xmjbxx jb = superMapper.queryXmjbxxByPrjSN(prjSN);
 		if (UtilValidate.isNotEmpty(jb)) {
@@ -87,8 +87,8 @@ public class StatusUtils {
 				if (nowDate.compareTo(youxiao_) > 0) {// 超期
 					if (UtilValidate.isNotEmpty(delayCountDay)) {// 判断是否延期
 						Date yanqi = DateUtils.parse(youxiao_, DateUtils.FORMAT6);
-						String yanqi_ = DateUtils.monthJiaJian(youxiao, Integer.parseInt(delayCountDay));
-						if (nowDate.compareTo(youxiao_) > 0) {// 延期后还超期
+						String yanqi_ = DateUtils.monthJiaJian(yanqi, Integer.parseInt(delayCountDay));
+						if (nowDate.compareTo(yanqi_) > 0) {// 延期后还超期
 							prjMark = "超期";
 						} else {
 							checkOther = true;
