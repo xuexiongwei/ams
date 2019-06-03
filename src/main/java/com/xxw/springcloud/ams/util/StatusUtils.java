@@ -153,4 +153,8 @@ public class StatusUtils {
 
 	}
 
+	public static void main(String[] args) {
+		System.out.println(DateUtils.getPOIDate(false, 43619));
+	}
+
 }
