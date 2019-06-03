@@ -89,6 +89,9 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 						superMapper.saveXmjbxx(jbxx);
 					} else
 						superMapper.updateXmjbxx(jbxx);
+
+					// 更新项目标识
+					StatusUtils.updatePrjMark(superMapper, prjSN + "");
 				} else {
 					logger.error("解析excel 页签序号：" + no + ",行数：" + (row + 1) + " 许可证号不能为空 或 文档下方不能留有空行！");
 					throw new RuntimeException("解析excel 页签序号：" + no + ",行数：" + (row + 1) + "  许可证号不能为空  或 文档下方不能留有空行！");

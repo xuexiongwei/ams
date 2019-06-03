@@ -68,6 +68,9 @@ public class View2Controller {
 				String prjSN = jb.getPrjSN();// 许可证号
 				String prjUnit = jb.getPrjUnit();// 建设单位
 				String prjAdr = jb.getPrjAdr();// 建设位置
+				String prjStatus = jb.getPrjStatus();// 项目状态
+				String prjSNType = jb.getPrjSNType();// 许可证类型
+				String prjMark = jb.getPrjMark();// 项目标识
 				String prjName = jb.getPrjName();// 工程名称
 				String prjType = jb.getPrjType();// 项目类型
 				String contacts = jb.getContacts();// 联系人
@@ -85,7 +88,9 @@ public class View2Controller {
 				item.put("specialNotifi", StringUtils.getStr(specialNotifi));
 				item.put("prjTemSN", StringUtils.getStr(prjTemSN));
 				item.put("remark", StringUtils.getStr(remark));
-				item.put("prjStatus", StringUtils.getStr(jb.getPrjStatus()));// 项目状态
+				item.put("prjStatus", StringUtils.getStr(prjStatus));
+				item.put("prjMark", StringUtils.getStr(prjMark));
+				item.put("prjSNType", StringUtils.getStr(prjSNType));
 				item.put("prjXz", "");// 项目性质
 				if (UtilValidate.isNotEmpty(prjSN)) {
 					List<Xmsx> xmsxl = superMapper.findXmsxByAttr(UtilMisc.toMap("prjSN", prjSN, "serialNumber", 1));

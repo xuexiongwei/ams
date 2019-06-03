@@ -21,6 +21,7 @@ import com.xxw.springcloud.ams.model.Xmjbxx;
 import com.xxw.springcloud.ams.util.Check;
 import com.xxw.springcloud.ams.util.DateUtils;
 import com.xxw.springcloud.ams.util.ServiceUtil;
+import com.xxw.springcloud.ams.util.StatusUtils;
 import com.xxw.springcloud.ams.util.StringUtils;
 import com.xxw.springcloud.ams.util.UtilMisc;
 import com.xxw.springcloud.ams.util.UtilValidate;
@@ -240,6 +241,10 @@ public class XmjbxxController {
 					}
 					uo.setPrjSN(params.get("prjSN") + "");// 许可证号
 					superMapper.saveUserOper(uo);
+
+					// 更新项目标识
+					StatusUtils.updatePrjMark(superMapper, prjSN + "");
+
 					reM = ServiceUtil.returnSuccess("保存成功！");
 				}
 			} else {

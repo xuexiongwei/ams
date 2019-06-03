@@ -16,18 +16,20 @@ public interface XmjbxxMapper {
 
 	// 保存项目基本信息
 	@Insert("insert into ams_bus_xmjbxx (prjSN, prjUnit, prjAdr, prjName, prjType, contacts, contactInf, prjTemSN, specialNotifi,"
-			+ " noticeTime, effectiveTime, remark,delaySN, delayCountDay,correctionSN, correctionDate,prjSNType,prjYear,prjAdrCode,prjAdrDetail) values"
+			+ " noticeTime, effectiveTime, remark,delaySN, delayCountDay,correctionSN, correctionDate,prjSNType,prjYear,prjAdrCode,"
+			+ "prjAdrDetail,prjMark) values"
 			+ "(#{prjSN}, #{prjUnit}, #{prjAdr}, #{prjName}, #{prjType}, #{contacts}, #{contactInf}, #{prjTemSN}, #{specialNotifi},"
 			+ " #{noticeTime}, #{effectiveTime}, #{remark},#{delaySN}, #{delayCountDay}, #{correctionSN},  #{correctionDate}, #{prjSNType},#{prjYear}"
-			+ ",#{prjAdrCode}, #{prjAdrDetail})")
+			+ ",#{prjAdrCode}, #{prjAdrDetail}, #{prjMark})")
 	void saveXmjbxx(Xmjbxx jbxx);
 
 	// 保存项目基本信息
 	@Insert("insert into ams_bus_xmjbxx (prjSN, prjUnit, prjAdr, prjName, prjType, contacts, contactInf, prjTemSN, specialNotifi,"
-			+ " noticeTime, effectiveTime, remark,delaySN, delayCountDay,correctionSN, correctionDate,prjSNType,prjYear,prjAdrCode,prjAdrDetail) values"
+			+ " noticeTime, effectiveTime, remark,delaySN, delayCountDay,correctionSN, correctionDate,prjSNType,prjYear,prjAdrCode,"
+			+ "prjAdrDetail,prjMark) values"
 			+ "(#{prjSN}, #{prjUnit}, #{prjAdr}, #{prjName}, #{prjType}, #{contacts}, #{contactInf}, #{prjTemSN}, #{specialNotifi},"
 			+ " #{noticeTime}, #{effectiveTime}, #{remark},#{delaySN}, #{delayCountDay}, #{correctionSN},  #{correctionDate}, #{prjSNType},#{prjYear}"
-			+ ",#{prjAdrCode}, #{prjAdrDetail})")
+			+ ",#{prjAdrCode}, #{prjAdrDetail},#{prjMark})")
 	void saveXmjbxx2(Map<String, Object> params);
 
 	// 查询项目基本信息
@@ -41,6 +43,10 @@ public interface XmjbxxMapper {
 	@Select("update ams_bus_xmjbxx set prjStatus=#{prjStatus} where prjSN=#{prjSN}")
 	void updatePrjStatusByPrjSN(Map<String, Object> params);
 
+	// 更新项目标识
+	@Select("update ams_bus_xmjbxx set prjMark=#{prjMark} where prjSN=#{prjSN}")
+	void updatePrjMarkByPrjSN(Map<String, Object> params);
+
 	// 删除项目基本信息
 	@Delete("delete from ams_bus_xmjbxx where id=#{id}")
 	void delXmjbxxByPrjSN(Map<String, Object> params);
@@ -48,13 +54,13 @@ public interface XmjbxxMapper {
 	@Select("update ams_bus_xmjbxx set prjUnit=#{prjUnit},prjAdr=#{prjAdr}, prjName=#{prjName}, prjType=#{prjType}, contacts=#{contacts},"
 			+ "contactInf=#{contactInf}, prjTemSN=#{prjTemSN}, specialNotifi=#{specialNotifi},noticeTime=#{noticeTime},"
 			+ "effectiveTime=#{effectiveTime}, remark=#{remark},prjSNType=#{prjSNType},correctionSN=#{correctionSN},correctionDate=#{correctionDate},"
-			+ "delaySN=#{delaySN}, delayCountDay=#{delayCountDay},prjAdrCode=#{prjAdrCode}, prjAdrDetail=#{prjAdrDetail} where prjSN=#{prjSN}")
+			+ "delaySN=#{delaySN}, delayCountDay=#{delayCountDay},prjAdrCode=#{prjAdrCode}, prjAdrDetail=#{prjAdrDetail},prjMark=#{prjMark} where prjSN=#{prjSN}")
 	void updateXmjbxx(Xmjbxx jbxx);
 
 	@Select("update ams_bus_xmjbxx set prjUnit=#{prjUnit},prjAdr=#{prjAdr}, prjName=#{prjName}, prjType=#{prjType}, contacts=#{contacts},"
 			+ "contactInf=#{contactInf}, prjTemSN=#{prjTemSN}, specialNotifi=#{specialNotifi},noticeTime=#{noticeTime},"
 			+ "effectiveTime=#{effectiveTime}, remark=#{remark},prjSNType=#{prjSNType},correctionSN=#{correctionSN},  correctionDate=#{correctionDate},"
-			+ "delaySN=#{delaySN}, delayCountDay=#{delayCountDay},prjAdrCode=#{prjAdrCode}, prjAdrDetail=#{prjAdrDetail} where prjSN=#{prjSN}")
+			+ "delaySN=#{delaySN}, delayCountDay=#{delayCountDay},prjAdrCode=#{prjAdrCode}, prjAdrDetail=#{prjAdrDetail},prjMark=#{prjMark} where prjSN=#{prjSN}")
 	void updateXmjbxx2(Map<String, Object> params);
 
 	// 查询项目基本信息

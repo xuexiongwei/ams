@@ -20,6 +20,56 @@ public class StatusUtils {
 	 */
 	public static void updatePrjStatus(SuperMapper superMapper, String prjSN) throws ParseException {
 		String prjStatus = "";// 项目状态
+		List<Xmsx> sxL = superMapper.queryXmsxByPrjSN(prjSN);
+		if (UtilValidate.isNotEmpty(sxL)) {
+			int count = sxL.size();
+			int ys = 0;// 验收个数
+			int czx = 0;// 撤（注）销 个数
+			for (Xmsx sxt : sxL) {
+				String checkSN = sxt.getCheckSN();// 验收文号
+				String cancelSN = sxt.getCancelSN();// 撤（注）销证号
+				if (UtilValidate.isNotEmpty(checkSN)) {
+					ys++;
+				} else if (UtilValidate.isNotEmpty(cancelSN)) {
+					czx++;
+				}
+			}
+			if (ys + czx > count) {
+				prjStatus = "基础数据误!";
+			} else if (ys == count && czx == 0) {
+				prjStatus = "已验收";
+			} else if (ys == 0 && czx == 0) {
+				prjStatus = "未申报";
+			} else if (ys == 0 && czx == count) {
+				prjStatus = "已撤（注）销";
+			} else if (ys != count && czx != count && ys + czx == count) {
+				prjStatus = "已完结";
+			} else if (ys == 0 && czx != count && czx != 0) {
+				prjStatus = "部分撤（注）销";
+			} else if (ys != 0 && ys != count && czx == 0) {
+				prjStatus = "部分验收";
+			} else if (ys != 0 && ys + czx != count && czx != 0) {
+				prjStatus = "未撤（注）销部分、部分验收";
+			} else {
+				prjStatus = "未分析出项目状态！";
+			}
+			superMapper.updatePrjStatusByPrjSN(UtilMisc.toMap("prjStatus", (Object) prjStatus, "prjSN", prjSN));
+		}
+	}
+
+	/**
+	 * 更新项目标识
+	 * 
+	 * 超期 需要根据【发件日期】和【有效期】【延长期】进行计算 <br>
+	 * 延期 存在【延期文号】 <br>
+	 * 补正 存在【补正证号】
+	 * 
+	 * 
+	 * @param superMapper
+	 * @throws ParseException
+	 */
+	public static void updatePrjMark(SuperMapper superMapper, String prjSN) throws ParseException {
+		String prjMark = "";// 项目标识
 		// 查询项目基本信息获取有效期字段
 		Xmjbxx jb = superMapper.queryXmjbxxByPrjSN(prjSN);
 		if (UtilValidate.isNotEmpty(jb)) {
@@ -39,12 +89,12 @@ public class StatusUtils {
 						Date yanqi = DateUtils.parse(youxiao_, DateUtils.FORMAT6);
 						String yanqi_ = DateUtils.monthJiaJian(youxiao, Integer.parseInt(delayCountDay));
 						if (nowDate.compareTo(youxiao_) > 0) {// 延期后还超期
-							prjStatus = "超期";
+							prjMark = "超期";
 						} else {
 							checkOther = true;
 						}
 					} else {
-						prjStatus = "超期";
+						prjMark = "超期";
 					}
 				} else {
 					checkOther = true;
@@ -55,53 +105,19 @@ public class StatusUtils {
 
 			if (checkOther) {
 				if (UtilValidate.isNotEmpty(delaySN)) {
-					prjStatus = "延期";
+					prjMark = "延期";
 				} else if (UtilValidate.isNotEmpty(correctionSN)) {
-					prjStatus = "补正";
-				} else {
-					List<Xmsx> sxL = superMapper.queryXmsxByPrjSN(prjSN);
-					if (UtilValidate.isNotEmpty(sxL)) {
-						int count = sxL.size();
-						int ys = 0;// 验收个数
-						int czx = 0;// 撤（注）销 个数
-						for (Xmsx sxt : sxL) {
-							String checkSN = sxt.getCheckSN();// 验收文号
-							String cancelSN = sxt.getCancelSN();// 撤（注）销证号
-							if (UtilValidate.isNotEmpty(checkSN)) {
-								ys++;
-							} else if (UtilValidate.isNotEmpty(cancelSN)) {
-								czx++;
-							}
-						}
-						if (ys + czx > count) {
-							prjStatus = "基础数据误!";
-						} else if (ys == count && czx == 0) {
-							prjStatus = "已验收";
-						} else if (ys == 0 && czx == 0) {
-							prjStatus = "未申报";
-						} else if (ys == 0 && czx == count) {
-							prjStatus = "已撤（注）销";
-						} else if (ys != count && czx != count && ys + czx == count) {
-							prjStatus = "已完结";
-						} else if (ys == 0 && czx != count && czx != 0) {
-							prjStatus = "部分撤（注）销";
-						} else if (ys != 0 && ys != count && czx == 0) {
-							prjStatus = "部分验收";
-						} else if (ys != 0 && ys + czx != count && czx != 0) {
-							prjStatus = "未撤（注）销部分、部分验收";
-						} else {
-							prjStatus = "未分析出项目状态！";
-						}
-						superMapper.updatePrjStatusByPrjSN(
-								UtilMisc.toMap("prjStatus", (Object) prjStatus, "prjSN", prjSN));
-					} else {
-						prjStatus = "未查到属性信息,未断!";
-					}
+					prjMark = "补正";
 				}
 			}
 		} else {
-			prjStatus = "未查到基本信息,未断!";
+			prjMark = "未查到基本信息,未断!";
 		}
+
+		if (UtilValidate.isNotEmpty(prjMark)) {
+			superMapper.updatePrjMarkByPrjSN(UtilMisc.toMap("prjMark", (Object) prjMark, "prjSN", prjSN));
+		}
+
 	}
 
 	/**

@@ -64,6 +64,8 @@ public class Xmjbxx implements Serializable {
 	private String prjSNType;
 	// 项目状态
 	private String prjStatus;
+	// 项目标识
+	private String prjMark;
 	// 项目年份
 	private String prjYear;
 
@@ -273,5 +275,13 @@ public class Xmjbxx implements Serializable {
 
 	public void setPrjAdrDetail(String prjAdrDetail) {
 		this.prjAdrDetail = prjAdrDetail;
+	}
+
+	public String getPrjMark() {
+		return prjMark;
+	}
+
+	public void setPrjMark(String prjMark) {
+		this.prjMark = prjMark;
 	}
 }
