@@ -14,8 +14,10 @@ public class Check {
 	public static String date1 = "^\\d{4}\\/\\d{2}\\/\\d{2}$";
 	// 验证正整数
 	public static String zzs = "^[0-9]*$";
-	// 非零开头的最多带两位小数的数字
+	// 最多带两位小数的数字
 	public static String zfs = "^([0-9]*)+(.[0-9]{1,2})?$";
+	// 负浮点数+0
+	public static String ffs = "^-[0-9]+(.[0-9]{1,2})?|0|0.0|0.00$";
 
 	public static boolean check(String eL, Object data) {
 		if (UtilValidate.isEmpty(data)) {
@@ -32,7 +34,7 @@ public class Check {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(check(zfs, "0.00"));
+		System.out.println(check(ffs, "0.01"));
 	}
 
 }
