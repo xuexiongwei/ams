@@ -43,6 +43,10 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 	List<String> dataxmsxDel = FastList.newInstance();
 	List<String> dataxmmxDel = FastList.newInstance();
 
+	List<Map<String, Object>> jbxxV = FastList.newInstance();
+	List<Map<String, Object>> xmsxV = FastList.newInstance();
+	List<Map<String, Object>> xmmxV = FastList.newInstance();
+
 	// 可以通过实例获取该值
 	public void invoke(Object object, AnalysisContext context) {
 
@@ -86,16 +90,7 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 
 				String msg = CheckInput.jbxxC(params);
 				if (UtilValidate.isEmpty(msg)) {
-
-					Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(params.get("prjSN") + "");
-
-					if (UtilValidate.isNotEmpty(jbxx)) {
-						superMapper.updateXmjbxx2(params);
-					} else {
-						superMapper.saveXmjbxx2(params);
-					}
-					// 更新项目标识
-					StatusUtils.updatePrjMark(superMapper, params.get("prjSN") + "");
+					jbxxV.add(params);
 				} else {
 					Header header = ServiceUtil.getContextHeader(msg);
 					logger.error("错误信息为：" + header.getRspReturnMsg());
@@ -115,24 +110,11 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 				String msg = CheckInput.xmsxC(params);
 
 				if (UtilValidate.isEmpty(msg)) {
-					// 删除所有再更新
-					Object prjsn = params.get("prjSN");
-					if (!dataxmsxDel.contains(prjsn + "")) {
-						superMapper.delXmsxByPrjSN(prjsn + "");
-						dataxmsxDel.add(prjsn + "");
-					}
-					superMapper.saveXmsx2(params);
-
-					// 判断工程状态,并更新
-					StatusUtils.updateBuldStatus(superMapper, params.get("prjSN") + "",
-							Long.parseLong(params.get("serialNumber") + ""));
-					// 更新项目状态
-					StatusUtils.updatePrjStatus(superMapper, params.get("prjSN") + "");
+					xmsxV.add(params);
 				} else {
 					Header header = ServiceUtil.getContextHeader(msg);
 					logger.error("错误信息为：" + header.getRspReturnMsg());
 					throw new RuntimeException("错误信息为：" + header.getRspReturnMsg());
-
 				}
 			}
 
@@ -173,17 +155,11 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 
 					String msg = CheckInput.xmmxC(paramM);
 					if (UtilValidate.isEmpty(msg)) {
-						String prjsn = paramM.get("prjSN") + "";
-						if (!dataxmmxDel.contains(prjsn)) {
-							superMapper.delXmmxByPrjSN(prjsn);
-							dataxmmxDel.add(prjsn);
-						}
-						superMapper.saveXmmx2(paramM);
+						xmmxV.add(paramM);
 					} else {
 						Header header = ServiceUtil.getContextHeader(msg);
 						logger.error("错误信息为：" + header.getRspReturnMsg());
 						throw new RuntimeException("错误信息为：" + header.getRspReturnMsg());
-
 					}
 				}
 			}
@@ -195,8 +171,77 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 
 	@Override
 	public void doAfterAllAnalysed(AnalysisContext arg0) {
-		dataxmsxDel.clear();
-		dataxmmxDel.clear();
+
+		// 更新或新增基本信息
+		if (UtilValidate.isNotEmpty(jbxxV)) {
+			int i = 0;
+			for (Map<String, Object> item : jbxxV) {
+				try {
+					i++;
+					Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(item.get("prjSN") + "");
+
+					if (UtilValidate.isNotEmpty(jbxx)) {
+						superMapper.updateXmjbxx2(item);
+					} else {
+						superMapper.saveXmjbxx2(item);
+					}
+					// 更新项目标识
+					StatusUtils.updatePrjMark(superMapper, item.get("prjSN") + "");
+				} catch (Exception e) {
+					logger.error("解析excel 页签序号：1,行数：" + i + " 解析异常！", e);
+					throw new RuntimeException("解析excel 页签序号：1,行数：" + i + " 解析异常！" + e.getMessage());
+				}
+			}
+		}
+		// 更新或新增项目属性
+		if (UtilValidate.isNotEmpty(xmsxV)) {
+			int i = 0;
+			for (Map<String, Object> item : xmsxV) {
+				try {
+					i++;
+					// 删除所有再更新
+					Object prjsn = item.get("prjSN");
+					if (!dataxmsxDel.contains(prjsn + "")) {
+						superMapper.delXmsxByPrjSN(prjsn + "");
+						dataxmsxDel.add(prjsn + "");
+					}
+					superMapper.saveXmsx2(item);
+
+					// 判断工程状态,并更新
+					StatusUtils.updateBuldStatus(superMapper, item.get("prjSN") + "",
+							Long.parseLong(item.get("serialNumber") + ""));
+					// 更新项目状态
+					StatusUtils.updatePrjStatus(superMapper, item.get("prjSN") + "");
+				} catch (Exception e) {
+					logger.error("解析excel 页签序号：2,行数：" + i + " 解析异常！", e);
+					throw new RuntimeException("解析excel 页签序号：2,行数：" + i + " 解析异常！" + e.getMessage());
+				}
+			}
+		}
+		// 更新或新增项目明细
+		if (UtilValidate.isNotEmpty(xmmxV)) {
+			int i = 0;
+			for (Map<String, Object> item : xmmxV) {
+				try {
+					i++;
+					String prjsn = item.get("prjSN") + "";
+					if (!dataxmmxDel.contains(prjsn)) {
+						superMapper.delXmmxByPrjSN(prjsn);
+						dataxmmxDel.add(prjsn);
+					}
+					superMapper.saveXmmx2(item);
+				} catch (Exception e) {
+					logger.error("解析excel 页签序号：3,行数：" + i + " 解析异常！", e);
+					throw new RuntimeException("解析excel 页签序号：3,行数：" + i + " 解析异常！" + e.getMessage());
+				}
+			}
+		}
+
+		jbxxV = null;
+		xmsxV = null;
+		xmmxV = null;
+		dataxmsxDel = null;
+		dataxmmxDel = null;
 	}
 
 }
