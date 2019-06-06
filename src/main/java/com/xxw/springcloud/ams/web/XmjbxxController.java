@@ -116,10 +116,10 @@ public class XmjbxxController {
 				params.put("prjYear", year);
 				if (UtilValidate.isNotEmpty(jbxx)) {
 					uo.setOperAction(UserOperation.oa_u);
-					superMapper.updateXmjbxx2(params);
+					superMapper.updateXmjbxx(params);
 				} else {
 					uo.setOperAction(UserOperation.oa_c);
-					superMapper.saveXmjbxx2(params);
+					superMapper.saveXmjbxx(params);
 				}
 				uo.setPrjSN(params.get("prjSN") + "");// 许可证号
 				superMapper.saveUserOper(uo);

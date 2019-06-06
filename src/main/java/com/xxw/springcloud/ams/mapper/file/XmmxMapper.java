@@ -19,14 +19,7 @@ public interface XmmxMapper {
 			+ "prjClasfiCode,prjClasfiName1,prjClasfiName2,prjClasfiName3,prjClasfiName4,prjClasfiName5) "
 			+ "values (#{prjSN}, #{serialNumber}, #{serialFunct}, #{aboveGroundArea}, #{underGroundArea}, #{blendArea}, #{aboveGroundLen}, #{prjClasfiCode},"
 			+ "#{prjClasfiName1},#{prjClasfiName2},#{prjClasfiName3},#{prjClasfiName4},#{prjClasfiName5})")
-	void saveXmmx(Xmmx mx);
-
-	// 保存项目明细
-	@Insert("insert into ams_bus_xmmx (prjSN, serialNumber, serialFunct, aboveGroundArea, underGroundArea, blendArea, aboveGroundLen, "
-			+ "prjClasfiCode,prjClasfiName1,prjClasfiName2,prjClasfiName3,prjClasfiName4,prjClasfiName5) "
-			+ "values (#{prjSN}, #{serialNumber}, #{serialFunct}, #{aboveGroundArea}, #{underGroundArea}, #{blendArea}, #{aboveGroundLen}, #{prjClasfiCode},"
-			+ "#{prjClasfiName1},#{prjClasfiName2},#{prjClasfiName3},#{prjClasfiName4},#{prjClasfiName5})")
-	void saveXmmx2(Map<String, Object> params);
+	void saveXmmx(Map<String, Object> params);
 
 	// 更新项目明细
 	@Update("update ams_bus_xmmx set serialFunct=#{serialFunct}, aboveGroundArea=#{aboveGroundArea}, underGroundArea=#{underGroundArea}, blendArea=#{blendArea}, "

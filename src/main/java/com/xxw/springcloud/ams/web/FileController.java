@@ -63,9 +63,9 @@ public class FileController {
 		String reM = ServiceUtil.returnSuccess("上传成功！");
 
 		if (null == uploadfile || uploadfile.length == 0) {
-			reM = ServiceUtil.returnError(null, "上传文件为 空！");
+			reM = ServiceUtil.returnError("E", "上传文件为 空！");
 		} else if (UtilValidate.isEmpty(upLoadType)) {
-			reM = ServiceUtil.returnError(null, "上传类型[upLoadType]必输！");
+			reM = ServiceUtil.returnError("E", "上传类型[upLoadType]必输！");
 		} else {
 			try {
 
@@ -78,8 +78,14 @@ public class FileController {
 							if (file.isEmpty()) {
 								continue;
 							}
-							ExcelXm _2003 = new ExcelXm(superMapper);
-							_2003.testExcel2003NoModel(file.getInputStream());
+							try {
+								ExcelXm _2003 = new ExcelXm(superMapper);
+								_2003.testExcel2003NoModel(file.getInputStream());
+							} catch (Exception e) {
+								String msg = e.getMessage();
+								msg = msg.replace("java.lang.RuntimeException:", "");
+								reM = ServiceUtil.returnError("E", "文件名：" + fname + "," + msg);
+							}
 						} else if (fname.endsWith(".dxf")) {
 							// dxf 文件名命名规范为 项目许可证号
 							prjSN = fname.replace(".dxf", "");
@@ -102,7 +108,7 @@ public class FileController {
 								}
 							}
 						} else {
-							reM = ServiceUtil.returnError(null, "不支持解析的文档类型！系统支持excel,dxf解析");
+							reM = ServiceUtil.returnError("E", "不支持解析的文档类型！系统支持excel,dxf解析");
 						}
 					}
 				} else if (UpLoadType.SAVE.toString().equals(upLoadType)) {
@@ -145,12 +151,12 @@ public class FileController {
 						}
 					}
 				} else {
-					reM = ServiceUtil.returnError(null, "未定义的上传类型[upLoadType]，请核实！");
+					reM = ServiceUtil.returnError("E", "未定义的上传类型[upLoadType]，请核实！");
 				}
 
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
-				reM = ServiceUtil.returnError(null, "上传失败！" + e.getMessage());
+				reM = ServiceUtil.returnError("E", "上传失败！" + e.getMessage());
 			}
 		}
 

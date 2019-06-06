@@ -158,7 +158,7 @@ public class XmmxController {
 						}
 					} else {
 						uo.setOperAction(UserOperation.oa_c);
-						superMapper.saveXmmx2(params);
+						superMapper.saveXmmx(params);
 						save = true;
 					}
 

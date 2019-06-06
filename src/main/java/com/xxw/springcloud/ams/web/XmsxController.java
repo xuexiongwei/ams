@@ -109,7 +109,7 @@ public class XmsxController {
 						}
 					} else {
 						uo.setOperAction(UserOperation.oa_c);
-						superMapper.saveXmsx2(params);
+						superMapper.saveXmsx(params);
 						save = true;
 					}
 					if (save) {

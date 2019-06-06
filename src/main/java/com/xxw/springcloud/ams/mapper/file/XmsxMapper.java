@@ -21,16 +21,7 @@ public interface XmsxMapper {
 			+ "values (#{prjSN}, #{serialNumber}, #{prjNature}, #{prjAttr}, #{strucType}, #{peacetimeUses}, #{aboveGroundLev}, "
 			+ "#{underGroundLev}, #{aboveGroundHet}, #{underGroundHet}, #{buildings}, #{housingStockNum}, #{checkDocSN}, #{checkDocDate}, #{checkSN},"
 			+ "#{checkDate}, #{cancelSN}, #{cancelDate}, #{imgJudgeRes}, #{exproprInfo},#{remark})")
-	void saveXmsx(Xmsx sx);
-
-	// 保存项目属性
-	@Insert("insert into ams_bus_xmsx (prjSN, serialNumber, prjNature, prjAttr, strucType, peacetimeUses, aboveGroundLev, "
-			+ "underGroundLev, aboveGroundHet, underGroundHet, buildings, housingStockNum, checkDocSN, checkDocDate, checkSN, "
-			+ "checkDate, cancelSN, cancelDate, imgJudgeRes, exproprInfo, remark) "
-			+ "values (#{prjSN}, #{serialNumber}, #{prjNature}, #{prjAttr}, #{strucType}, #{peacetimeUses}, #{aboveGroundLev}, "
-			+ "#{underGroundLev}, #{aboveGroundHet}, #{underGroundHet}, #{buildings}, #{housingStockNum}, #{checkDocSN}, #{checkDocDate}, #{checkSN},"
-			+ "#{checkDate}, #{cancelSN}, #{cancelDate}, #{imgJudgeRes}, #{exproprInfo},#{remark})")
-	void saveXmsx2(Map<String, Object> params);
+	void saveXmsx(Map<String, Object> params);
 
 	// 更新项目属性
 	@Update("update ams_bus_xmsx set prjNature=#{prjNature}, prjAttr=#{prjAttr}, strucType=#{strucType}, "

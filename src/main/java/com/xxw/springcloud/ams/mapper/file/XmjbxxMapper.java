@@ -20,17 +20,8 @@ public interface XmjbxxMapper {
 			+ "prjAdrDetail,prjMark) values"
 			+ "(#{prjSN}, #{prjUnit}, #{prjAdr}, #{prjName}, #{prjType}, #{contacts}, #{contactInf}, #{prjTemSN}, #{specialNotifi},"
 			+ " #{noticeTime}, #{effectiveTime}, #{remark},#{delaySN}, #{delayCountDay}, #{correctionSN},  #{correctionDate}, #{prjSNType},#{prjYear}"
-			+ ",#{prjAdrCode}, #{prjAdrDetail}, #{prjMark})")
-	void saveXmjbxx(Xmjbxx jbxx);
-
-	// 保存项目基本信息
-	@Insert("insert into ams_bus_xmjbxx (prjSN, prjUnit, prjAdr, prjName, prjType, contacts, contactInf, prjTemSN, specialNotifi,"
-			+ " noticeTime, effectiveTime, remark,delaySN, delayCountDay,correctionSN, correctionDate,prjSNType,prjYear,prjAdrCode,"
-			+ "prjAdrDetail,prjMark) values"
-			+ "(#{prjSN}, #{prjUnit}, #{prjAdr}, #{prjName}, #{prjType}, #{contacts}, #{contactInf}, #{prjTemSN}, #{specialNotifi},"
-			+ " #{noticeTime}, #{effectiveTime}, #{remark},#{delaySN}, #{delayCountDay}, #{correctionSN},  #{correctionDate}, #{prjSNType},#{prjYear}"
 			+ ",#{prjAdrCode}, #{prjAdrDetail},#{prjMark})")
-	void saveXmjbxx2(Map<String, Object> params);
+	void saveXmjbxx(Map<String, Object> params);
 
 	// 查询项目基本信息
 	@Select("select * from ams_bus_xmjbxx where prjSN=#{prjSN}")
@@ -53,15 +44,9 @@ public interface XmjbxxMapper {
 
 	@Select("update ams_bus_xmjbxx set prjUnit=#{prjUnit},prjAdr=#{prjAdr}, prjName=#{prjName}, prjType=#{prjType}, contacts=#{contacts},"
 			+ "contactInf=#{contactInf}, prjTemSN=#{prjTemSN}, specialNotifi=#{specialNotifi},noticeTime=#{noticeTime},"
-			+ "effectiveTime=#{effectiveTime}, remark=#{remark},prjSNType=#{prjSNType},correctionSN=#{correctionSN},correctionDate=#{correctionDate},"
-			+ "delaySN=#{delaySN}, delayCountDay=#{delayCountDay},prjAdrCode=#{prjAdrCode}, prjAdrDetail=#{prjAdrDetail},prjMark=#{prjMark} where prjSN=#{prjSN}")
-	void updateXmjbxx(Xmjbxx jbxx);
-
-	@Select("update ams_bus_xmjbxx set prjUnit=#{prjUnit},prjAdr=#{prjAdr}, prjName=#{prjName}, prjType=#{prjType}, contacts=#{contacts},"
-			+ "contactInf=#{contactInf}, prjTemSN=#{prjTemSN}, specialNotifi=#{specialNotifi},noticeTime=#{noticeTime},"
 			+ "effectiveTime=#{effectiveTime}, remark=#{remark},prjSNType=#{prjSNType},correctionSN=#{correctionSN},  correctionDate=#{correctionDate},"
 			+ "delaySN=#{delaySN}, delayCountDay=#{delayCountDay},prjAdrCode=#{prjAdrCode}, prjAdrDetail=#{prjAdrDetail},prjMark=#{prjMark} where prjSN=#{prjSN}")
-	void updateXmjbxx2(Map<String, Object> params);
+	void updateXmjbxx(Map<String, Object> params);
 
 	// 查询项目基本信息
 	@SelectProvider(type = XmjbxxProvider.class, method = "findXmjbxxByAttr")
