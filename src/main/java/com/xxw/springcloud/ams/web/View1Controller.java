@@ -170,6 +170,7 @@ public class View1Controller {
 					Xmmx xmmx = superMapper.queryXmmxByID(Long.parseLong(mxid));
 					Double aga = xmmx.getAboveGroundArea();// 总建筑面积（平方米）地上
 					Double uga = xmmx.getUnderGroundArea();// 总建筑面积（平方米）地下
+					Double bga = xmmx.getBlendArea();// 混合建筑面积
 					Double agl = xmmx.getAboveGroundLen();// 建筑长度（米）
 
 					if (null == aga)
@@ -180,9 +181,12 @@ public class View1Controller {
 
 					if (null == agl)
 						agl = 0.0d;
+					
+					if (null == bga)
+						bga = 0.0d;
 
 					// 总建筑面积（平方米）
-					sumArea = StringUtils.sswr(sumArea + aga + uga);
+					sumArea = StringUtils.sswr(sumArea + aga + uga+bga);
 					// 总建筑面积（平方米）地上
 					aboveGroundSumArea = StringUtils.sswr(aboveGroundSumArea + aga);
 					// 总建筑面积（平方米）地下

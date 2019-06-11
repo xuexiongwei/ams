@@ -132,6 +132,7 @@ public class View3Controller {
 								String cfc = mx.getPrjClasfiCode();
 								Double aga = mx.getAboveGroundArea();// 总建筑面积（平方米）地上
 								Double uga = mx.getUnderGroundArea();// 总建筑面积（平方米）地下
+								Double bga = mx.getBlendArea();// 混合建筑面积
 								Double agl = mx.getAboveGroundLen();// 建筑长度（米）
 								if (null == aga)
 									aga = 0.0d;
@@ -141,19 +142,21 @@ public class View3Controller {
 
 								if (null == agl)
 									agl = 0.0d;
+								if (null == bga)
+									bga = 0.0d;
 
 								if (null != cfc && cfc.length() == 10) {
 									String fl04 = cfc.substring(5, 8);
 									String fl05 = cfc.substring(8, 10);
-									if (!("141".equals(fl04) && "02".indexOf(fl05) != -1)) {// 总建筑面积不计算人防工程（FS）
+									if (!("141".equals(fl04) && "02".equals(fl05))) {// 总建筑面积不计算人防工程（FS）
 										// 总建筑面积（平方米）
 										Double sumArea = (Double) tongj.get("sumArea");
-										tongj.put("sumArea", StringUtils.sswr(sumArea + aga + uga));
+										tongj.put("sumArea", StringUtils.sswr(sumArea + aga + uga+bga));
 									}
 								} else {
 									// 总建筑面积（平方米）
 									Double sumArea = (Double) tongj.get("sumArea");
-									tongj.put("sumArea", StringUtils.sswr(sumArea + aga + uga));
+									tongj.put("sumArea", StringUtils.sswr(sumArea + aga + uga+bga));
 								}
 
 								// 总建筑面积（平方米）地上
@@ -291,17 +294,16 @@ public class View3Controller {
 										List<Map<String, Object>> items02 = null;
 										Map<String, Object> its = FastMap.newInstance();
 										if (ghxmxz) {// 含规划项目性质
+											prjAttrTem = "规划项目性质：";
 											// 第五级分类
 											String cfc = mx.getPrjClasfiCode();
 											if (cfc != null && cfc.length() == 10) {
 												String fl04 = cfc.substring(5, 8);
 												String fl05 = cfc.substring(8, 10);
-												if ("141".equals(fl04) && "02".indexOf(fl05) != -1) {// 满足1/2
+												if ("141".equals(fl04) && "02".equals(fl05)) {// 满足1/2
 													prjAttrTem = "人防工程情况：";
-													continue;
 												}
 											}
-											prjAttrTem = "规划项目性质：";
 										} else if (!ghxmxz && rfgcqk) {// 满足3
 											prjAttrTem = "人防工程情况：";
 										}
@@ -323,6 +325,9 @@ public class View3Controller {
 													its.put("buldType", c3 + "/" + c4);// 建筑类型,存在四级分类
 													String c5 = mx.getPrjClasfiName5();
 													if (UtilValidate.isNotEmpty(c5)) {
+														if("人防工程（DL）".equals(c5)||"人防工程（FS）".equals(c5)) {
+															c5 = "人防工程";
+														}
 														its.put("buldType", c3 + "/" + c4 + "/" + c5);// 建筑类型，存在五级分类
 													}
 												}
