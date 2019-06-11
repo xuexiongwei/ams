@@ -88,7 +88,7 @@ public interface XmjbxxMapper {
 				if ("pageSize|pageIndex".indexOf(key) != -1)
 					continue;
 				if (UtilValidate.isNotEmpty(params.get(key))) {
-					if ("prjSN|prjUnit|prjAdr|specialNotifi|noticeTime|remark|".indexOf(key + "|") != -1) {// 支持模糊查询字段
+					if ("prjSN|prjUnit|prjAdr|specialNotifi|noticeTime|remark|prjName".indexOf(key + "|") != -1) {// 支持模糊查询字段
 						sql += " AND " + key + " like 	\"%\"#{" + key + "}\"%\"";
 					} else {
 						sql += " AND " + key + " = #{" + key + "}";

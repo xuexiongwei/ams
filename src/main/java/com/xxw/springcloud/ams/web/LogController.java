@@ -54,7 +54,7 @@ public class LogController {
 			} else {
 
 				params.put("startDate", startDate + " 00:00:00");
-				params.put("endDate", startDate + " 23:59:59");
+				params.put("endDate", endDate + " 23:59:59");
 
 				totalSize = superMapper.findUserOperByAttrCount(params);
 

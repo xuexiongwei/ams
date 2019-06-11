@@ -13,7 +13,7 @@ import com.xxw.springcloud.ams.model.BusFile;
 
 public class FileUtils {
 
-	public static String UPLOADED_FOLDER = "D://temp//";
+	public static String UPLOADED_FOLDER = "C://temp//";
 
 	/**
 	 * 根据文件实体保存文件到硬盘

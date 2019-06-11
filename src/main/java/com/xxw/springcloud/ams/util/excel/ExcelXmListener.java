@@ -47,6 +47,8 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 	List<Map<String, Object>> xmsxV = FastList.newInstance();
 	List<Map<String, Object>> xmmxV = FastList.newInstance();
 
+	StringBuffer err = new StringBuffer();
+
 	// 可以通过实例获取该值
 	public void invoke(Object object, AnalysisContext context) {
 
@@ -64,170 +66,190 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 
 			if (no == 1) {// 项目基本信息
 				items.remove(0);
+				Object prjSN = items.get(0);
+				if (UtilValidate.isNotEmpty(prjSN)) {
 
-				Map<String, Object> params = BeanUtils.setProperty(Xmjbxx.class,
-						new String[] { "prjSN", "prjUnit", "prjAdr", "prjName", "prjType", "contacts", "contactInf",
-								"prjTemSN", "specialNotifi", "prjSNType", "noticeTime", "effectiveTime", "delaySN",
-								"delayCountDay", "correctionSN", "correctionDate", "remark" },
-						items);
+					Map<String, Object> params = BeanUtils.setProperty(Xmjbxx.class,
+							new String[] { "prjSN", "prjUnit", "prjAdr", "prjName", "prjType", "contacts", "contactInf",
+									"prjTemSN", "specialNotifi", "prjSNType", "noticeTime", "effectiveTime", "delaySN",
+									"delayCountDay", "correctionSN", "correctionDate", "remark" },
+							items);
 
-				Object prjName = params.get("prjName");
-				if (UtilValidate.isNotEmpty(prjName)) {
-					// 改扩建、改建、改造、翻建
-					if ((prjName + "").indexOf("改扩建") != -1 || (prjName + "").indexOf("改建") != -1
-							|| (prjName + "").indexOf("改造") != -1 || (prjName + "").indexOf("翻建") != -1) {
-						params.put("prjType", "改扩建");
+					Object prjName = params.get("prjName");
+					if (UtilValidate.isNotEmpty(prjName)) {
+						// 改扩建、改建、改造、翻建
+						if ((prjName + "").indexOf("改扩建") != -1 || (prjName + "").indexOf("改建") != -1
+								|| (prjName + "").indexOf("改造") != -1 || (prjName + "").indexOf("翻建") != -1) {
+							params.put("prjType", "改扩建");
+						} else {
+							params.put("prjType", "新建");
+						}
+						// 许可证类型
 					} else {
 						params.put("prjType", "新建");
 					}
-					// 许可证类型
-				} else {
-					params.put("prjType", "新建");
-				}
-				// 项目年份
-				String year = StringUtils.getYear(params.get("prjSN") + "");
-				params.put("prjYear", year);
+					// 项目年份
+					String year = StringUtils.getYear(params.get("prjSN") + "");
+					params.put("prjYear", year);
 
-				String msg = CheckInput.jbxxC(params);
-				if (UtilValidate.isEmpty(msg)) {
-					jbxxV.add(params);
-				} else {
-					Header header = ServiceUtil.getContextHeader(msg);
-					logger.error("错误信息为：" + header.getRspReturnMsg());
-					throw new RuntimeException("错误信息为：" + header.getRspReturnMsg());
+					String msg = CheckInput.jbxxC(params);
+					if (UtilValidate.isEmpty(msg)) {
+						jbxxV.add(params);
+					} else {
+						Header header = ServiceUtil.getContextHeader(msg);
+						logger.error("错误信息为：" + header.getRspReturnMsg());
+						throw new RuntimeException("错误：" + header.getRspReturnMsg());
+					}
 				}
 			}
 
 			if (no == 2) {// 项目属性
 
-				Map<String, Object> params = BeanUtils.setProperty(Xmsx.class,
-						new String[] { "prjSN", "serialNumber", "prjNature", "prjAttr", "peacetimeUses",
-								"aboveGroundLev", "underGroundLev", "aboveGroundHet", "underGroundHet", "buildings",
-								"housingStockNum", "strucType", "checkDocSN", "checkDocDate", "checkSN", "checkDate",
-								"cancelSN", "cancelDate", "imgJudgeRes", "exproprInfo", "remark" },
-						items);
+				Object prjSN = items.get(0);
+				if (UtilValidate.isNotEmpty(prjSN)) {
 
-				String msg = CheckInput.xmsxC(params);
+					Map<String, Object> params = BeanUtils.setProperty(Xmsx.class,
+							new String[] { "prjSN", "serialNumber", "prjNature", "prjAttr", "peacetimeUses",
+									"aboveGroundLev", "underGroundLev", "aboveGroundHet", "underGroundHet", "buildings",
+									"housingStockNum", "strucType", "checkDocSN", "checkDocDate", "checkSN",
+									"checkDate", "cancelSN", "cancelDate", "imgJudgeRes", "exproprInfo", "remark" },
+							items);
 
-				if (UtilValidate.isEmpty(msg)) {
-					xmsxV.add(params);
-				} else {
-					Header header = ServiceUtil.getContextHeader(msg);
-					logger.error("错误信息为：" + header.getRspReturnMsg());
-					throw new RuntimeException("错误信息为：" + header.getRspReturnMsg());
+					String msg = CheckInput.xmsxC(params);
+
+					if (UtilValidate.isEmpty(msg)) {
+						xmsxV.add(params);
+					} else {
+						Header header = ServiceUtil.getContextHeader(msg);
+						logger.error("错误：" + header.getRspReturnMsg());
+						throw new RuntimeException("错误信息为：" + header.getRspReturnMsg());
+					}
 				}
+
 			}
 
 			if (no == 3) {// 项目明细
-				Map<String, Object> paramM = BeanUtils.setProperty(Xmmx.class, new String[] { "prjSN", "serialNumber",
-						"serialFunct", "aboveGroundArea", "underGroundArea", "blendArea", "aboveGroundLen" }, items);
+				Object prjSN = items.get(0);
+				if (UtilValidate.isNotEmpty(prjSN)) {
+					Map<String, Object> paramM = BeanUtils
+							.setProperty(
+									Xmmx.class, new String[] { "prjSN", "serialNumber", "serialFunct",
+											"aboveGroundArea", "underGroundArea", "blendArea", "aboveGroundLen" },
+									items);
 
-				// 还差分级信息-------------------------------------------------------------------------------------------------
+					// 还差分级信息-------------------------------------------------------------------------------------------------
 
-				List<Object> levs = items.subList(7, 12);// [居住类项目, 配套公共服务设施, 配套公共服务设施, null, null]
+					List<Object> levs = items.subList(7, 12);// [居住类项目, 配套公共服务设施, 配套公共服务设施, null, null]
 
-				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("type", DicEnum.FJ);
+					Map<String, Object> params = new HashMap<String, Object>();
+					params.put("type", DicEnum.FJ);
 
-				String code = "";
-				String parentID = "";
-				ClassifiDic dic = null;
+					String code = "";
+					String parentID = "";
+					ClassifiDic dic = null;
 
-				for (Object obj : levs) {
-					params.put("parentID", parentID);
-					params.put("name", obj);
-					dic = superMapper.queryDicByName(params);
-					if (null != dic) {
-						parentID = dic.getId();
-						code = dic.getCode();
+					for (Object obj : levs) {
+						params.put("parentID", parentID);
+						params.put("name", obj);
+						dic = superMapper.queryDicByName(params);
+						if (null != dic) {
+							parentID = dic.getId();
+							code = dic.getCode();
+						}
 					}
-				}
-				if (code.length() != 10) {
-					logger.error("错误信息为：请检查五级分类是否正确！基础表中未完全匹配该五级分类");
-					throw new RuntimeException("错误信息为：请检查五级分类是否正确！基础表中未完全匹配该五级分类");
-				} else {
-					paramM.put("prjClasfiCode", code);
-					paramM.put("prjClasfiName1", levs.get(0));
-					paramM.put("prjClasfiName2", levs.get(1));
-					paramM.put("prjClasfiName3", levs.get(2));
-					paramM.put("prjClasfiName4", levs.get(3));
-					paramM.put("prjClasfiName5", levs.get(4));
-
-					String msg = CheckInput.xmmxC(paramM);
-					if (UtilValidate.isEmpty(msg)) {
-						xmmxV.add(paramM);
+					if (code.length() != 10) {
+						logger.error("错误信息为：请检查五级分类是否正确！基础表中未完全匹配该五级分类");
+						throw new RuntimeException("错误：请检查五级分类是否正确！基础表中未完全匹配该五级分类");
 					} else {
-						Header header = ServiceUtil.getContextHeader(msg);
-						logger.error("错误信息为：" + header.getRspReturnMsg());
-						throw new RuntimeException("错误信息为：" + header.getRspReturnMsg());
+						paramM.put("prjClasfiCode", code);
+						paramM.put("prjClasfiName1", levs.get(0));
+						paramM.put("prjClasfiName2", levs.get(1));
+						paramM.put("prjClasfiName3", levs.get(2));
+						paramM.put("prjClasfiName4", levs.get(3));
+						paramM.put("prjClasfiName5", levs.get(4));
+
+						String msg = CheckInput.xmmxC(paramM);
+						if (UtilValidate.isEmpty(msg)) {
+							xmmxV.add(paramM);
+						} else {
+							Header header = ServiceUtil.getContextHeader(msg);
+							logger.error("错误信息为：" + header.getRspReturnMsg());
+							throw new RuntimeException("错误：" + header.getRspReturnMsg());
+						}
 					}
 				}
 			}
 		} catch (Exception e) {
 			logger.error("页签序号：" + no + ",行数：" + (row + 1) + " 解析异常！", e);
-			throw new RuntimeException("页签序号：" + no + ",行数：" + (row + 1) + " 解析异常！" + e.getMessage());
+			err.append("页签序号：" + no + ",行数：" + (row + 1) + " 异常:" + e.getMessage() + "\n");
+			// throw new RuntimeException("页签序号：" + no + ",行数：" + (row + 1) + " 解析异常！" +
+			// e.getMessage());
 		}
 	}
 
 	@Override
 	public void doAfterAllAnalysed(AnalysisContext arg0) {
 
-		// 更新或新增基本信息
-		int i = 0;
-		try {
-			if (UtilValidate.isNotEmpty(jbxxV)) {
-				for (Map<String, Object> item : jbxxV) {
-					i++;
-					Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(item.get("prjSN") + "");
+		if (err.length() == 0) {
+			// 更新或新增基本信息
+			int i = 0;
+			try {
+				if (UtilValidate.isNotEmpty(jbxxV)) {
+					for (Map<String, Object> item : jbxxV) {
+						i++;
+						Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(item.get("prjSN") + "");
 
-					if (UtilValidate.isNotEmpty(jbxx)) {
-						superMapper.updateXmjbxx(item);
-					} else {
-						superMapper.saveXmjbxx(item);
-					}
-					// 更新项目标识
-					StatusUtils.updatePrjMark(superMapper, item.get("prjSN") + "");
+						if (UtilValidate.isNotEmpty(jbxx)) {
+							superMapper.updateXmjbxx(item);
+						} else {
+							superMapper.saveXmjbxx(item);
+						}
+						// 更新项目标识
+						StatusUtils.updatePrjMark(superMapper, item.get("prjSN") + "");
 
-				}
-			}
-			// 更新或新增项目属性
-			if (UtilValidate.isNotEmpty(xmsxV)) {
-				i = 0;
-				for (Map<String, Object> item : xmsxV) {
-					i++;
-					// 删除所有再更新
-					Object prjsn = item.get("prjSN");
-					if (!dataxmsxDel.contains(prjsn + "")) {
-						superMapper.delXmsxByPrjSN(prjsn + "");
-						dataxmsxDel.add(prjsn + "");
 					}
-					superMapper.saveXmsx(item);
+				}
+				// 更新或新增项目属性
+				if (UtilValidate.isNotEmpty(xmsxV)) {
+					i = 0;
+					for (Map<String, Object> item : xmsxV) {
+						i++;
+						// 删除所有再更新
+						Object prjsn = item.get("prjSN");
+						if (!dataxmsxDel.contains(prjsn + "")) {
+							superMapper.delXmsxByPrjSN(prjsn + "");
+							dataxmsxDel.add(prjsn + "");
+						}
+						superMapper.saveXmsx(item);
 
-					// 判断工程状态,并更新
-					StatusUtils.updateBuldStatus(superMapper, item.get("prjSN") + "",
-							Long.parseLong(item.get("serialNumber") + ""));
-					// 更新项目状态
-					StatusUtils.updatePrjStatus(superMapper, item.get("prjSN") + "");
-				}
-			}
-			// 更新或新增项目明细
-			if (UtilValidate.isNotEmpty(xmmxV)) {
-				i = 0;
-				for (Map<String, Object> item : xmmxV) {
-					i++;
-					String prjsn = item.get("prjSN") + "";
-					if (!dataxmmxDel.contains(prjsn)) {
-						superMapper.delXmmxByPrjSN(prjsn);
-						dataxmmxDel.add(prjsn);
+						// 判断工程状态,并更新
+						StatusUtils.updateBuldStatus(superMapper, item.get("prjSN") + "",
+								Long.parseLong(item.get("serialNumber") + ""));
+						// 更新项目状态
+						StatusUtils.updatePrjStatus(superMapper, item.get("prjSN") + "");
 					}
-					superMapper.saveXmmx(item);
 				}
+				// 更新或新增项目明细
+				if (UtilValidate.isNotEmpty(xmmxV)) {
+					i = 0;
+					for (Map<String, Object> item : xmmxV) {
+						i++;
+						String prjsn = item.get("prjSN") + "";
+						if (!dataxmmxDel.contains(prjsn)) {
+							superMapper.delXmmxByPrjSN(prjsn);
+							dataxmmxDel.add(prjsn);
+						}
+						superMapper.saveXmmx(item);
+					}
+				}
+			} catch (Exception e) {
+				logger.error("页签序号：1,行数：" + i + " 解析异常！", e);
+				throw new RuntimeException("页签序号：1,行数：" + i + " 解析异常！" + e.getMessage());
 			}
-		} catch (Exception e) {
-			logger.error("页签序号：1,行数：" + i + " 解析异常！", e);
-			throw new RuntimeException("页签序号：1,行数：" + i + " 解析异常！" + e.getMessage());
+		} else {
+			throw new RuntimeException(":" + err.toString());
 		}
-
+		err = null;
 		jbxxV = null;
 		xmsxV = null;
 		xmmxV = null;
