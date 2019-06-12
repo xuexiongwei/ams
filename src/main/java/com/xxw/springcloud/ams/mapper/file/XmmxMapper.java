@@ -39,6 +39,9 @@ public interface XmmxMapper {
 	// 去重查询项目明细，用于分类
 	@Select("select distinct serialNumber,prjClasfiName1,prjClasfiName2 from ams_bus_xmmx where prjSN=#{prjSN}")
 	List<Xmmx> queryDistinctXmmxByPrjSN(String prjSN);
+	// 去重查询项目明细，用于分类
+	@Select("select distinct serialNumber,prjClasfiName1,prjClasfiName2 from ams_bus_xmmx where prjSN=#{prjSN} and serialNumber=#{serialNumber}")
+	List<Xmmx> queryDistinctXmmxByPrjSNAndSN(Map<String,Object> params);
 
 	// 查询属性信息
 	@SelectProvider(type = XmmxProvider.class, method = "findXmmxByAttr")

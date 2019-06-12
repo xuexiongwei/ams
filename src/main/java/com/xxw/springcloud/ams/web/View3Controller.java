@@ -57,8 +57,26 @@ public class View3Controller {
 
 					// 查找去重项目明细
 					List<Xmmx> mxls = superMapper.queryDistinctXmmxByPrjSN(prjSN);
+					
+					
 					// 分析一级分类
 					for (Xmmx mxTem : mxls) {
+						
+						//同一建筑序号下，一级类是居住类项目，二级类只要有住房项目就显示在住房项目下，全是配套公共服务设施的显示在配套公共服务设施下
+						Boolean iszf = null;
+						List<Xmmx> mxSl = superMapper.queryDistinctXmmxByPrjSNAndSN(UtilMisc.toMap("prjSN",prjSN,"serialNumber",mxTem.getSerialNumber()));
+						for (Xmmx xmmx : mxSl) {
+							String prjClasfiName1 = xmmx.getPrjClasfiName1();
+							if("居住类项目".equals(prjClasfiName1)) {
+								String prjClasfiName2 = xmmx.getPrjClasfiName2();
+								if("住房项目".equals(prjClasfiName2)) {
+									iszf = true;
+									break;
+								}else {
+									iszf = false;
+								}
+							}
+						}
 
 						Map<String, Object> f01m = null;
 						// 一级分类
@@ -72,6 +90,13 @@ public class View3Controller {
 
 						// 二级分类
 						String fl02 = mxTem.getPrjClasfiName2();
+						if(null != iszf) {//根据分析，强制分类
+							if(iszf) {
+								fl02 = "住房项目";
+							}else {
+								fl02 = "配套公共服务设施";
+							}
+						}
 						if (UtilValidate.isNotEmpty(fl02)) {
 							Map<String, Map<String, Object>> f02m = null;
 							if (!f01m.containsKey(fl02)) {
@@ -98,6 +123,7 @@ public class View3Controller {
 								tongj = FastMap.newInstance();
 								// 初始化
 								tongj.put("sumArea", 0.0d);// 总建筑面积（平方米）
+								tongj.put("serialNumber", serialNumber);// 建筑序号
 								tongj.put("aboveGroundSumArea", 0.0d);// 总建筑面积（平方米）地上
 								tongj.put("underGroundSumArea", 0.0d);// 总建筑面积（平方米）地下
 								tongj.put("sumLen", 0.0d);// 建筑长度（米）
@@ -127,7 +153,7 @@ public class View3Controller {
 
 							// 统计面积
 							List<Xmmx> mxl = superMapper.findXmmxByAttr(
-									UtilMisc.toMap("prjSN", (Object) prjSN, "serialNumber", serialNumber,"prjClasfiName1",fl01,"prjClasfiName2",fl02));
+									UtilMisc.toMap("prjSN", (Object) prjSN, "serialNumber", serialNumber,"prjClasfiName1",fl01,"prjClasfiName2",mxTem.getPrjClasfiName2()));
 							for (Xmmx mx : mxl) {
 								String cfc = mx.getPrjClasfiCode();
 								Double aga = mx.getAboveGroundArea();// 总建筑面积（平方米）地上
