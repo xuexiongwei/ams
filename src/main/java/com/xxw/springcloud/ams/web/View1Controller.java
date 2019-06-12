@@ -166,12 +166,19 @@ public class View1Controller {
 				// 计算明细表统计数据
 				for (Map.Entry<String, String> entry : mxidM.entrySet()) {
 					String mxid = entry.getKey();
-					// 计算总面积
-					Xmmx xmmx = superMapper.queryXmmxByID(Long.parseLong(mxid));
-					Double aga = xmmx.getAboveGroundArea();// 总建筑面积（平方米）地上
-					Double uga = xmmx.getUnderGroundArea();// 总建筑面积（平方米）地下
-					Double bga = xmmx.getBlendArea();// 混合建筑面积
-					Double agl = xmmx.getAboveGroundLen();// 建筑长度（米）
+					Double aga = 0.0d;
+					Double uga = 0.0d;
+					Double agl = 0.0d;
+					Double bga = 0.0d;
+					if(UtilValidate.isNotEmpty(mxid)) {
+						// 计算总面积
+						Xmmx xmmx = superMapper.queryXmmxByID(Long.parseLong(mxid));
+						aga = xmmx.getAboveGroundArea();// 总建筑面积（平方米）地上
+						uga = xmmx.getUnderGroundArea();// 总建筑面积（平方米）地下
+						bga = xmmx.getBlendArea();// 混合建筑面积
+						agl = xmmx.getAboveGroundLen();// 建筑长度（米）
+						
+					}
 
 					if (null == aga)
 						aga = 0.0d;

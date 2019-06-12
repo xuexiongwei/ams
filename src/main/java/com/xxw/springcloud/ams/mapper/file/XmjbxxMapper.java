@@ -82,13 +82,14 @@ public interface XmjbxxMapper {
 		private String createSql(Map<String, Object> params) {
 
 			String sql = " FROM ams_bus_xmjbxx where 1=1 ";
-
+			
+			boolean isMH = (Boolean)params.get("isMH");
 			for (Map.Entry<String, Object> entry : params.entrySet()) {
 				String key = entry.getKey();
-				if ("pageSize|pageIndex".indexOf(key) != -1)
+				if ("pageSize|pageIndex|isMH".indexOf(key) != -1)
 					continue;
 				if (UtilValidate.isNotEmpty(params.get(key))) {
-					if ("prjSN|prjUnit|prjAdr|specialNotifi|noticeTime|remark|prjName".indexOf(key + "|") != -1) {// 支持模糊查询字段
+					if ("prjSN|prjUnit|prjAdr|specialNotifi|noticeTime|remark|prjName|".indexOf(key + "|") != -1&&isMH) {// 支持模糊查询字段
 						sql += " AND " + key + " like 	\"%\"#{" + key + "}\"%\"";
 					} else {
 						sql += " AND " + key + " = #{" + key + "}";

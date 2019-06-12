@@ -54,7 +54,7 @@ public class XmjbxxController {
 			} else {
 				header = new Header();
 			}
-
+			params.put("isMH", true);
 			totalSize = superMapper.findXmjbxxByAttrCount(params);
 
 			pageIndex = (pageIndex - 1) * pageSize;

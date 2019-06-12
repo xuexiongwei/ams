@@ -35,7 +35,7 @@ public class View3Controller {
 	 * 查询条件 项目许可证号
 	 */
 	@RequestMapping("/api/view/bb003")
-	public String bb002(@RequestBody String inputjson) {
+	public String bb003(@RequestBody String inputjson) {
 
 		logger.info("exc:queryUserOperByDate params:inputjson=" + inputjson);
 
@@ -49,6 +49,7 @@ public class View3Controller {
 			if (UtilValidate.isEmpty(prjSNO)) {
 				reM = ServiceUtil.returnError("E", "报表003必须输入项目许可证号进行统计查询！");
 			} else {
+				params.put("isMH", false);
 				List<Xmjbxx> xmjbxxL = superMapper.findXmjbxxByAttr(params);
 				Map<String, Map<String, Object>> viewM = FastMap.newInstance();
 				for (Xmjbxx jb : xmjbxxL) {
@@ -126,9 +127,8 @@ public class View3Controller {
 
 							// 统计面积
 							List<Xmmx> mxl = superMapper.findXmmxByAttr(
-									UtilMisc.toMap("prjSN", (Object) prjSN, "serialNumber", serialNumber));
+									UtilMisc.toMap("prjSN", (Object) prjSN, "serialNumber", serialNumber,"prjClasfiName1",fl01,"prjClasfiName2",fl02));
 							for (Xmmx mx : mxl) {
-
 								String cfc = mx.getPrjClasfiCode();
 								Double aga = mx.getAboveGroundArea();// 总建筑面积（平方米）地上
 								Double uga = mx.getUnderGroundArea();// 总建筑面积（平方米）地下

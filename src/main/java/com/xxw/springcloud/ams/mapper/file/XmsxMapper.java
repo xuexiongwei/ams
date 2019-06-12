@@ -88,7 +88,11 @@ public interface XmsxMapper {
 				if ("pageSize|pageIndex".indexOf(key) != -1)
 					continue;
 				if (UtilValidate.isNotEmpty(params.get(key))) {
-					sql += " AND " + key + " = #{" + key + "}";
+					if ("prjSN|".indexOf(key + "|") != -1) {// 支持模糊查询字段
+						sql += " AND " + key + " like 	\"%\"#{" + key + "}\"%\"";
+					} else {
+						sql += " AND " + key + " = #{" + key + "}";
+					}
 				}
 			}
 			return sql;
