@@ -44,6 +44,8 @@ public interface XmsxMapper {
 	// 用于判断项目及工程状态
 	@Select("select distinct prjSN,serialNumber,prjNature,checkSN,checkDate,cancelSN,cancelDate from ams_bus_xmsx where prjSN=#{prjSN}")
 	List<Xmsx> queryXmsxByPrjSN(String prjSN);
+	@Select("select * from ams_bus_xmsx where prjSN=#{prjSN}")
+	List<Xmsx> queryXmsxAllByPrjSN(String prjSN);
 
 	@Select("select MAX(serialNumber) from ams_bus_xmsx where prjSN=#{prjSN}")
 	int queryXmsxMaxIndexByPrjSN(String prjSN);

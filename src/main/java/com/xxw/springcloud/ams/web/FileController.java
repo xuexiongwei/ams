@@ -28,9 +28,12 @@ import com.xxw.springcloud.ams.mapper.file.SuperMapper;
 import com.xxw.springcloud.ams.model.BusFile;
 import com.xxw.springcloud.ams.model.DxfEntity;
 import com.xxw.springcloud.ams.model.Header;
+import com.xxw.springcloud.ams.model.Xmjbxx;
+import com.xxw.springcloud.ams.model.Xmsx;
 import com.xxw.springcloud.ams.util.FastList;
 import com.xxw.springcloud.ams.util.FileUtils;
 import com.xxw.springcloud.ams.util.ServiceUtil;
+import com.xxw.springcloud.ams.util.StringUtils;
 import com.xxw.springcloud.ams.util.UtilMisc;
 import com.xxw.springcloud.ams.util.UtilValidate;
 import com.xxw.springcloud.ams.util.dxf.DxfUtils;
@@ -90,22 +93,28 @@ public class FileController {
 							// dxf 文件名命名规范为 项目许可证号
 							prjSN = fname.replace(".dxf", "");
 							prjSN = prjSN.replace(".DXF", "");
-							List<DxfEntity> items = DxfUtils.analysis(file, prjSN);
-							if (UtilValidate.isNotEmpty(items)) {
+							//检查项目许可证号是否存在
+							Xmjbxx jb = superMapper.queryXmjbxxByPrjSN(prjSN);
+							if(UtilValidate.isNotEmpty(jb)) {
+								List<DxfEntity> items = DxfUtils.analysis(file, prjSN);
+								if (UtilValidate.isNotEmpty(items)) {
 
-								// 删除同许可证号同文件名的图元信息，删除后新增，则为修改
-								superMapper.delDxfEntityByPrjSNAndFileName(
-										UtilMisc.toMap("prjSN", prjSN, "fileName", fname));
+									// 删除同许可证号同文件名的图元信息，删除后新增，则为修改
+									superMapper.delDxfEntityByPrjSNAndFileName(
+											UtilMisc.toMap("prjSN", prjSN, "fileName", fname));
 
-								for (DxfEntity dxf : items) {
-									// 判断图元信息是否存在
-									List<DxfEntity> dxfs = superMapper.queryDxfEntity2(UtilMisc.toMap("prjSN",
-											dxf.getPrjSN(), "longlatV", dxf.getLonglatV(), "fileName", fname));
-									if (UtilValidate.isEmpty(dxfs)) {
-										dxf.setFileName(fname);
-										superMapper.saveDxfEntity(dxf);
+									for (DxfEntity dxf : items) {
+										// 判断图元信息是否存在
+										List<DxfEntity> dxfs = superMapper.queryDxfEntity2(UtilMisc.toMap("prjSN",
+												dxf.getPrjSN(), "longlatV", dxf.getLonglatV(), "fileName", fname));
+										if (UtilValidate.isEmpty(dxfs)) {
+											dxf.setFileName(fname);
+											superMapper.saveDxfEntity(dxf);
+										}
 									}
 								}
+							}else {
+								reM = ServiceUtil.returnError("E", "根据文件名["+prjSN+"]未找到对应许可证号，请核实文件名是否规范(dxf文件名，必须与项目许可证号一致)！");
 							}
 						} else {
 							reM = ServiceUtil.returnError("E", "不支持解析的文档类型！系统支持excel,dxf解析");
@@ -115,26 +124,57 @@ public class FileController {
 					if (UtilValidate.isEmpty(prjSN)) {
 						reM = ServiceUtil.returnError(null, "许可证号[prjSN]必输！");
 					} else {
-						Map<String, BusFile> list = FileUtils.getBusFilesEntity(Arrays.asList(uploadfile), prjSN);
-						if (UtilValidate.isNotEmpty(list)) {
-							for (Map.Entry<String, BusFile> entry : list.entrySet()) {
-								BusFile busFile = entry.getValue();
-
-								// 数据库中不允许出现同名文件，故需删除上次的同名文件，文件同名则认为是新增
-								BusFile file = superMapper
-										.queryBusFileByName(UtilMisc.toMap("fileName", busFile.getFileName()));
-								if (UtilValidate.isNotEmpty(file)) {
-									// 删除数据库
-									superMapper.delBusFileByID(UtilMisc.toMap("id", file.getId()));
-									// 删除服务器文件
-									File df = new File(FileUtils.UPLOADED_FOLDER + file.getUrlName());
-									if (UtilValidate.isNotEmpty(df) && df.isFile()) {
-										df.deleteOnExit();
+						//存放文书信息，以便检查文书是否存在
+						List<String> wsl = FastList.newInstance();
+						//检查项目许可证号是否存在
+						Xmjbxx jb = superMapper.queryXmjbxxByPrjSN(prjSN);
+						if(UtilValidate.isNotEmpty(jb)) {
+							wsl.add(StringUtils.getStr(jb.getDelaySN()));
+							wsl.add(StringUtils.getStr(jb.getCorrectionSN()));
+							
+							List<Xmsx> sxl = superMapper.queryXmsxAllByPrjSN(prjSN);
+							if(UtilValidate.isNotEmpty(sxl)) {
+								for (Xmsx xmsx : sxl) {
+									wsl.add(StringUtils.getStr(xmsx.getCheckDocSN()));
+									wsl.add(StringUtils.getStr(xmsx.getCheckSN()));
+								}
+							}
+							boolean isS = true;
+							Map<String, BusFile> list = FileUtils.getBusFilesEntity(Arrays.asList(uploadfile), prjSN);
+							if (UtilValidate.isNotEmpty(list)) {
+								for (Map.Entry<String, BusFile> entry : list.entrySet()) {
+									BusFile busFile = entry.getValue();
+									String fileName = busFile.getFileName();
+									//检查文书信息是否存在
+									if(!wsl.contains(fileName)) {
+										isS = false;
+										reM = ServiceUtil.returnError("E", "根据许可证号["+prjSN+"]未查询到其文书信息包含["+fileName+"]，请核实此许可证号下是否包含此文书！");
+										break;
 									}
 								}
-								superMapper.saveFile(busFile);
+								if(isS) {
+									for (Map.Entry<String, BusFile> entry : list.entrySet()) {
+										BusFile busFile = entry.getValue();
+										String fileName = busFile.getFileName();
+										// 数据库中不允许出现同名文件，故需删除上次的同名文件，文件同名则认为是新增
+										BusFile file = superMapper
+												.queryBusFileByName(UtilMisc.toMap("fileName", fileName));
+										if (UtilValidate.isNotEmpty(file)) {
+											// 删除数据库
+											superMapper.delBusFileByID(UtilMisc.toMap("id", file.getId()));
+											// 删除服务器文件
+											File df = new File(FileUtils.UPLOADED_FOLDER + file.getUrlName());
+											if (UtilValidate.isNotEmpty(df) && df.isFile()) {
+												df.deleteOnExit();
+											}
+										}
+										superMapper.saveFile(busFile);
+									}
+									FileUtils.saveUploadedFiles(Arrays.asList(uploadfile), list);
+								}
 							}
-							FileUtils.saveUploadedFiles(Arrays.asList(uploadfile), list);
+						}else {
+							reM = ServiceUtil.returnError("E", "根据许可证号["+prjSN+"]未查询到指定基本信息，请核实是否录入此许可证号基本信息！");
 						}
 					}
 				} else if (UpLoadType.DIC.toString().equals(upLoadType)) {// 基础数据导入
@@ -146,8 +186,14 @@ public class FileController {
 							if (file.isEmpty()) {
 								continue;
 							}
-							ExcelDic _2003 = new ExcelDic(superMapper);
-							_2003.testExcel2003NoModel(file.getInputStream());
+							try {
+								ExcelDic _2003 = new ExcelDic(superMapper);
+								_2003.testExcel2003NoModel(file.getInputStream());
+							} catch (Exception e) {
+								String msg = e.getMessage();
+								msg = msg.replace("java.lang.RuntimeException:", "");
+								reM = ServiceUtil.returnError("E", "文件名：" + fname + "," + msg);
+							}
 						}
 					}
 				} else {
@@ -161,7 +207,6 @@ public class FileController {
 		}
 
 		logger.info("exc:uploadFile return:" + reM);
-
 		return reM;
 	}
 

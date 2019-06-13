@@ -22,6 +22,7 @@ import com.xxw.springcloud.ams.util.FastList;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.StatusUtils;
 import com.xxw.springcloud.ams.util.StringUtils;
+import com.xxw.springcloud.ams.util.UtilMisc;
 import com.xxw.springcloud.ams.util.UtilValidate;
 
 /**
@@ -54,15 +55,21 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 
 		int no = context.getCurrentSheet().getSheetNo();
 		int row = context.getCurrentRowNum();
-		try {
-			List<Object> items = (List<Object>) object;
-
-			logger.info("解析excel 页签序号：" + no + ",行数：" + row);
-
-			if (row == 0) {
-				logger.info("解析excel 表头信息为：" + items);
-				return;
+		
+		List<Object> items = (List<Object>) object;
+		
+		logger.info("解析excel 页签序号：" + no + ",行数：" + row);
+		
+		if (row == 0&&no<4) {
+			logger.info("解析excel 表头信息为：" + items);
+			
+			if(!items.contains("许可证号")) {
+				logger.error("非业务数据表结构，请确认上传文档是否正确！");
+				throw new RuntimeException("非业务数据表结构，请确认上传文档是否正确！");
 			}
+			return;
+		}
+		try {
 
 			if (no == 1) {// 项目基本信息
 				items.remove(0);
@@ -115,7 +122,7 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 									"checkDate", "cancelSN", "cancelDate", "imgJudgeRes", "exproprInfo", "remark" },
 							items);
 
-					String msg = CheckInput.xmsxC(params);
+					String msg = CheckInput.xmsxC(params,UtilMisc.toList("prjAttr"));
 
 					if (UtilValidate.isEmpty(msg)) {
 						xmsxV.add(params);
@@ -180,8 +187,8 @@ public class ExcelXmListener extends AnalysisEventListener<Object> {
 				}
 			}
 		} catch (Exception e) {
-			logger.error("页签序号：" + no + ",行数：" + (row + 1) + " 解析异常！", e);
-			err.append("页签序号：" + no + ",行数：" + (row + 1) + " 异常:" + e.getMessage() + "\n");
+			logger.error("页签：" + (no==1?"项目基本信息":no ==2?"项目属性":"项目明细") + ",行数：" + (row + 1) + " 解析异常！", e);
+			err.append("页签：" + (no==1?"项目基本信息":no ==2?"项目属性":"项目明细") + ",行数：" + (row + 1) + " 异常:" + e.getMessage() + "<br/>");
 			// throw new RuntimeException("页签序号：" + no + ",行数：" + (row + 1) + " 解析异常！" +
 			// e.getMessage());
 		}

@@ -39,15 +39,21 @@ public class ExcelDicListener extends AnalysisEventListener<Object> {
 
 		int no = context.getCurrentSheet().getSheetNo();
 		int row = context.getCurrentRowNum();
-		try {
-			List<Object> items = (List<Object>) object;
-
-			logger.info("解析excel 页签序号：" + no + ",行数：" + row);
-
-			if (row == 0) {
-				logger.info("解析excel 表头信息为：" + items);
-				return;
+		
+		List<Object> items = (List<Object>) object;
+		
+		logger.info("解析excel 页签序号：" + no + ",行数：" + row);
+		
+		if (row == 0&&no<3) {
+			logger.info("解析excel 表头信息为：" + items);
+			
+			if(!items.contains("一级分类代码")&&!items.contains("区级名称")) {
+				logger.error("非字典表结构，请确认上传文档是否正确！");
+				throw new RuntimeException("非字典表结构，请确认上传文档是否正确！");
 			}
+			return;
+		}
+		try {
 			if (null == items.get(0)) {
 				logger.info("解析excel 去除空行：" + items);
 				return;
@@ -122,8 +128,8 @@ public class ExcelDicListener extends AnalysisEventListener<Object> {
 				superMapper.saveDic(dic);
 			}
 		} catch (Exception e) {
-			logger.error("解析excel 页签序号：" + no + ",行数：" + (row + 1) + " 解析异常！", e);
-			throw new RuntimeException("解析excel 页签序号：" + no + ",行数：" + (row + 1) + " 解析异常！");
+			logger.error("页签：" + (no==1?"分类体系设计":"朝阳行政区划表") + ",行数：" + (row + 1) + " 解析异常！", e);
+			throw new RuntimeException("页签：" + (no==1?"分类体系设计":"朝阳行政区划表") + ",行数：" + (row + 1) + " 解析异常！"+e.getMessage());
 		}
 	}
 

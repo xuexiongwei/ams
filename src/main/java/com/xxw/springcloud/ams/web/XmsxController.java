@@ -20,6 +20,7 @@ import com.xxw.springcloud.ams.model.Xmsx;
 import com.xxw.springcloud.ams.util.CheckInput;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 import com.xxw.springcloud.ams.util.StatusUtils;
+import com.xxw.springcloud.ams.util.UtilMisc;
 import com.xxw.springcloud.ams.util.UtilValidate;
 
 @RestController
@@ -87,7 +88,7 @@ public class XmsxController {
 
 			Object prjSN = params.get("prjSN");
 
-			reM = CheckInput.xmsxC(params);
+			reM = CheckInput.xmsxC(params,UtilMisc.toList(""));
 			if (UtilValidate.isEmpty(reM)) {
 				Xmjbxx jbxx = superMapper.queryXmjbxxByPrjSN(prjSN + "");
 				if (UtilValidate.isNotEmpty(jbxx)) {

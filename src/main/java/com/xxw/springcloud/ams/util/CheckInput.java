@@ -1,5 +1,6 @@
 package com.xxw.springcloud.ams.util;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -130,7 +131,7 @@ public class CheckInput {
 	 * @param params
 	 * @return
 	 */
-	public static String xmsxC(Map<String, Object> params) {
+	public static String xmsxC(Map<String, Object> params,List<String> outCheck) {
 
 		String reM = "";
 
@@ -146,10 +147,12 @@ public class CheckInput {
 		if (UtilValidate.isEmpty(params.get("prjNature"))) {
 			reM = ServiceUtil.returnError("E", "项目性质 必输！");
 		}
-		if (UtilValidate.isEmpty(params.get("prjAttr"))) {
-			reM = ServiceUtil.returnError("E", "规划项目/人防 必输！");
-		} else if ("规划项目性质：|人防工程情况：".indexOf(params.get("prjAttr") + "") == -1) {
-			reM = ServiceUtil.returnError("E", "规划项目/人防 必须为[规划项目性质：、人防工程情况：]！");
+		if(!outCheck.contains("prjAttr")) {
+			if (UtilValidate.isEmpty(params.get("prjAttr"))) {
+				reM = ServiceUtil.returnError("E", "规划项目/人防 必输！");
+			} else if ("规划项目性质：|人防工程情况：".indexOf(params.get("prjAttr") + "") == -1) {
+				reM = ServiceUtil.returnError("E", "规划项目/人防 必须为[规划项目性质：、人防工程情况：]！");
+			}
 		}
 
 		if (UtilValidate.isNotEmpty(params.get("aboveGroundLev"))
