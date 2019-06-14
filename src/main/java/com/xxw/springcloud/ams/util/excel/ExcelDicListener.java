@@ -14,6 +14,8 @@ import com.xxw.springcloud.ams.mapper.file.SuperMapper;
 import com.xxw.springcloud.ams.model.ClassifiDic;
 import com.xxw.springcloud.ams.util.FastList;
 import com.xxw.springcloud.ams.util.SerialNumberUtil;
+import com.xxw.springcloud.ams.util.UtilMisc;
+import com.xxw.springcloud.ams.util.UtilValidate;
 
 /**
  * 解析excel 1.判断重复项 2.检查字段是否匹配一致 3.提示数据有错文档及其行数
@@ -125,7 +127,13 @@ public class ExcelDicListener extends AnalysisEventListener<Object> {
 				dic.setCode(items.get(3) + "");
 				dic.setName(items.get(2) + "");
 				dic.setOther(items.get(1) + "");
-				superMapper.saveDic(dic);
+				
+				ClassifiDic dict = superMapper.queryDicByCode2(UtilMisc.toMap("type",DicEnum.CYXZGHB,"code",items.get(3)));
+				if(UtilValidate.isEmpty(dict)) {
+					superMapper.saveDic(dic);
+				}else {
+					throw new RuntimeException("字典重复，请检查！");
+				}
 			}
 		} catch (Exception e) {
 			logger.error("页签：" + (no==1?"分类体系设计":"朝阳行政区划表") + ",行数：" + (row + 1) + " 解析异常！", e);

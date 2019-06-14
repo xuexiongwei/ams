@@ -17,22 +17,22 @@ public class BeanUtils {
 			// 获取该类的成员变量
 			Object v = values.get(i);
 
-			if (null == v) {
+			if (UtilValidate.isEmpty(v)) {
 				continue;
 			}
 
 			Field f = c.getDeclaredField(PropertyNames[i]);
 
-			Class cls = (Class) f.getGenericType();
-			if (cls.equals(Long.class)) {
-				v = Long.parseLong(v + "");
-			} else if (cls.equals(Double.class)) {
-				v = Double.valueOf(v + "");
-			} else if ("noticeTime|correctionDate|checkDocDate|checkDate|cancelDate".indexOf(PropertyNames[i]) != -1) {// 日期转换
+			try {
+				Class cls = (Class) f.getGenericType();
+				if ("noticeTime|correctionDate|checkDocDate|checkDate|cancelDate".indexOf(PropertyNames[i]) != -1) {// 日期转换
 
-				if (Check.check(Check.zzs, v + "")) {
-					v = DateUtils.getPOIDate(false, Double.valueOf(v + ""));
+					if (Check.check(Check.zzs, v + "")) {
+						v = DateUtils.getPOIDate(false, Double.valueOf(v + ""));
+					}
 				}
+			} catch (Exception e) {
+				throw new RuntimeException("值["+v+"]数据格式转换错误，请核实！");
 			}
 			// 给变量赋值
 			valM.put(PropertyNames[i], v);

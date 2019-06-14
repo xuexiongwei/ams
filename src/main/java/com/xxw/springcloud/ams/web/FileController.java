@@ -112,6 +112,8 @@ public class FileController {
 											superMapper.saveDxfEntity(dxf);
 										}
 									}
+								}else {
+									reM = ServiceUtil.returnError("E", "解析 文件["+fname+"]失败！");
 								}
 							}else {
 								reM = ServiceUtil.returnError("E", "根据文件名["+prjSN+"]未找到对应许可证号，请核实文件名是否规范(dxf文件名，必须与项目许可证号一致)！");

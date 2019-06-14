@@ -16,7 +16,7 @@ public class UtilValidate {
 		}
 		// 字符串
 		if (obj instanceof String) {
-			return obj.equals("");
+			return ((String) obj).trim().equals("");
 		}
 		if (obj instanceof StringBuffer) {
 			return obj.toString().equals("");

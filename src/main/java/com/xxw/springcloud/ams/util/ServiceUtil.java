@@ -196,4 +196,13 @@ public class ServiceUtil {
 		}
 		return destination;
 	}
+	
+	public static boolean isSuccess(String headerStr) {
+		Header h = getContextHeader(headerStr);
+		if(UtilValidate.isNotEmpty(h)) {
+			String code = h.getRspReturnCode();
+			return "s".equalsIgnoreCase(code)?true:false;
+		}
+		return false;
+	}
 }
