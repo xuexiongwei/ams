@@ -29,8 +29,12 @@ import com.xxw.springcloud.ams.model.SysUser;
 import com.xxw.springcloud.ams.model.SysUserRole;
 import com.xxw.springcloud.ams.util.ServiceUtil;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
+@Api(tags="用户API")
 public class UserManagerController {
 
 	public static Logger logger = LoggerFactory.getLogger(UserManagerController.class);
@@ -91,6 +95,7 @@ public class UserManagerController {
 	}
 	
 	@RequestMapping(value="/addUser",method = RequestMethod.POST)
+	@ApiOperation(value="用户新增")
 	public String addUsers(@RequestBody String inputjson) {
 		try {
 			Header header = ServiceUtil.getContextHeader(inputjson);

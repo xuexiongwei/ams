@@ -5,9 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.xxw.springcloud.ams.web.MenuManagerController;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
+@EnableSwagger2
 public class AmsApplication {
 
 	public static Logger logger = LoggerFactory.getLogger(AmsApplication.class);
