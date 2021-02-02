@@ -40,7 +40,7 @@ update ams_sys_sequence
  set current_value = _cur + increment  
  where name=n ;  
 return _cur;  
-end
+end;
 
 DROP TABLE IF EXISTS `ams_sys_user`;
 CREATE TABLE `ams_sys_user` (
@@ -286,7 +286,7 @@ CREATE TABLE `ams_bus_user_operation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户操作日志表';
 
-------------------------------------------------------------------------视图表-----------------------------------------------------
+-- ----------------------------------------------------------------------视图表-----------------------------------------------------
 CREATE VIEW
     bb001v
     (
@@ -354,4 +354,14 @@ CREATE VIEW
                     AND `mx`.`prjClasfiName5` <> '人防工程（FS）'))) `a`
         WHERE
             `a`.`sxid` IS NOT NULL
-    )
+    );
+-- ------------------------------------------------------索引---------------------------------------------------------
+ALTER TABLE `ams_bus_xmjbxx` ADD INDEX prjSN ( `prjSN` );
+ALTER TABLE `ams_bus_xmjbxx` ADD INDEX prjUnit ( `prjUnit` );
+ALTER TABLE `ams_bus_xmjbxx` ADD INDEX prjAdr ( `prjAdr` );
+ALTER TABLE `ams_bus_xmjbxx` ADD INDEX prjName ( `prjName` );
+ALTER TABLE `ams_bus_xmjbxx` ADD INDEX prjType ( `prjType` );
+ALTER TABLE `ams_bus_xmjbxx` ADD INDEX prjSNType ( `prjSNType` );
+ALTER TABLE `ams_bus_xmjbxx` ADD INDEX prjStatus ( `prjStatus` );
+ALTER TABLE `ams_bus_xmjbxx` ADD INDEX prjMark ( `prjMark` );
+ALTER TABLE `ams_bus_xmjbxx` ADD INDEX prjYear ( `prjYear` );
